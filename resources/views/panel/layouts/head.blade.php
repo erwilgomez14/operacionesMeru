@@ -14,6 +14,9 @@
     <link href="{{asset("template/plugins/flatpickr/flatpickr.css")}}" rel="stylesheet" type="text/css">
     <link href="{{asset("template/plugins/flatpickr/custom-flatpickr.css")}}" rel="stylesheet" type="text/css">
     <link href="{{asset("template/assets/css/forms/theme-checkbox-radio.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("template/assets/css/scrollspyNav.css")}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/regular.css")}}">
+    <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/fontawesome.css")}}">
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     <style>

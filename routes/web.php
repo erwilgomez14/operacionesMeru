@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::get('/', function () {
 Route::get('/panel', function () {
     return view('panel.page');
 })->middleware('auth');
+
+Route::resource('usuarios', UsuarioController::class)->names('usuarios');
