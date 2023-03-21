@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/regular.css")}}">
     <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/fontawesome.css")}}">
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-
+    @yield('styles')
     <style>
         /*
             The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it

@@ -21,4 +21,4 @@ Route::get('/panel', function () {
     return view('panel.page');
 })->middleware('auth');
 
-Route::resource('usuarios', UsuarioController::class)->names('usuarios');
+Route::resource('usuarios', UsuarioController::class);
