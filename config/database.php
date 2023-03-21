@@ -77,7 +77,7 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-        'pgsql_ope' => [
+        'pgsql_rrhh' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),

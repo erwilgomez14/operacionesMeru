@@ -9,7 +9,6 @@ class Grupo extends Model
 {
     use HasFactory;
 
-    protected $connection = 'pgsql_ope';
     protected $table = 'ope_grupo';
     protected $primaryKey = 'id_grupo';
     public $timestamps = false;

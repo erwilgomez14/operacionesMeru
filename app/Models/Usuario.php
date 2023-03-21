@@ -12,7 +12,6 @@ class Usuario extends Authenticatable
 {
     use HasFactory;
 
-    protected $connection = 'pgsql_ope';
     protected $table = 'ope_usuario';
     protected $primaryKey = 'cedula';
     public $timestamps = false;

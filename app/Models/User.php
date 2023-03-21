@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $connection = 'pgsql_rrhh';
+
     protected $table = 'acceso.usuarios';
     protected $primaryKey = 'idusuario';
     public $timestamps = false;
