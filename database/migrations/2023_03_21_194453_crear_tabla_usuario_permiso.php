@@ -11,14 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('usuario_permiso', function (Blueprint $table) {
+            $table->string('cedula');
+            $table->unsignedBigInteger('permiso_id');
+
+            $table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
+            $table->foreign('permiso_id')->references('id')->on('permiso')->onDelete('cascade');
+
+            $table->primary(['cedula','permiso_id']);
+        });
     }
 
-    /**
+    /** php artisan migrate --path=/database/migrations/2023_03_22_131916_crear_tabla_rol_permiso.php
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('usuario_permiso');
+
     }
 };

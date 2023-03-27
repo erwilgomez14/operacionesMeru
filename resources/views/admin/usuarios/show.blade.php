@@ -15,14 +15,17 @@
 						<h4>Cargo: {{$usuario->cargo}}</h4>
 					</div>
 					<div class="card-body">
+                        <h4>Rol</h4>
+                        <p>
+                            @include('admin.usuarios.layouts.mostrar-roles-usuario')
+                        </p>
 						<h4>Permisos</h4>
-						<p>...</p>
-						<h4>Roles</h4>
-						<p>...</p>
-
-					</div>
+						<p>
+                            @include('admin.usuarios.layouts.mostrar-permisos-usuario')
+                        </p>
+                    </div>
 					<div class="card-footer">
-						
+
 						<a href="{{url()->previous()}}" class="btn btn-primary">Volver al listado</a>
 					</div>
 				</div>

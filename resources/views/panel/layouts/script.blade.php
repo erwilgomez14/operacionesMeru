@@ -9,7 +9,7 @@
             App.init();
         });
     </script>
-    <script src="template/assets/js/custom.js"></script>
+    <script src="{{asset("template/assets/js/custom.js")}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

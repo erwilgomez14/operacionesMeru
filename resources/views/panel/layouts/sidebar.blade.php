@@ -271,10 +271,10 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="submenu4" data-parent="#accordionExample">
                     <li>
-                        <a href="javascript:void(0);"> Usuarios </a>
+                        <a href="{{route('usuarios.index')}}"> Usuarios </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Tipos de Sistemas </a>
+                        <a href="{{route('rol.index')}}"> Roles </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);"> Marcas de equipos</a>

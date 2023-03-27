@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\TenerRolesPermisos;
 
 class Usuario extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, TenerRolesPermisos;
 
     protected $table = 'ope_usuario';
     protected $primaryKey = 'cedula';
@@ -22,6 +23,6 @@ class Usuario extends Authenticatable
         'cedula',
         'cargo'
     ];
-    
+
 
 }

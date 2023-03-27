@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
             $table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
 
-            $table->primary(['cedula','rol_id']);    
+            $table->primary(['cedula','rol_id']);
         });
-        
+
     }
 
     /**

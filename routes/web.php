@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\RolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,4 @@ Route::get('/panel', function () {
 })->middleware('auth');
 
 Route::resource('usuarios', UsuarioController::class);
+Route::resource('rol', RolController::class);

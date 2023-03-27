@@ -23,12 +23,12 @@
             <div class="widget-one">
 
                     @if(session('status'))
-                   
+
                     <div class="alert alert-primary alert-dismissible fade show" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <strong>{{session('status')}}</strong> 
+                    <strong>{{session('status')}}</strong>
                 </div>
 
                 <script>
@@ -36,16 +36,16 @@
               </script>
               @endif
 
-              
+
 
               <div class="row">
                 <div class="col-md-6">
-                    <h4>Bienvenido al listado de Usuarios de Meru Operaciones</h4>      
+                    <h4>Bienvenido al listado de Usuarios de Meru Operaciones</h4>
                 </div>
                 <div class="col-md-6">
                     <a href="{{route('usuarios.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Usuario</a>
                 </div>
-                  
+
 
               </div>
 
@@ -67,8 +67,13 @@
                   <td>{{$usuario['cedula']}}</td>
                   <td>{{$usuario['usuario']}}</td>
                   <td>{{$usuario['nombre']}}</td>
-                  <td>Roles</td>
-                  <td>Permisos</td>
+                  <td>
+                    @include('admin.usuarios.layouts.mostrar-roles-usuario')
+                  </td>
+                  <td>
+                      @include('admin.usuarios.layouts.mostrar-permisos-usuario')
+
+                  </td>
                   <td class="text-center">
                     <a href="/usuarios/{{$usuario['cedula']}}"><i class="far fa-eye"></i><span class="icon-name"></span></a>
 
@@ -96,13 +101,13 @@
                         <form method="POST" action="">
                             @method('DELETE')
                             @csrf()
-                            <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Borrar Registro</a>    
+                            <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Borrar Registro</a>
                         </form>
-                        
+
                       </div>
                   </td>
               </tr>
-          @endforeach    
+          @endforeach
         </tr>
     </tbody>
 </table>
