@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rol;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Grupo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UsuarioController extends Controller
 {
@@ -15,7 +16,7 @@ class UsuarioController extends Controller
     public function index()
     {
 
-        $usuarios = Usuario::orderBy('cedula','desc')->get();
+        $usuarios = User::orderBy('cedula','desc')->get();
 
         return view('admin.usuarios.page', compact('usuarios'));
     }
@@ -25,15 +26,21 @@ class UsuarioController extends Controller
      */
     public function create(Request $request)
     {
-        if ($request->ajax()){
-            $rol = Rol::where('id', $request->rol_id)->first();
+        if (Gate::allows('esSU')) {
+            if ($request->ajax()){
+                $rol = Rol::where('id', $request->rol_id)->first();
 
-            $permisos = $rol->permisos;
-            return $permisos;
+                $permisos = $rol->permisos;
+                return $permisos;
+            }
+            $roles = Rol::all();
+
+            return view('admin.usuarios.create', compact('roles'));
+        }else{
+            dd('El usuario no es super usuario');
         }
-        $roles = Rol::all();
 
-        return view('admin.usuarios.create', compact('roles'));
+
 
     }
 
@@ -51,7 +58,7 @@ class UsuarioController extends Controller
 
 
         ]);
-        $usuario = new Usuario;
+        $usuario = new User;
 
         $usuario->cedula = $request->cedula;
         $usuario->nombre = $request->nombre;
@@ -79,7 +86,7 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Usuario $usuario)
+    public function show(User $usuario)
     {
 
 
@@ -89,7 +96,7 @@ class UsuarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $usuario)
+    public function edit(User $usuario)
     {
         $roles = Rol::get();
         $usuarioRol = $usuario->roles->first();
@@ -99,8 +106,8 @@ class UsuarioController extends Controller
         }else {
             $rolPermisos = null;
         }
-        $usuarioPermisos = $usuario->permisos;
 
+        $usuarioPermisos = $usuario->permisos;
 
         //dd($rolPermisos);
 
@@ -114,7 +121,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, User $usuario)
     {
         $request->validate([
             'nombre' => 'required|max:50',
@@ -156,7 +163,7 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
         $usuario->roles()->detach();
         $usuario->permisos()->detach();

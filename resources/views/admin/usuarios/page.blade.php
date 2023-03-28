@@ -22,23 +22,8 @@
         <div class="widget-content-area br-4">
             <div class="widget-one">
 
-                    @if(session('status'))
-
-                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>{{session('status')}}</strong>
-                </div>
-
-                <script>
-                  $(".alert").alert();
-              </script>
-              @endif
-
-
-
-              <div class="row">
+                @include('include.sesionalert')
+             <div class="row">
                 <div class="col-md-6">
                     <h4>Bienvenido al listado de Usuarios de Meru Operaciones</h4>
                 </div>
@@ -63,7 +48,7 @@
               </thead>
               <tbody>
                 @foreach ($usuarios as $usuario)
-                <tr>
+                <tr {{Auth::user()->cedula == $usuario->cedula ? "bgcolor=#ddd" : ""}}>
                   <td>{{$usuario['cedula']}}</td>
                   <td>{{$usuario['usuario']}}</td>
                   <td>{{$usuario['nombre']}}</td>

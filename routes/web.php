@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\AcueductoController;
+use App\Http\Controllers\EquipoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +21,11 @@ use App\Http\Controllers\RolController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/panel', function () {
-    return view('panel.page');
-})->middleware('auth');
-
+Route::resource('panel', PanelController::class)
+->middleware('auth');
+Route::resource('acueductos', AcueductoController::class)
+    ->middleware('auth');
+Route::resource('equipos', EquipoController::class)
+    ->middleware('auth');
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('rol', RolController::class);

@@ -45,10 +45,12 @@
                         <div class="media mx-auto">
                             {{-- <img src="assets/img/90x90.jpg" class="img-fluid mr-2" alt="avatar"> --}}
                             <div class="media-body">
-                                <h5>hola</h5>
-                                {{-- <h5>{{Auth::user()->nombre}}</h5> --}}
 
-                                <p>Project Leader</p>
+                                {{-- <h5>{{Auth::user()->nombre}}</h5> --}}
+                                @auth
+                                    <h5>{{Auth::user()->nombre}}</h5>
+                                    <p>{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre : ""}}</p>
+                                @endauth
                             </div>
                         </div>
                     </div>

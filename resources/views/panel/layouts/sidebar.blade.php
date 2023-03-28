@@ -6,9 +6,10 @@
             <div class="user-info mt-n3">
                 {{-- <img src="assets/img/" alt="avatar"> --}}
                 {{-- <h6 class="">{{Auth::user()->nombre}}</h6> --}}
-                <h6 class="">Hola</h6>
-
-                <p class="">Project Leader</p>
+                @auth
+                    <h5>{{Auth::user()->nombre}}</h5>
+                    <p>{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre : ""}}</p>
+                @endauth
             </div>
         </div>
         {{-- <div class="shadow-bottom"></div> --}}
@@ -180,7 +181,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="submenu2" data-parent="#accordionExample">
                     <li>
-                        <a href="javascript:void(0);"> Acueductos </a>
+                        <a href="{{route('acueductos.index')}}"> Acueductos </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);"> Sistemas </a>
@@ -192,7 +193,7 @@
                         <a href="javascript:void(0);"> Herramientas </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Equipos </a>
+                        <a href="{{route('equipos.index')}}"> Equipos </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);"> Indicadores </a>
@@ -241,6 +242,7 @@
 
                 </ul>
             </li>
+            @can('esSU')
             <li class="menu">
                 <a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -287,6 +289,7 @@
                     </li>
                 </ul>
             </li>
+            @endcan
             <li class="menu active d-none">
                 <a href="#starter-kit" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
                     <div class="">
