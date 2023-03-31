@@ -13,13 +13,16 @@ class Rol extends Model
     protected $table = 'rol';
     public $timestamps = false;
 
-    public function permisos(): BelongsToMany
+    public function permisos()
     {
         return $this->belongsToMany(Permiso::class, 'rol_permiso');
     }
-    public function usuario(): BelongsToMany
+
+    public function allRolePermissions()
     {
-        return $this->belongsToMany(User::class, 'usuario_rol','cedula', 'rol_id');
+        return $this->belongsToMany(Permission::class, 'roles_permissions');
     }
+
+
 
 }

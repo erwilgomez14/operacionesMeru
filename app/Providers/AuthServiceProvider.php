@@ -14,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Equipos' => 'App\Policies\EquipoPolicy',
     ];
 
     /**
@@ -24,6 +24,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         Gate::define('esSU', function (User $user) {
             return $user->roles->first()->slug == 'super-usuario';
+        });
+        Gate::define('gerente', function (User $user) {
+            if ($user->roles){
+                return $user->roles->first()->slug == 'gerente';
+
+            }
         });
     }
 }

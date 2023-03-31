@@ -26,13 +26,14 @@ class UsuarioController extends Controller
      */
     public function create(Request $request)
     {
-        if (Gate::allows('esSU')) {
-            if ($request->ajax()){
-                $rol = Rol::where('id', $request->rol_id)->first();
+        if ($request->ajax()){
+            $rol = Rol::where('id', $request->rol_id)->first();
 
-                $permisos = $rol->permisos;
-                return $permisos;
-            }
+            $permisos = $rol->permisos;
+            return $permisos;
+        //if (Gate::allows('esSU')) {
+
+          //  }
             $roles = Rol::all();
 
             return view('admin.usuarios.create', compact('roles'));

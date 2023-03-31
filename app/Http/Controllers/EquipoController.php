@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
+use App\Models\Sistema;
 use Illuminate\Http\Request;
 
 class EquipoController extends Controller
@@ -24,7 +25,8 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        //
+        $sistemas = Sistema::get();
+        return view('activos.equipos.create', compact('sistemas'));
     }
 
     /**
@@ -40,7 +42,8 @@ class EquipoController extends Controller
      */
     public function show(Equipo $equipo)
     {
-        //
+        return view('activos.equipos.show', compact('equipo'));
+
     }
 
     /**

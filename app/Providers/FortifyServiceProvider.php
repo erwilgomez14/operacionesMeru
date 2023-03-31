@@ -7,6 +7,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -34,11 +35,11 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function (Request $request) {
+
+            $user1 = Usuario::where('uid', $request->uid)->first();
         $user = User::where('usuario', $request->uid)->first();
-        $user1 = User::where('uid', $request->uid)->first();
 
-
-        if ($user->uid == $user1->usuario &&
+        if ($user1->uid === $user->usuario &&
             $user1->clave === md5($request->password) &&
             $user1->idstatus === 1) {
             return $user;

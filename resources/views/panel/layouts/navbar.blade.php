@@ -88,7 +88,7 @@
                     </div> --}}
 
                     <div class="dropdown-item">
-                        <form action="logout" method="post">
+                        <form action="{{route('logout')}}" method="post">
                             @csrf
                             <a href="#" onclick="this.closest('form').submit()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

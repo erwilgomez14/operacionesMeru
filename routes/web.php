@@ -6,6 +6,8 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\AcueductoController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\SistemaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +25,13 @@ Route::get('/', function () {
 });
 Route::resource('panel', PanelController::class)
 ->middleware('auth');
-Route::resource('acueductos', AcueductoController::class)
-    ->middleware('auth');
-Route::resource('equipos', EquipoController::class)
-    ->middleware('auth');
+Route::prefix('activos')->group(function () {
+    Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
+    Route::resource('equipos', EquipoController::class);
+    Route::resource('sistemas', SistemaController::class);
+
+})->middleware('auth');
+
+
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('rol', RolController::class);

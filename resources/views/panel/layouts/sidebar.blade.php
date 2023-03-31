@@ -149,6 +149,7 @@
                     </li> --}}
                 </ul>
             </li>
+            @canany(['gerente','esSU'])
             <li class="menu">
                 <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -184,7 +185,7 @@
                         <a href="{{route('acueductos.index')}}"> Acueductos </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Sistemas </a>
+                        <a href="{{route('sistemas.index')}}"> Sistemas </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);"> Subsistemas </a>
@@ -201,6 +202,7 @@
 
                 </ul>
             </li>
+            @endcanany
             <li class="menu">
                 <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">

@@ -18,7 +18,8 @@
                     <table class="table mt-3">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Serial</th>
+                            <th scope="col">ID</th>
+                            1
                             <th scope="col">Descripcion</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -26,11 +27,13 @@
                         <tbody>
                         @foreach ($equipos as $equipo)
                             <tr>
-                                <td>{{$equipo->serial}}</td>
+                                <td>{{$equipo->id_equipo}}</td>
+
                                 <td>{{$equipo->desc_equipo}}</td>
                                 <td>
+                                    @can('show', $equipo)
                                     <a href="{{route('equipos.show', $equipo)}}"><i class="far fa-eye"></i><span class="icon-name"></span></a>
-
+                                    @endcan
                                     <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg><span class="icon-name"></span> </a>
                                 </td>
                             </tr>

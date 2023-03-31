@@ -15,6 +15,14 @@ trait TenerRolesPermisos
     {
         return $this->belongsToMany(Permiso::class, 'usuario_permiso', 'cedula', 'permiso_id');
     }
+
+    public function tenerRol($role){
+        if ($this->roles->contains('slug', $role)){
+            return true;
+        }
+
+        return false;
+    }
 }
 
 

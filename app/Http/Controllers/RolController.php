@@ -73,7 +73,8 @@ class RolController extends Controller
      */
     public function edit(Rol $rol)
     {
-        return view('admin.roles.edit', compact('rol'));
+        $permisos = new Permiso();
+        return view('admin.roles.edit', compact('rol', 'permisos'));
     }
 
     /**
