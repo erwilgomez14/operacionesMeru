@@ -9,17 +9,18 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="">Equipo: {{$sistema->id_sistema}}</h2>
+                            <h2 class="">Sistema: {{$sistema->id_sistema}}</h2>
 
                         </div>
                         <div class="card-body">
-                            <h4>Sistema: {{$sistema->id_sistema}}</h4>
-                            <h4>Acueducto: {{$sistema->id_acueducto}}</h4>
+                            <h4>Acueducto: {{$sistema->acueductos->nom_acu}}</h4>
                             <h4>Nombre del sistema: {{$sistema->nom_sistema}}</h4>
                             <h4>Descripcion del sistema: {{$sistema->desc_sistema}}</h4>
                             <h4>Posiciones: {{$sistema->posiciones}}</h4>
                             <h4>Posicion Necesaria: {{$sistema->posicion_necesaria}}</h4>
-                            <h4>ID area: {{$sistema->id_area}}</h4>
+                            <h4>Area: {{$sistema->areas->descripcion_area}}</h4>
+                            <h4>Maestro de Sistem: {{$sistema->msistemas->nombre_partsi}}</h4>
+                            <h4>Ubicaion en planta: {{$sistema->ubicacionesPlantas->descripcion_ubicpl}}</h4>
                             <h4>Capacidad Sistema: {{$sistema->capacidad_sistema}}</h4>
                             @if($sistema->georeferencia != null)
                                 <h4>Georeferencia: {{$sistema->georeferencia}}</h4>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Acueductos;
 use App\Models\Area;
+use App\Models\MaestroSistema;
 use App\Models\Sistema;
+use App\Models\UbicacionPlanta;
 use Illuminate\Http\Request;
 
 class SistemaController extends Controller
@@ -14,7 +16,7 @@ class SistemaController extends Controller
      */
     public function index()
     {
-        $sistemas = Sistema::get();
+        $sistemas = Sistema::all();
 
         return view('activos.sistemas.page', compact('sistemas'));
     }
@@ -26,8 +28,14 @@ class SistemaController extends Controller
     {
         $acueductos = Acueductos::all();
         $areas = Area::all();
+        $ubiplantas = UbicacionPlanta::all();
+        $maestrosistemas = MaestroSistema::all();
 
-        return view('activos.sistemas.create', compact('acueductos','areas'));
+        return view('activos.sistemas.create',
+            compact('acueductos',
+                'areas',
+                'ubiplantas',
+                'maestrosistemas'));
     }
 
     /**
@@ -52,7 +60,22 @@ class SistemaController extends Controller
         }else {
             $sistema->id_area = $request->id_area;
         }
-        dd($sistema->id_area);
+        if($request->id_ubicpl == 'Selecionar ubicacion'){
+            $sistema->id_ubicpl = null;
+        }else {
+            $sistema->id_ubicpl = $request->id_ubicpl;
+        }
+        if($request->id_pardeftsi == 'Selecionar tipo de sistema'){
+            $sistema->id_pardeftsi = null;
+        }else {
+            $sistema->id_pardeftsi = $request->id_pardeftsi;
+        }
+        $sistema->capacidad_sistema = $request->capacidad_sistema;
+        $sistema->georeferencia = $request->georeferencia;
+
+        $sistema->save();
+
+        return view('activos.sistemas.page')->with('status', 'Sistema creado satisfactoriamente');
 
 
     }
@@ -61,6 +84,7 @@ class SistemaController extends Controller
      */
     public function show(Sistema $sistema)
     {
+        //dd($sistema->ubicacionesPlantas);
         return view('activos.sistemas.show', compact('sistema'));
     }
 

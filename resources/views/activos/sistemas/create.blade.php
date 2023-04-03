@@ -85,10 +85,22 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="id_ubicpl">Ubicpl</label>
+                            <label for="id_ubicpl">Ubicaion en planta:</label>
+                            <select class="custom-select" name="id_ubicpl" aria-label="">
+                                <option selected>Selecionar ubicacion</option>
+                                @foreach($ubiplantas as $plantas)
+                                    <option value="{{$plantas->id_ubicpl}}">{{$plantas->descripcion_ubicpl}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="id_pardeftsi">Pardeftsi</label>
+                            <select class="custom-select" name="id_pardeftsi" aria-label="">
+                                <option selected>Selecionar tipo de sistema</option>
+                                @foreach($maestrosistemas as $tiposistema)
+                                    <option value="{{$tiposistema->id_pardeftsi}}">{{$tiposistema->nombre_partsi}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="capacidad_sistema">Capacidad de Sistema</label>

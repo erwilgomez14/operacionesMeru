@@ -35,9 +35,9 @@ class EquipoPolicy
     {
         if($user->roles->contains('slug', 'gerente') && $user->permisos->contains('slug', 'ver')){
             return true;
-        } elseif ($user->roles->contains('slug', 'super-usuario') && $user->permisos->contains('slug', 'all')){
-            return true;
-        }
+        } //elseif ($user->roles->contains('slug', 'super-usuario') && $user->permisos->contains('slug', 'all')){
+            //return true;
+        //}
         return false;
     }
     /**

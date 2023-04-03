@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acueductos;
+use App\Models\Gerencia;
+use App\Models\Localidad;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
 
 class AcueductoController extends Controller
 {
@@ -13,7 +17,7 @@ class AcueductoController extends Controller
     public function index()
     {
 
-        $acueductos = Acueductos::get();
+        $acueductos = Acueductos::orderBy('id_acueducto', 'desc')->get();
         return view('activos.acueductos.page', compact('acueductos'));
     }
 
@@ -22,7 +26,11 @@ class AcueductoController extends Controller
      */
     public function create()
     {
-        return view('activos.acueductos.create');
+        $gerencias = Gerencia::all();
+        $localidades = Localidad::all();
+
+
+        return view('activos.acueductos.create', compact('gerencias', 'localidades'));
 
     }
 
@@ -41,6 +49,16 @@ class AcueductoController extends Controller
         $acueducto->tiempo_oper = $request->tiempo_oper;
         $acueducto->energia_util = $request->energia_util;
         $acueducto->modelo_planta = $request->modelo_planta;
+        if($request->id_gerencia == 'Selecionar Gerencia'){
+            $acueducto->id_gerencia = null;
+        }else {
+            $acueducto->id_gerencia = $request->id_gerencia;
+        }
+        if($request->cod_ubi == 'Selecionar Localidad'){
+            $acueducto->cod_ubi = null;
+        }else {
+            $acueducto->cod_ubi = $request->cod_ubi;
+        }
 
         $acueducto->save();
 
@@ -51,32 +69,62 @@ class AcueductoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Acueductos $acueductos)
+    public function show(Acueductos $acueducto)
     {
-        //
+
+
+        return view('activos.acueductos.show', compact('acueducto', ));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Acueductos $acueductos)
+    public function edit(Acueductos $acueducto)
     {
-        //
+        if (! Gate::allows('esSU', $acueducto)) {
+            abort(403);
+        }
+
+        $gerencias = Gerencia::all();
+        $localidades = Localidad::all();
+        return view('activos.acueductos.edit', compact('acueducto', 'gerencias','localidades'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Acueductos $acueductos)
+    public function update(Request $request, Acueductos $acueducto)
     {
-        //
+        $acueducto->id_acueducto = $request->id_acueducto;
+        $acueducto->nom_acu = $request->nom_acu;
+        $acueducto->desc_acu = $request->desc_acu;
+        $acueducto->fuente_abast = $request->fuente_abast;
+        $acueducto->capacidad_almac = $request->capacidad_almac;
+        $acueducto->tiempo_oper = $request->tiempo_oper;
+        $acueducto->energia_util = $request->energia_util;
+        $acueducto->modelo_planta = $request->modelo_planta;
+
+        if($request->id_gerencia != null){
+            $acueducto->id_gerencia = $request->id_gerencia;
+        };
+        if($request->cod_ubi != null){
+            $acueducto->cod_ubi = $request->cod_ubi;
+        };
+
+
+        $acueducto->save();
+
+        return redirect()->route('acueductos.index')->with('status', 'Acueducto Editado Satisfactoriamente');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Acueductos $acueductos)
+    public function destroy(Acueductos $acueducto)
     {
-        //
+        $acueducto->delete();
+
+        return redirect()->route('acueductos.index')->with('status', 'Registro eliminado satisfactoriamente');
     }
 }
