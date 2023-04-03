@@ -85,7 +85,7 @@ class SistemaController extends Controller
     public function show(Sistema $sistema)
     {
         //dd($sistema->ubicacionesPlantas);
-        return view('activos.sistemas.show', compact('sistema'));
+        return view('activos.sistemas.show', compact('sistema',));
     }
 
     /**
@@ -93,7 +93,16 @@ class SistemaController extends Controller
      */
     public function edit(Sistema $sistema)
     {
-        //
+        $acueductos = Acueductos::all();
+        $areas = Area::all();
+        $ubiplantas = UbicacionPlanta::all();
+        $maestrosistemas = MaestroSistema::all();
+        //dd($maestrosistemas->first());
+        return view('activos.sistemas.edit', compact('sistema',
+            'acueductos',
+                'areas',
+                'ubiplantas',
+                'maestrosistemas'));
     }
 
     /**
@@ -101,7 +110,29 @@ class SistemaController extends Controller
      */
     public function update(Request $request, Sistema $sistema)
     {
-        //
+        $sistema->id_sistema = $request->id_sistema;
+        if($request->id_acueducto != null){
+            $sistema->id_acueducto = $request->id_acueducto;
+        };
+        $sistema->nom_sistema = $request->nom_sistema;
+        $sistema->desc_sistema = $request->desc_sistema;
+        $sistema->posiciones = $request->posiciones;
+        $sistema->posicion_necesaria = $request->posicion_necesaria;
+        if($request->id_area != null){
+            $sistema->id_area = $request->id_area;
+        };
+        if($request->id_ubicpl != null){
+            $sistema->id_ubicpl = $request->id_ubicpl;
+        };
+        if($request->id_pardeftsi != null){
+            $sistema->id_pardeftsi = $request->id_pardeftsi;
+        };
+        $sistema->capacidad_sistema = $request->capacidad_sistema;
+        $sistema->georeferencia = $request->georeferencia;
+        $sistema->save();
+
+        return redirect()->route('sistemas.index')->with('status', 'Sistema editado satisfactoriamente');
+
     }
 
     /**

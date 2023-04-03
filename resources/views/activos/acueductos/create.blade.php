@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label for="id_gerencia">Gerencia</label>
                             <select class="custom-select" name="id_gerencia" aria-label="">
-                                <option selected>{{$acueducto->gerencias()->nombre_gerencia}}</option>
+                                <option selected>Selecionar Gerencia</option>
                                 @foreach($gerencias as $gerencia)
                                     <option value="{{$gerencia->id_gerencia}}">{{$gerencia->nombre_gerencia}}</option>
                                 @endforeach

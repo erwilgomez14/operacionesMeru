@@ -41,6 +41,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="id_subsistema">Subsistema:</label>
+
                             </div>
                             <div class="form-group">
                                 <label for="serial">Serial:</label>
@@ -96,6 +97,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="id_tipo_eq">Tipo de equipo:</label>
+                                <select class="custom-select" aria-label="" name="id_tipo_eq">
+                                    <option selected>Selecciona un sistema</option>
+                                    @foreach($tiposequipos as $tipoequipo)
+                                        <option value="{{$tipoequipo->id_tipo_eq}}">{{$tipoequipo->descripcion_tieq}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="id_estatus">Estatus:</label>

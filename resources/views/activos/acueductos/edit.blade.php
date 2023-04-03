@@ -25,7 +25,7 @@
                     <form method="POST" action="{{route('acueductos.update', $acueducto)}}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf()
-                        <h2 class="tittle"> Creacion de acueducto</h2>
+                        <h2 class="tittle"> Edicion de acueducto</h2>
 
 
                         <div class="form-group">

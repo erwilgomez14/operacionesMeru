@@ -26,6 +26,7 @@ class AcueductoController extends Controller
      */
     public function create()
     {
+
         $gerencias = Gerencia::all();
         $localidades = Localidad::all();
 
@@ -71,9 +72,8 @@ class AcueductoController extends Controller
      */
     public function show(Acueductos $acueducto)
     {
-
-
-        return view('activos.acueductos.show', compact('acueducto', ));
+        //dd($acueducto->gerencias());
+        return view('activos.acueductos.show', compact('acueducto'));
     }
 
     /**
@@ -81,9 +81,9 @@ class AcueductoController extends Controller
      */
     public function edit(Acueductos $acueducto)
     {
-        if (! Gate::allows('esSU', $acueducto)) {
-            abort(403);
-        }
+        //if (! Gate::allows('esSU', $acueducto)) {
+          //  abort(403);
+        //}
 
         $gerencias = Gerencia::all();
         $localidades = Localidad::all();

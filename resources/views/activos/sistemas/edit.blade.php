@@ -1,27 +1,11 @@
 @extends('panel.layouts.page')
 
-@section('styles')
-    <style>
-        /*
-            The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
-        */
-        /*.navbar .navbar-item.navbar-dropdown {
-            margin-left: auto;
-        }*/
-        .layout-px-spacing {
-            min-height: calc(100vh - 140px)!important;
-        }
-
-    </style>
-@endsection
-
 @section('content')
-
     <div class="row layout-top-spacing">
+
         <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
             <div class="widget-content-area br-4">
                 <div class="widget-one">
-
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -38,9 +22,10 @@
                             $(".alert").alert();
                         </script>
                     @endif
-                    <form method="POST" action="{{route('sistemas.store')}}">
-                        @csrf
-                        <h2 class="tittle"> Creacion de Sistema</h2>
+                    <form method="POST" action="{{route('sistemas.update', $sistema)}}" enctype="multipart/form-data">
+                        @method('PATCH')
+                        @csrf()
+                        <h2 class="tittle"> Creacion de sistemas</h2>
 
 
                         <div class="form-group">
@@ -51,7 +36,7 @@
                         <div class="form-group">
                             <label for="id_acueducto">Acueducto:</label>
                             <select class="custom-select" name="id_acueducto" aria-label="">
-                                <option selected>Selecionar Acueducto</option>
+                                <option selected disabled value="{{$sistema->id_acueducto}}">{{old('id_acueducto', $sistema->acueductos->nom_acu ?? 'Seleccionar Localidad')}}</option>
                                 @foreach($acueductos as $acueducto)
                                     <option value="{{$acueducto->id_acueducto}}">{{$acueducto->nom_acu}}</option>
 
@@ -77,7 +62,7 @@
                         <div class="form-group">
                             <label for="id_area">Area</label>
                             <select class="custom-select" name="id_area" aria-label="">
-                                <option selected>Selecionar area</option>
+                                <option selected disabled value="{{$sistema->id_area}}">{{old('id_area', $sistema->areas->descripcion_area ?? 'Seleccionar Localidad')}}</option>
                                 @foreach($areas as $area)
                                     <option value="{{$area->id_area}}">{{$area->descripcion_area}}</option>
 
@@ -87,7 +72,7 @@
                         <div class="form-group">
                             <label for="id_ubicpl">Ubicaion en planta:</label>
                             <select class="custom-select" name="id_ubicpl" aria-label="">
-                                <option selected>Selecionar ubicacion</option>
+                                <option selected disabled value="{{$sistema->id_ubicpl}}">{{old('id_ubicpl', $sistema->ubicacionesPlantas->descripcion_ubicpl ?? 'Seleccionar Localidad')}}</option>
                                 @foreach($ubiplantas as $plantas)
                                     <option value="{{$plantas->id_ubicpl}}">{{$plantas->descripcion_ubicpl}}</option>
                                 @endforeach
@@ -96,7 +81,7 @@
                         <div class="form-group">
                             <label for="id_pardeftsi">Tipo de sistema</label>
                             <select class="custom-select" name="id_pardeftsi" aria-label="">
-                                <option selected>Selecionar tipo de sistema</option>
+                                <option selected disabled value="{{$sistema->id_pardeftsi}}">{{old('id_pardeftsi', $sistema->msistemas->nombre_partsi ?? 'Seleccionar Localidad')}}</option>
                                 @foreach($maestrosistemas as $tiposistema)
                                     <option value="{{$tiposistema->id_pardeftsi}}">{{$tiposistema->nombre_partsi}}</option>
                                 @endforeach
@@ -125,9 +110,3 @@
     </div>
 
 @endsection
-
-
-@section('scripts')
-
-@endsection
-
