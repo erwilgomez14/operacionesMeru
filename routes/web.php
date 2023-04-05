@@ -7,6 +7,8 @@ use App\Http\Controllers\PanelController;
 use App\Http\Controllers\AcueductoController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\SistemaController;
+use \App\Http\Controllers\UbicacionPlantaController;
+use \App\Http\Controllers\OrdenTrabajoController;
 
 
 /*
@@ -29,9 +31,17 @@ Route::prefix('activos')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
     Route::resource('equipos', EquipoController::class);
     Route::resource('sistemas', SistemaController::class);
+    Route::resource('ubiplanta', UbicacionPlantaController::class);
 
 })->middleware('auth');
 
+Route::prefix('mantenimiento')->group(function () {
+    Route::resource('ubiplanta', UbicacionPlantaController::class);
+    Route::resource('ordentrabajo', OrdenTrabajoController::class);
+    Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);
+
+
+})->middleware('auth');
 
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('rol', RolController::class);

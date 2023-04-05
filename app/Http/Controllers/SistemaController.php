@@ -142,4 +142,8 @@ class SistemaController extends Controller
     {
         //
     }
+    public function obtenersistema(Sistema $sistema,Acueductos $acueducto)
+    {
+        dd($sistema->acueductos());
+    }
 }

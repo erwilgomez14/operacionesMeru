@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Acueductos extends Model
 {
@@ -21,6 +23,10 @@ class Acueductos extends Model
     public function gerencias(): HasOne
     {
         return $this->hasOne(Gerencia::class, 'id_gerencia', 'id_gerencia');
+    }
+    public function sistemas(): HasMany
+    {
+        return $this->HasMany(Sistema::class, 'id_acueducto', 'id_acueducto');
     }
     public function localidades(): HasOne
     {

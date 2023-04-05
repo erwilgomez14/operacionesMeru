@@ -40,6 +40,18 @@ class AcueductoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'id_acueducto' => 'required|unique:ope_acueducto|max:4',
+            'nom_acu' => 'max:80|string',
+            'desc_acu' => 'max:150|string',
+            'fuente_abast' => 'max:80|string',
+            'capacidad_almac' => 'numeric',
+            'tiempo_oper' => 'numeric',
+            'energia_util' => 'max:20|string',
+            'modelo_planta' => 'max:20|string',
+
+        ]);
+
         $acueducto = new Acueductos;
 
         $acueducto->id_acueducto = $request->id_acueducto;
@@ -85,6 +97,8 @@ class AcueductoController extends Controller
           //  abort(403);
         //}
 
+
+
         $gerencias = Gerencia::all();
         $localidades = Localidad::all();
         return view('activos.acueductos.edit', compact('acueducto', 'gerencias','localidades'));
@@ -95,6 +109,17 @@ class AcueductoController extends Controller
      */
     public function update(Request $request, Acueductos $acueducto)
     {
+        $request->validate([
+            'id_acueducto' => 'required|unique:ope_acueducto|max:4',
+            'nom_acu' => 'max:80|string',
+            'desc_acu' => 'max:150|string',
+            'fuente_abast' => 'max:80|string',
+            'capacidad_almac' => 'numeric',
+            'tiempo_oper' => 'numeric',
+            'energia_util' => 'max:20|string',
+            'modelo_planta' => 'max:20|string',
+        ]);
+
         $acueducto->id_acueducto = $request->id_acueducto;
         $acueducto->nom_acu = $request->nom_acu;
         $acueducto->desc_acu = $request->desc_acu;

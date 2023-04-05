@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Sistema extends Model
@@ -16,9 +17,16 @@ class Sistema extends Model
     protected $primaryKey = 'id_sistema';
     public $timestamps = false;
 
-    public function acueductos(): HasOne
+  //  public function acueductos(): HasOne
+  //  {
+       // return $this->hasOne(Acueductos::class, 'id_acueducto', 'id_acueducto');
+   // }
+    /**
+     * Get the post that owns the comment.
+     */
+    public function acueductos(): BelongsTo
     {
-        return $this->hasOne(Acueductos::class, 'id_acueducto', 'id_acueducto');
+        return $this->belongsTo(Acueductos::class, 'id_acueducto', 'id_acueducto');
     }
     public function areas(): HasOne
     {

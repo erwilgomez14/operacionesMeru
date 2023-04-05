@@ -31,16 +31,12 @@ class UsuarioController extends Controller
 
             $permisos = $rol->permisos;
             return $permisos;
-        //if (Gate::allows('esSU')) {
 
-          //  }
-            $roles = Rol::all();
 
-            return view('admin.usuarios.create', compact('roles'));
-        }else{
-            dd('El usuario no es super usuario');
         }
+        $roles = Rol::all();
 
+        return view('admin.usuarios.create', compact('roles'));
 
 
     }

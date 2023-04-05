@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="id_sistema">Sistema:</label>
-                                <select class="custom-select" aria-label="">
+                                <select class="custom-select" aria-label="" name="id_sistema">
                                     <option selected>Selecciona un sistema</option>
                                     @foreach($sistemas as $sistema)
                                     <option value="{{$sistema->id_sistema}}">{{$sistema->nom_sistema}}</option>
@@ -41,7 +41,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="id_subsistema">Subsistema:</label>
-
+                                <select class="custom-select" aria-label="" name="id_subsistema">
+                                    <option selected>Selecciona un subsistema</option>
+                                    @foreach($subsistemas as $subsistema)
+                                        <option value="{{$subsistema->id_subsistema}}">{{$subsistema->nombre_subsistema}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="serial">Serial:</label>
@@ -84,8 +89,8 @@
                                 <input type="text" name="temperatura" class="form-control" id="temperatura" placeholder="temperatura" value="{{old('temperatura', $equipo->temperatura ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="nvecrep">nvecrep:</label>
-                                <input type="text" name="nvecrep" class="form-control" id="nvecrep" placeholder="nvecrep" value="{{old('nvecrep', $equipo->nvecrep ?? '')}}">
+                                <label for="nvecrep">Numero de veces de reparacion del equipo:</label>
+                                <input type="number" name="nvecrep" class="form-control" id="nvecrep" placeholder="nvecrep" value="{{old('nvecrep', $equipo->nvecrep ?? '')}}">
                             </div>
                             <div class="form-group">
                                 <label for="permant">permant:</label>
@@ -156,7 +161,7 @@
                                 <input type="text" name="descarga" class="form-control" id="descarga" placeholder="descarga" value="{{old('descarga', $equipo->descarga ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="longitud_columna">longitud_columna:</label>
+                                <label for="longitud_columna">longitud de columna:</label>
                                 <input type="text" name="longitud_columna" class="form-control" id="longitud_columna" placeholder="longitud_columna" value="{{old('longitud_columna', $equipo->longitud_columna ?? '')}}">
                             </div>
                             <div class="form-group">
@@ -164,8 +169,8 @@
                                 <input type="text" name="succion" class="form-control" id="succion" placeholder="succion" value="{{old('succion', $equipo->succion ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="num_etapas">num_etapas:</label>
-                                <input type="text" name="num_etapas" class="form-control" id="num_etapas" placeholder="num_etapas" value="{{old('num_etapas', $equipo->num_etapas ?? '')}}">
+                                <label for="num_etapas">Numero de etapas:</label>
+                                <input type="number" name="num_etapas" class="form-control" id="num_etapas" placeholder="num_etapas" value="{{old('num_etapas', $equipo->num_etapas ?? '')}}">
                             </div>
                             <div class="form-group">
                                 <label for="capacidad">capacidad:</label>
@@ -184,7 +189,7 @@
                                 <input type="text" name="impedancia" class="form-control" id="impedancia" placeholder="impedancia" value="{{old('impedancia', $equipo->impedancia ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="tipo_filtro">tipo_filtro:</label>
+                                <label for="tipo_filtro">tipo de filtro:</label>
                                 <input type="text" name="tipo_filtro" class="form-control" id="tipo_filtro" placeholder="tipo_filtro" value="{{old('tipo_filtro', $equipo->tipo_filtro ?? '')}}">
                             </div>
                             <div class="form-group">
@@ -192,7 +197,7 @@
                                 <input type="text" name="rata_filtracion" class="form-control" id="rata_filtracion" placeholder="rata_filtracion" value="{{old('rata_filtracion', $equipo->rata_filtracion ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="capacidad_filtracion">capacidad_filtracion:</label>
+                                <label for="capacidad_filtracion">capacidad de filtracion:</label>
                                 <input type="text" name="capacidad_filtracion" class="form-control" id="capacidad_filtracion" placeholder="capacidad_filtracion" value="{{old('capacidad_filtracion', $equipo->capacidad_filtracion ?? '')}}">
                             </div>
                             <div class="form-group">
@@ -273,9 +278,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="modelo">modelo:</label>
+                                <select class="custom-select" aria-label="" name="modelo">
+                                    <option selected>Selecciona un modelo</option>
+                                    @foreach($modelos as $modelo)
+                                        <option value="{{$modelo->id_modelo}}">{{$modelo->nombre_modelo}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="marca">marca:</label>
+                                <select class="custom-select" aria-label="" name="marca">
+                                    <option selected>Selecciona una marca</option>
+                                    @foreach($marcas as $marca)
+                                        <option value="{{$marca->id_marca}}">{{$marca->nombre_marca}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group pt-2">
                                 <a href="{{route('equipos.index')}}" class="btn btn-dark">Volver</a>

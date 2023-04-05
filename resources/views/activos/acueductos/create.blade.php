@@ -62,11 +62,11 @@
                         </div>
                         <div class="form-group">
                             <label for="capacidad_almac">Capacidad de Almacenamiento:</label>
-                            <input type="text" name="capacidad_almac" class="form-control" id="capacidad_almac" placeholder="capacidad de almacenamiento" value="{{old('capacidad_almac', $acueducto->cargo ?? '')}}">
+                            <input type="number" name="capacidad_almac" class="form-control" id="capacidad_almac" placeholder="capacidad de almacenamiento" value="{{old('capacidad_almac', $acueducto->cargo ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="tiempo_oper">Tiempo de operacion</label>
-                            <input type="text" name="tiempo_oper" class="form-control" id="tiempo_oper" placeholder="tiempo de operacion" value="{{old('tiempo_oper', $acueducto->cargo ?? '')}}">
+                            <input type="number" name="tiempo_oper" class="form-control" id="tiempo_oper" placeholder="tiempo de operacion" value="{{old('tiempo_oper', $acueducto->cargo ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="energia_util">Energia util</label>
