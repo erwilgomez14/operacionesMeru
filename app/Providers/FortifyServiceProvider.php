@@ -36,7 +36,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
 
-            $user1 = Usuario::where('uid', $request->uid)->first();
+        $user1 = Usuario::where('uid', $request->uid)->first();
+      //  dd($user1);
         $user = User::where('usuario', $request->uid)->first();
 
         if ($user1->uid === $user->usuario &&

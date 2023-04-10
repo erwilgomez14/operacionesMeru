@@ -52,6 +52,12 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="">Sistema</label>
+                            <select id="id_sistema" class="custom-select" name="id_sistema" aria-label="">
+                                <option selected>Selecionar Sistema</option>
+                            </select>
+                        </div>
 
                         <div class="form-group pt-2">
                             <a href="{{route('acueductos.index')}}" class="btn btn-dark">Volver</a>
@@ -72,11 +78,26 @@
 @section('scripts')
 
     <script>
-        const gerencia = document.getElementById('id_acueducto')
+        const acueducto = document.getElementById('id_acueducto')
+        const sistema = document.getElementById('id_sistema')
 
-        gerencia.addEventListener('change', (e)=>{
+        const 
+
+        acueducto.addEventListener('change', async (e)=>{
            // console.log(e.target.value)
-            fetch(`/mantenimiento/ordentrabajo/${e.target.value}/acueducto`)
+            const response = await fetch(`/mantenimiento/ordentrabajo/${e.target.value}/acueducto`)
+
+            const data = await response.json();
+
+            console.log(data)
+
+            let opciones = ``;
+
+            data.forEach(element => {
+                opciones = opciones + `<option value="${element.id_sistema}">${element.nom_sistema}`
+            })
+
+            sistema.innerHTML = opciones;
         })
 
     </script>
