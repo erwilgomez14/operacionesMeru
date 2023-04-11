@@ -5,6 +5,7 @@
     <script src="{{asset("template/assets/js/app.js")}}"></script>
 
     <script>
+        //window.CSRF_TOKEN = '{{ csrf_token() }}';
         $(document).ready(function() {
             App.init();
         });

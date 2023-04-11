@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Acueductos;
 use App\Models\OrdenTrabajo;
 use App\Models\Sistema;
+use App\Models\TipoOrdenTrabajo;
+use App\Models\PrioridadOrdenTrabajo;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
 use function Sodium\compare;
 
@@ -24,9 +27,14 @@ class OrdenTrabajoController extends Controller
     public function create()
     {
         $acueductos = Acueductos::all();
+        $tiposorden = TipoOrdenTrabajo::all();
+        $ordenprioridad = PrioridadOrdenTrabajo::all();
+        //dd($ordenprioridad);
 
         return view('mantenimiento.ordentrabajo.create',
-        compact('acueductos'));
+        compact('acueductos',
+            'tiposorden',
+            'ordenprioridad'));
 
     }
 
@@ -35,7 +43,7 @@ class OrdenTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -75,4 +83,33 @@ class OrdenTrabajoController extends Controller
         //dd($acueducto->sistemas);
         return response()->json($acueducto->sistemas);
     }
+
+    public function hasSistema(Request $request){
+        if (isset($request->texto)){
+            $sistemas = Sistema::where('id_acueducto',$request->texto)->get();
+           // dd($sistemas);
+            return response()->json([
+                'lista' => $sistemas,
+                'success' => true
+            ]);
+        }else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
+    }
+    public function hasEquipo(Request $request){
+        if (isset($request->texto)){
+            $equipos = Equipo::where('id_sistema',$request->texto)->get();
+            return response()->json([
+                'lista' => $equipos,
+                'success' => true
+            ]);
+        }else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
+    }
+
 }

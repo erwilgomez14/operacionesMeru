@@ -38,7 +38,11 @@ Route::prefix('activos')->group(function () {
 Route::prefix('mantenimiento')->group(function () {
     Route::resource('ubiplanta', UbicacionPlantaController::class);
     Route::resource('ordentrabajo', OrdenTrabajoController::class);
-    Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);
+    Route::post('/ordentrabajo/hasSistema', [OrdenTrabajoController::class, 'hasSistema']);
+    Route::post('/ordentrabajo/hasEquipo', [OrdenTrabajoController::class, 'hasEquipo']);
+    Route::post('equipos', [OrdenTrabajoController::class, 'hasEquipo']);
+
+   // Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);
 
 
 })->middleware('auth');
