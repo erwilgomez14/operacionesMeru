@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
@@ -39,4 +40,9 @@ class Equipo extends Model
     {
         return $this->hasOne(Marca::class, 'marca', 'id_marca');
     }
+    public function tareas(): HasMany
+    {
+        return $this->HasMany(Tarea::class, 'id_tipo_eq', 'id_tipo_eq');
+    }
+
 }

@@ -7,6 +7,7 @@ use App\Models\Marca;
 use App\Models\Modelo;
 use App\Models\Sistema;
 use App\Models\Subsistema;
+use App\Models\Tarea;
 use App\Models\TipoEquipo;
 use Illuminate\Http\Request;
 
