@@ -32,8 +32,13 @@ class OrdenTrabajo extends Model
     {
         return $this->BelongsTo(Sistema::class, 'id_sistema', 'id_sistema');
     }
-    public function prioridad(): HasOne
+    public function prioridad(): hasOne
     {
-        return $this->hasOne(Acueductos::class, 'id_acueducto', 'id_acueducto');
+        return $this->hasOne(PrioridadOrdenTrabajo::class, 'id_prioridad', 'id_prioridad');
+    }
+
+    public function obreros(): HasMany
+    {
+        return $this->HasMany(OdtUsuario::class, 'id_orden', 'id_orden');
     }
 }

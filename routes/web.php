@@ -41,6 +41,7 @@ Route::prefix('mantenimiento')->group(function () {
     Route::post('/ordentrabajo/hasTareas', [OrdenTrabajoController::class, 'hasTareas']);
     Route::post('/ordentrabajo/hasSistema', [OrdenTrabajoController::class, 'hasSistema']);
     Route::post('/ordentrabajo/hasEquipo', [OrdenTrabajoController::class, 'hasEquipo']);
+    Route::post('/ordentrabajo/guardarmanoobra', [OrdenTrabajoController::class, 'guardarmanoobra']);
     Route::post('equipos', [OrdenTrabajoController::class, 'hasEquipo']);
 
    // Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);

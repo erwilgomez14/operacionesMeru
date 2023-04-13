@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acueductos;
+use App\Models\OdtUsuario;
 use App\Models\OrdenTrabajo;
 use App\Models\Sistema;
 use App\Models\Tarea;
@@ -10,6 +11,7 @@ use App\Models\TipoOrdenTrabajo;
 use App\Models\PrioridadOrdenTrabajo;
 use App\Models\Equipo;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function Sodium\compare;
 
@@ -47,7 +49,39 @@ class OrdenTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+
+
+
+
+        $odt = new OrdenTrabajo;
+        $odt->id_acueducto = $request->id_acueducto;
+        $odt->descrip_ot = $request->descrip_ot;
+        $odt->id_sistema = $request->id_sistema;
+        $odt->id_equipo = $request->id_equipo;
+        $odt->id_tipo_ot = $request->id_tipo_orden;
+        $odt->id_prioridad = $request->id_prioridad;
+        $odt->dias = $request->dias;
+        $odt->hora = $request->hora;
+        $odt->fecha = Carbon::now()->toDateString();
+        $odt->fecha_inicio = $request->fecha_inicio;
+        $odt->fecha_final = $request->fecha_final;
+        $odt->observacion = $request->observacion;
+        $datosmanoobra = $request->input('opciones');
+        //dd($datosmanoobra);
+            foreach ($datosmanoobra as $dato) {
+
+                $obreros = new OdtUsuario;
+                $obreros->cedula = $dato['cedula'];
+                $obreros->id_orden = $odt->id_orden;
+
+                dd($obreros);
+                $obreros->save();
+                return response()->json(['guardado' => true]);
+
+            }
+        dd($odt);
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -125,6 +159,17 @@ class OrdenTrabajoController extends Controller
                 'success' => false
             ]);
         }
+    }
+
+    public function guardarmanoobra(Request $request) {
+
+
+        /*foreach ($opciones as $opcion) {
+            $opcion = new OdtUsuario;
+            $opcion
+
+        }*/
+     //   dd($opciones);
     }
 
 }

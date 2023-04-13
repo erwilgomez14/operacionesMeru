@@ -68,6 +68,11 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="descrip_ot">Descripcion de la orden</label>
+                            <input type="text" name="descrip_ot" id="descrip_ot" class="form-control">
+
+                        </div>
+                        <div class="form-group">
                             <label for="id_sistema">Sistema</label>
                             <select id="id_sistema" class="custom-select" name="id_sistema" aria-label="">
                             </select>
@@ -138,17 +143,19 @@
 
                         <div class="form-group mt-3 bg-gradient-dark">
                             <label for="select-usuario">Seleccionar mano de obra:</label>
-                            <select id="select-usuario" class="custom-select" name="select-usuario">
+                            <select id="select-usuario" class="custom-select" >
                             @foreach ($usuarios as $usuario)
-                                    <option value="{{$usuario->id}}">{{$usuario->nombre}}</option>
+                                    <option value="{{$usuario->cedula}}">{{$usuario->nombre}}</option>
                             @endforeach
                             </select>
                             <button type="button" class="btn btn-dark mt-3" id="btn-agregar">Agregar</button>
 
                             <table class="table mt-3" id="tabla-opciones">
                                 <thead class="thead-dark">
+                                <h4 class="text-center"> Datos de la mano de obra</h4>
                                 <tr>
-                                    <th class="text-center">Datos de la mano de obra</th>
+                                    <th >Nombre </th>
+                                    <th >Cedula </th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -295,6 +302,8 @@
                 // document.getElementById("listadotareas").innerHTML = listatareas;
             }).catch(error => console.error(error));
         })
+
+
         const tablaOpciones = document.getElementById('tabla-opciones').getElementsByTagName('tbody')[0];
         const btnAgregar = document.getElementById('btn-agregar');
         const selectUsuario = document.getElementById('select-usuario');
@@ -303,11 +312,45 @@
         function agregarOpcion() {
             const tr = document.createElement('tr');
             const tdUsuario = document.createElement('td');
+            const tdUsuarioCedula = document.createElement('td');
             tdUsuario.textContent = selectUsuario.options[selectUsuario.selectedIndex].text;
+            tdUsuarioCedula.textContent = selectUsuario.options[selectUsuario.selectedIndex].value;
             tr.appendChild(tdUsuario);
+            tr.appendChild(tdUsuarioCedula);
             tablaOpciones.appendChild(tr);
-        }
 
+            //Agregar datos a un arreglo
+
+            const opciones = [];
+            const filas = tablaOpciones.getElementsByTagName('tr');
+            for (let i = 0; i < filas.length; i++) {
+                const celdas = filas[i].getElementsByTagName('td');
+                opciones.push({cedula: celdas[1].textContent,
+                            /*nombre: celdas[0].textContent*/});
+            }
+            const data = {opciones:opciones};
+
+            console.log(data);
+            // Enviar los datos al servidor para guardarlos en la base de datos
+            fetch('/mantenimiento/ordentrabajo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "X-CSRF-Token": csrfToken
+
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    try {
+                        console.log(data) // Aquí puedes procesar los datos
+                    }catch (error) {
+                        console.error('Error:', error);
+                    }
+                })
+                .catch(error => console.error(error));
+        }
 
         btnAgregar.addEventListener('click', agregarOpcion);
         console.log(tablaOpciones);
