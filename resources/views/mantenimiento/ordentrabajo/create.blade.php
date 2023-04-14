@@ -12,6 +12,7 @@
             min-height: calc(100vh - 140px) !important;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
 @endsection
 
 @section('content')
@@ -109,7 +110,7 @@
                         </div>
                         <div class="form-group">
                             <label for="dias">Días:</label>
-                            <input type="number" class="form-control" id="dias" name="dias" min="1" required>
+                            <input type="number" class="form-control" id="dias" name="dias" min="1">
                         </div>
                         <div class="form-group">
                             <label for="hora">Hora:</label>
@@ -158,7 +159,9 @@
                                     <th >Cedula </th>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+
+                                </tbody>
                             </table>
                         </div>
 
@@ -168,7 +171,7 @@
                         </div>
                         <div class="form-group pt-2">
                             <a href="{{ route('acueductos.index') }}" class="btn btn-dark">Volver</a>
-                            <input class="btn btn-primary" type="submit" value="Guardar">
+                            <input class="btn btn-primary" {{--type="submit"--}} id="btn-guardar" value="Guardar">
                         </div>
                     </form>
 
@@ -183,6 +186,8 @@
 
 
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+
     <script>
         const csrfToken = document.head.querySelector("[name=csrf-token][content]").content;
         document.getElementById('id_acueducto').addEventListener('change', (e) => {
@@ -307,8 +312,8 @@
         const tablaOpciones = document.getElementById('tabla-opciones').getElementsByTagName('tbody')[0];
         const btnAgregar = document.getElementById('btn-agregar');
         const selectUsuario = document.getElementById('select-usuario');
-        console.log(selectUsuario);
-
+        const btnGuardar = document.getElementById('btn-guardar');
+        let datos = [];
         function agregarOpcion() {
             const tr = document.createElement('tr');
             const tdUsuario = document.createElement('td');
@@ -319,41 +324,49 @@
             tr.appendChild(tdUsuarioCedula);
             tablaOpciones.appendChild(tr);
 
-            //Agregar datos a un arreglo
-
-            const opciones = [];
             const filas = tablaOpciones.getElementsByTagName('tr');
-            for (let i = 0; i < filas.length; i++) {
-                const celdas = filas[i].getElementsByTagName('td');
-                opciones.push({cedula: celdas[1].textContent,
-                            /*nombre: celdas[0].textContent*/});
-            }
-            const data = {opciones:opciones};
+            datos = Array.from(filas).map(fila => {
+                const celdas = fila.getElementsByTagName('td');
+                return {
+                    cedula: celdas[1].textContent,
+                    /*nombre: celdas[0].textContent*/
+                }
+            });
+            console.log(tablaOpciones)
+            console.log(datos);
 
-            console.log(data);
-            // Enviar los datos al servidor para guardarlos en la base de datos
+        }
+
+        function guardarOpcion(){
+            console.log(datos);
             fetch('/mantenimiento/ordentrabajo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     "X-CSRF-Token": csrfToken
-
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({ data: datos })
             })
                 .then(response => response.json())
                 .then(data => {
-                    try {
-                        console.log(data) // Aquí puedes procesar los datos
-                    }catch (error) {
-                        console.error('Error:', error);
-                    }
+                    console.log(data);
+                    window.location.href = '{{route('ordentrabajo.index')}}';
+                    setTimeout(function() {
+                        Swal.fire({
+                            title: '¡Éxito!',
+                            text: 'Orden de trabajo creada satisfactoriamente',
+                            icon: 'success'
+                        });
+                    }, 5000);
+
                 })
                 .catch(error => console.error(error));
         }
 
+
+
         btnAgregar.addEventListener('click', agregarOpcion);
-        console.log(tablaOpciones);
+        btnGuardar.addEventListener('click', guardarOpcion);
         // const acueducto = document.getElementById('id_acueducto')
         // const sistema = document.getElementById('id_sistema')
 

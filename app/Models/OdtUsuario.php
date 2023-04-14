@@ -13,4 +13,7 @@ class OdtUsuario extends Model
 
     //protected $keyType = 'string';
     public $timestamps = false;
+
+    public $incrementing = false;
+    protected $fillable = ['cedula', 'id_orden'];
 }

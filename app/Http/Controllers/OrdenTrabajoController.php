@@ -17,6 +17,7 @@ use function Sodium\compare;
 
 class OrdenTrabajoController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -44,15 +45,25 @@ class OrdenTrabajoController extends Controller
 
     }
 
+    private $datos_manos_de_obra = [];
+    public function guardarmanoobra(Request $request) {
+
+        $this->datos_manos_de_obra = $request->input('data');
+;
+
+        /*foreach ($opciones as $opcion) {
+            $opcion = new OdtUsuario;
+            $opcion
+
+        }*/
+        //   dd($opciones);
+        return response($this->datos_manos_de_obra);
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
-
-
-
         $odt = new OrdenTrabajo;
         $odt->id_acueducto = $request->id_acueducto;
         $odt->descrip_ot = $request->descrip_ot;
@@ -66,21 +77,37 @@ class OrdenTrabajoController extends Controller
         $odt->fecha_inicio = $request->fecha_inicio;
         $odt->fecha_final = $request->fecha_final;
         $odt->observacion = $request->observacion;
-        $datosmanoobra = $request->input('opciones');
-        //dd($datosmanoobra);
-            foreach ($datosmanoobra as $dato) {
+        $odt->save();
+       // dd($odt);
+        //$data = ;
+       // dd($request->input('data'));
+        //dd($request);
+        $datosmanoobra = $request->input('data');
+        //$userIds = [];
 
-                $obreros = new OdtUsuario;
-                $obreros->cedula = $dato['cedula'];
-                $obreros->id_orden = $odt->id_orden;
+        foreach ($datosmanoobra as $dato) {
 
-                dd($obreros);
-                $obreros->save();
-                return response()->json(['guardado' => true]);
+            /*//$obrero = User::where('cedula', $dato['cedula'])->first(); // Obtener el usuario a partir de la cédula
 
-            }
-        dd($odt);
+            if ($obrero) {
+                $userIds[] = $obrero->cedula; // Agregar el ID del usuario a un array
+            }*/
 
+            $obreros = OdtUsuario::create([
+                'id_orden' => $odt->id_orden,
+                'cedula' => $dato['cedula'],
+            ]);
+
+        }
+
+        //dd($userIds);
+
+        //$odt->obreros()->attach($userIds);
+
+        //$odtobrero = OdtUsuario::all();
+        //dd($odtobrero);
+
+        /*return redirect()->route('ordentrabajo.index')->with('status', 'orden de trabajo creada satisfactoriamente');*/
         return response()->json(['success' => true]);
     }
 
@@ -161,15 +188,6 @@ class OrdenTrabajoController extends Controller
         }
     }
 
-    public function guardarmanoobra(Request $request) {
 
-
-        /*foreach ($opciones as $opcion) {
-            $opcion = new OdtUsuario;
-            $opcion
-
-        }*/
-     //   dd($opciones);
-    }
 
 }
