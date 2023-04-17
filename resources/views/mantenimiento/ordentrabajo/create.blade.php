@@ -38,7 +38,7 @@
                             $(".alert").alert();
                         </script>
                     @endif
-                    <form method="POST" action="{{ route('ordentrabajo.store') }}">
+                    <form id="formulario" method="POST" action="{{ route('ordentrabajo.store') }}">
                         @csrf
                         <h2 class="tittle"> Creacion de Orden de trabajo</h2>
 
@@ -314,6 +314,8 @@
         const selectUsuario = document.getElementById('select-usuario');
         const btnGuardar = document.getElementById('btn-guardar');
         let datos = [];
+        let form = document.getElementById('formulario');
+
         function agregarOpcion() {
             const tr = document.createElement('tr');
             const tdUsuario = document.createElement('td');
@@ -337,7 +339,34 @@
 
         }
 
-        function guardarOpcion(){
+        function guardarOpcion(event){
+            event.preventDefault();
+            const id_acueducto = document.getElementById('id_acueducto').value;
+            const descrip_ot = document.getElementById('descrip_ot').value;
+            const id_sistema = document.getElementById('id_sistema').value;
+            const id_equipo = document.getElementById('id_equipo').value;
+            const id_tipo_orden = document.querySelector('input[name="id_tipo_orden"]:checked').value;
+            const id_prioridad = document.querySelector('input[name="id_prioridad"]:checked').value;
+            const dias = document.getElementById('dias').value;
+            const hora = document.getElementById('hora').value;
+            const fecha_inicio = document.getElementById('fecha_inicio').value;
+            const fecha_final = document.getElementById('fecha_final').value;
+
+            const odt = {
+                id_acueducto,
+                descrip_ot,
+                id_sistema,
+                id_equipo,
+                id_tipo_orden,
+                id_prioridad,
+                dias,
+                hora,
+                fecha_inicio,
+                fecha_final
+            };
+            console.log(odt);
+
+            console.log(form);
             console.log(datos);
             fetch('/mantenimiento/ordentrabajo', {
                 method: 'POST',
@@ -345,21 +374,23 @@
                     'Content-Type': 'application/json',
                     "X-CSRF-Token": csrfToken
                 },
-                body: JSON.stringify({ data: datos })
+                body: JSON.stringify({ data: datos,
+                    odt})
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    window.location.href = '{{route('ordentrabajo.index')}}';
-                    setTimeout(function() {
-                        Swal.fire({
-                            title: '¡Éxito!',
-                            text: 'Orden de trabajo creada satisfactoriamente',
-                            icon: 'success'
-                        });
-                    }, 5000);
-
-                })
+                    const odtNumber = data.odt.id_orden;
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: `Orden de trabajo creada satisfactoriamente. Número de orden: ${odtNumber}`,
+                        icon: 'success'
+                    }).then((result) => {
+                        // Redirigir a la ruta
+                        if (result.isConfirmed) {
+                        window.location.href = '{{route('ordentrabajo.index')}}';
+                    }
+                    });
+            })
                 .catch(error => console.error(error));
         }
 

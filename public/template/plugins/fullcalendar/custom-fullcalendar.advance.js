@@ -12,7 +12,7 @@ $(document).ready(function() {
     var editEvent = document.getElementById("edit-event");
     // Get the Discard Modal button
     var discardModal = document.querySelectorAll("[data-dismiss='modal']")[0];
-    
+
     // Get the Add Event button
     var addEventTitle = document.getElementsByClassName("add-event-title")[0];
     // Get the Edit Event button
@@ -134,7 +134,8 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        events: [
+        events: '/panel/mantenimientopreventivo/hasOrden',
+        /*events: [
             {
                 id: 'event-1',
                 title: 'All Day Event',
@@ -233,7 +234,7 @@ $(document).ready(function() {
                 description: 'Pellentesque ut convallis velit. Sed purus urna, aliquam et pharetra ut, efficitur id mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
             }
 
-        ],
+        ],*/
         editable: true,
         eventLimit: true,
         eventMouseover: function(event, jsEvent, view) {
@@ -278,7 +279,7 @@ $(document).ready(function() {
 
             var taskInputEndDate = $("#end-date");
             var taskInputEndtDateValue = taskInputEndDate.val(info.end.format("YYYY-MM-DD HH:mm:ss"));
-        
+
             var startDate = flatpickr(document.getElementById('start-date'), {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -321,7 +322,7 @@ $(document).ready(function() {
             });
         }
     })
-    
+
 
     function enableDatePicker() {
         var startDate = flatpickr(document.getElementById('start-date'), {
@@ -411,13 +412,13 @@ $(document).ready(function() {
     const mailScroll = new PerfectScrollbar('.fc-scroller', {
         suppressScrollX : true
     });
-    
+
     var fcButtons = document.getElementsByClassName('fc-button');
     for(var i = 0; i < fcButtons.length; i++) {
         fcButtons[i].addEventListener('click', function() {
             const mailScroll = new PerfectScrollbar('.fc-scroller', {
                 suppressScrollX : true
-            });        
+            });
             $('.fc-scroller').animate({ scrollTop: 0 }, 100);
             setCurrentDateHighlightStyle();
         })

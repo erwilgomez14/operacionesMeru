@@ -51,12 +51,12 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="submenu" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled ml-n3" id="submenu" data-parent="#accordionExample">
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Panel </a>
+                        <a class="ml-n4" href="{{route('index')}}"> Panel </a>
                     </li>
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Calendario </a>
+                        <a class="ml-n4" href="{{route('mantenimientopreventivo.index')}}">Mantenimiento Preventivo</a>
                     </li>
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Ordenes de trabajo asignadas </a>

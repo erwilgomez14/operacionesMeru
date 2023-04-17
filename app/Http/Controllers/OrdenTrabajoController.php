@@ -64,21 +64,37 @@ class OrdenTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        $odt = new OrdenTrabajo;
-        $odt->id_acueducto = $request->id_acueducto;
-        $odt->descrip_ot = $request->descrip_ot;
-        $odt->id_sistema = $request->id_sistema;
-        $odt->id_equipo = $request->id_equipo;
-        $odt->id_tipo_ot = $request->id_tipo_orden;
-        $odt->id_prioridad = $request->id_prioridad;
-        $odt->dias = $request->dias;
+        //dd($request->input('odt.id_acueducto'));
+
+
+        $odt = OrdenTrabajo::create([
+            'id_acueducto' => $request->input('odt.id_acueducto'),
+            'descrip_ot' => $request->input('odt.descrip_ot'),
+            'id_sistema' => $request->input('odt.id_acueducto'),
+            'id_equipo' => $request->input('odt.id_sistema'),
+            'id_tipo_ot' => $request->input('odt.id_acueducto'),
+            'id_prioridad' => $request->input('odt.id_tipo_ot'),
+            'dias' => $request->input('odt.dias'),
+            'hora' => $request->input('odt.hora'),
+            'fecha' => Carbon::now()->toDateString(),
+            'fecha_inicio' => $request->input('odt.fecha_inicio'),
+            'fecha_final' => $request->input('odt.fecha_final'),
+            'observacion' => $request->input('odt.observacion'),
+        ]);
+        /*$odt->id_acueducto = $request->id_acueducto;
+        $odt->descrip_ot = $request->descrip_ot;*/
+//        $odt->id_sistema = $request->id_sistema;
+//        $odt->id_equipo = $request->id_equipo;
+//        $odt->id_tipo_ot = $request->id_tipo_orden;
+//        $odt->id_prioridad = $request->id_prioridad;
+        /*$odt->dias = $request->dias;
         $odt->hora = $request->hora;
         $odt->fecha = Carbon::now()->toDateString();
         $odt->fecha_inicio = $request->fecha_inicio;
         $odt->fecha_final = $request->fecha_final;
         $odt->observacion = $request->observacion;
-        $odt->save();
-       // dd($odt);
+        $odt->save();*/
+       //dd($odt);
         //$data = ;
        // dd($request->input('data'));
         //dd($request);
@@ -108,7 +124,7 @@ class OrdenTrabajoController extends Controller
         //dd($odtobrero);
 
         /*return redirect()->route('ordentrabajo.index')->with('status', 'orden de trabajo creada satisfactoriamente');*/
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'odt' => $odt]);
     }
 
     /**

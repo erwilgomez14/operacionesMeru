@@ -18,6 +18,13 @@ class OrdenTrabajo extends Model
     protected $primaryKey = 'id_orden';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_orden',
+        'id_acueducto',
+        'id_equipo',
+        'id_tipo_ot',
+        'id_sistema'
+    ];
 
     public function acueductos(): HasMany
     {

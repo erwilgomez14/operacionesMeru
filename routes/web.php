@@ -9,7 +9,7 @@ use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\SistemaController;
 use \App\Http\Controllers\UbicacionPlantaController;
 use \App\Http\Controllers\OrdenTrabajoController;
-
+use \App\Http\Controllers\MantenimientoPreventivoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +25,12 @@ use \App\Http\Controllers\OrdenTrabajoController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('panel', PanelController::class)
-->middleware('auth');
+Route::prefix('panel')->group(function () {
+    Route::resource('', PanelController::class);
+    Route::resource('mantenimientopreventivo', MantenimientoPreventivoController::class);
+    Route::get('/mantenimientopreventivo/hasOrden', [MantenimientoPreventivoController::class, 'hasOrden']);
+
+})->middleware('auth');
 Route::prefix('activos')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
     Route::resource('equipos', EquipoController::class);
