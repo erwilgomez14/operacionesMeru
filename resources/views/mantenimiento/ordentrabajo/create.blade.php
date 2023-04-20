@@ -113,18 +113,14 @@
                             <input type="number" class="form-control" id="dias" name="dias" min="1">
                         </div>
                         <div class="form-group">
-                            <label for="hora">Hora:</label>
-                            <input type="time" name="hora" id="hora" class="form-control">
-                        </div>
-                        <div class="form-group">
                             <label for="fecha_inicio">Fecha Inicio</label>
-                            <input type="date" name="fecha_inicio" class="form-control" id="fecha_inicio"
+                            <input type="datetime-local" name="fecha_inicio" class="form-control" id="fecha_inicio"
                                 placeholder="id del acueducto"
                                 value="{{ old('fecha_inicio', $ordenTrabajo->fecha_inicio ?? '') }}">
 
                             <label for="fecha_final">Fecha Final</label>
                             <div>
-                            <input type="date" name="fecha_final" class="form-control" id="fecha_final"
+                            <input type="datetime-local" name="fecha_final" class="form-control" id="fecha_final"
                                 placeholder="id del acueducto"
                                 value="{{ old('fecha_final', $ordenTrabajo->fecha_final ?? '') }}">
                             </div>
@@ -232,8 +228,8 @@
             }).then(data => {
                 var opciones = "<option value=''>Seleecionar Equipo</option>";
                 for (let i in data.lista) {
-                    opciones += '<option value="' + data.lista[i].id_equipo + '" data-tipo="'+data.lista[i].id_tipo_eq+'">' + data.lista[i]
-                        .desc_equipo + '</option>';
+                    opciones += '<option value="' + data.lista[i].id_subsistema + '" data-tipo="'+data.lista[i].id_tipo_eq+'">' + data.lista[i]
+                        .nombre_subsistema + '</option>';
                 }
                 console.log(opciones);
                 document.getElementById("id_equipo").innerHTML = opciones;
@@ -348,10 +344,10 @@
             const id_tipo_orden = document.querySelector('input[name="id_tipo_orden"]:checked').value;
             const id_prioridad = document.querySelector('input[name="id_prioridad"]:checked').value;
             const dias = document.getElementById('dias').value;
-            const hora = document.getElementById('hora').value;
+            //const hora = document.getElementById('hora').value;
             const fecha_inicio = document.getElementById('fecha_inicio').value;
             const fecha_final = document.getElementById('fecha_final').value;
-
+            const observacion = document.getElementById('observacion').value;
             const odt = {
                 id_acueducto,
                 descrip_ot,
@@ -360,9 +356,10 @@
                 id_tipo_orden,
                 id_prioridad,
                 dias,
-                hora,
+               // hora,
                 fecha_inicio,
-                fecha_final
+                fecha_final,
+                observacion
             };
             console.log(odt);
 

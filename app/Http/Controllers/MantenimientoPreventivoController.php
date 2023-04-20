@@ -20,8 +20,10 @@ class MantenimientoPreventivoController extends Controller
             $evento = [
                 'title' => $orden->descrip_ot,
                 'start' => $orden->fecha_inicio,
+                'duration' => $orden->dias,
                 'end' => $orden->fecha_final,
                 'url' => route('ordentrabajo.show', $orden->id_orden),
+               // 'display' => 'background'
             ];
 
             $eventos[] = $evento;
@@ -40,8 +42,8 @@ class MantenimientoPreventivoController extends Controller
             $evento = [
                 'title' => $orden->descrip_ot,
                 'start' => $orden->fecha_inicio,
-                //'end' => $orden->fecha_final,
-                //'url' => route('ordentrabajo.show', $orden->id),
+                'end' => $orden->fecha_final,
+                'url' => route('ordentrabajo.show', $orden->id_orden),
             ];
 
             $eventos[] = $evento;
@@ -68,9 +70,9 @@ class MantenimientoPreventivoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        return view('panel.mantenimientopreventivo.show',);
     }
 
     /**
