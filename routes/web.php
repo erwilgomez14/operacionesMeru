@@ -27,6 +27,7 @@ Route::get('/', function () {
 });
 Route::prefix('panel')->group(function () {
     Route::resource('', PanelController::class);
+    Route::get('/mantenimientopreventivo/pdf', [MantenimientoPreventivoController::class, 'pdf'])->name('mantenimientopreventivo.pdf');
     Route::resource('mantenimientopreventivo', MantenimientoPreventivoController::class);
     Route::get('/mantenimientopreventivo/hasOrden', [MantenimientoPreventivoController::class, 'hasOrden']);
 
@@ -46,6 +47,8 @@ Route::prefix('mantenimiento')->group(function () {
     Route::resource('ordentrabajo', OrdenTrabajoController::class);
     Route::post('/ordentrabajo/hasTareas', [OrdenTrabajoController::class, 'hasTareas']);
     Route::post('/ordentrabajo/hasSistema', [OrdenTrabajoController::class, 'hasSistema']);
+    Route::post('/ordentrabajo/{ordentrabajo}/hasSistema', [OrdenTrabajoController::class, 'hasSistema']);
+    Route::post('/ordentrabajo/{ordentrabajo}/hasEquipo', [OrdenTrabajoController::class, 'hasEquipo']);
     Route::post('/ordentrabajo/hasEquipo', [OrdenTrabajoController::class, 'hasEquipo']);
     Route::post('/ordentrabajo/guardarmanoobra', [OrdenTrabajoController::class, 'guardarmanoobra']);
     Route::post('equipos', [OrdenTrabajoController::class, 'hasEquipo']);

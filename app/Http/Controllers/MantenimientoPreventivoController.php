@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrdenTrabajo;
 use Illuminate\Http\Request;
-
+use PDF;
 class MantenimientoPreventivoController extends Controller
 {
     /**
@@ -32,6 +32,18 @@ class MantenimientoPreventivoController extends Controller
         return view('panel.mantenimientopreventivo.page', compact('eventos'));
     }
 
+    public function pdf(){
+        $eventos = OrdenTrabajo::all();
+        dd($eventos);
+        $html = view('calendario', compact('eventos'))->render();
+
+        $pdf = new PDF();
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+
+        return $pdf->stream('calendario.pdf');
+    }
     public function hasOrden()
     {
         $ordenes_trabajo = OrdenTrabajo::all();

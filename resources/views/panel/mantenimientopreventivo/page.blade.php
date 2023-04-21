@@ -30,7 +30,9 @@
                 <div class="widget-one">
 
                 <div id='calendar'></div>
-
+                <div class="mt-5">
+                    <a href="{{route('mantenimientopreventivo.pdf')}}" class="btn btn-primary">Imprimir Reporte</a>
+                </div>
 
                 </div>
             </div>

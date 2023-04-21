@@ -14,32 +14,49 @@ use App\Models\Equipo;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use function Sodium\compare;
-use Dompdf\Dompdf;
-use PDF;
-
+use App\Http\Controllers\Pdf\OrdendetrabajoPDF;
+use Codedge\Fpdf\Fpdf\Fpdf;
 class OrdenTrabajoController extends Controller
 {
+    protected $fpdf;
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('mantenimiento.ordentrabajo.page');
+        $odt = OrdenTrabajo::all();
+        return view('mantenimiento.ordentrabajo.page', compact('odt'));
     }
+
 
     public function pdf($ordenTrabajo){
 
+        $odt = OrdenTrabajo::where('id_orden',$ordenTrabajo)->first();
+        //dd($odt);
+        $pdf = new OrdendetrabajoPDF();
 
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->Content($odt);
+        $pdf->Output();
 
+        exit;
 
-       $odt = OrdenTrabajo::where('id_orden', $ordenTrabajo)->first();
+        /*$this->fpdf = new Fpdf;
+        $this->fpdf->SetFont('Arial', 'B', 15);
+        $this->fpdf->AddPage("L", ['200', '200']);
+        $this->fpdf->Text(10, 10, "Orden de trabajo");
+        $this->fpdf->PageNo(1);
+        $this->fpdf->Output();
+
+        exit;*/
+
        //dd($odt);
        //return view('mantenimiento.ordentrabajo.pdf', compact('odt'));
-       $pdf= PDF::loadView('mantenimiento.ordentrabajo.pdf', compact('odt'));
-       //$pdf->render();
-         return $pdf->stream('reporte_orden_trabajo.pdf');
+       /*$pdf= PDF::loadView('mantenimiento.ordentrabajo.pdf', compact('odt'));
+       $pdf->render();
+         return $pdf->stream('reporte_orden_trabajo.pdf');*/
 
        // return view('mantenimiento.ordentrabajo.pdf');
     }
@@ -163,9 +180,17 @@ class OrdenTrabajoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrdenTrabajo $ordenTrabajo)
+    public function edit($ordenTrabajo)
     {
-        //
+
+        $orden = OrdenTrabajo::where('id_orden',$ordenTrabajo)->first();
+        $acueductos = Acueductos::all();
+        $sistemas = Sistema::all();
+        $subsistemas = Subsistema::all();
+        return view('mantenimiento.ordentrabajo.edit', compact('orden',
+        'acueductos',
+        'sistemas',
+        'subsistemas'));
     }
 
     /**
