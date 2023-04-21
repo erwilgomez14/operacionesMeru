@@ -51,6 +51,7 @@
                             <div class="card-footer">
 
                                 <a href="{{route('mantenimientopreventivo.index')}}" class="btn btn-primary">Volver al calendario</a>
+                                <a href="{{route('ordentrabajo.pdf', $registro->id_orden)}}" class="btn btn-primary" target="_blank">Imprimir orden</a>
                             </div>
                         </div>
 

@@ -40,6 +40,8 @@ Route::prefix('activos')->group(function () {
 })->middleware('auth');
 
 Route::prefix('mantenimiento')->group(function () {
+    Route::get('/ordentrabajo/{ordentrabajo}/pdf', [OrdenTrabajoController::class, 'pdf'])->name('ordentrabajo.pdf');
+
     Route::resource('ubiplanta', UbicacionPlantaController::class);
     Route::resource('ordentrabajo', OrdenTrabajoController::class);
     Route::post('/ordentrabajo/hasTareas', [OrdenTrabajoController::class, 'hasTareas']);

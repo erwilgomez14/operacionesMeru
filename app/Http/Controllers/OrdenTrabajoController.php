@@ -15,6 +15,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function Sodium\compare;
+use Dompdf\Dompdf;
+use PDF;
 
 class OrdenTrabajoController extends Controller
 {
@@ -27,6 +29,20 @@ class OrdenTrabajoController extends Controller
         return view('mantenimiento.ordentrabajo.page');
     }
 
+    public function pdf($ordenTrabajo){
+
+
+
+
+       $odt = OrdenTrabajo::where('id_orden', $ordenTrabajo)->first();
+       //dd($odt);
+       //return view('mantenimiento.ordentrabajo.pdf', compact('odt'));
+       $pdf= PDF::loadView('mantenimiento.ordentrabajo.pdf', compact('odt'));
+       //$pdf->render();
+         return $pdf->stream('reporte_orden_trabajo.pdf');
+
+       // return view('mantenimiento.ordentrabajo.pdf');
+    }
     /**
      * Show the form for creating a new resource.
      */
