@@ -14,4 +14,6 @@ class Subsistema extends Model
     protected $keyType = 'string';
     protected $primaryKey = 'id_subsistema';
     public $timestamps = false;
+
+    protected $fillable = ['id_subsistema'];
 }

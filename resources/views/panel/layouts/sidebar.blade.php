@@ -99,7 +99,7 @@
                         <a class="ml-n4" href="javascript:void(0);"> Mantenimineto Programado </a>
                     </li>
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Grupo de tareas </a>
+                        <a class="ml-n4" href="{{route('grupotareas.index')}}"> Grupo de tareas </a>
                     </li>
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Areas de procesos </a>
@@ -182,7 +182,7 @@
                         <a href="{{route('sistemas.index')}}"> Sistemas </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Subsistemas </a>
+                        <a href="{{route('subsistemas.index')}}"> Subsistemas </a>
                     </li>
                     <li>
                         <a href="javascript:void(0);"> Herramientas </a>

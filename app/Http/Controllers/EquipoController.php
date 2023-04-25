@@ -30,13 +30,14 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        $sistemas = Sistema::get();
+        //$sistemas = Sistema::get();
         $tiposequipos = TipoEquipo::get();
         $subsistemas = Subsistema::get();
         $marcas = Marca::get();
         $modelos = Modelo::get();
+        //$subsistemas = Subsistema::get();
         //dd($modelos->first());
-        return view('activos.equipos.create', compact('sistemas',
+        return view('activos.equipos.create', compact(
         'tiposequipos',
         'subsistemas',
         'marcas',

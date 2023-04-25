@@ -75,7 +75,91 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="m-2">
+                            <h6>Seleccionar Tipo de Orden</h6>
+                            @foreach ($tiposorden as $item)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="id_tipo_orden" type="radio" value="{{ $item->id_tipo_orden }}"
+                                           id="{{ $item->id_tipo_orden }}" {{ $item->id_tipo_orden == $orden->id_tipo_ot ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="{{ $item->id_tipo_orden }}">
+                                        {{ $item->desc_orden }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="m-2">
+                            <h6>Seleccionar Prioridad de la Orden</h6>
+                            @foreach ($ordenprioridad as $item1)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="id_prioridad" type="radio" value="{{ $item1->id_prioridad }}"
+                                           id="{{ $item1->id_prioridad }}" {{ $item1->id_prioridad == $orden->id_prioridad ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ $item1->desc_priori }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <label for="dias">Días:</label>
+                            <input type="number" class="form-control" id="dias" name="dias" min="1" value="{{ old('dias', $orden->dias ?? '') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_inicio">Fecha Inicio</label>
+                            <input type="datetime-local" name="fecha_inicio" class="form-control" id="fecha_inicio"
+                                   placeholder="id del acueducto"
+                                   value="{{ old('fecha_inicio', $orden->fecha_inicio ? date('Y-m-d\TH:i:s', strtotime($orden->fecha_inicio)) : '') }}">
 
+                            <label for="fecha_final">Fecha Final</label>
+                            <div>
+                                <input type="datetime-local" name="fecha_final" class="form-control" id="fecha_final"
+                                       placeholder="id del acueducto"
+                                       value="{{ old('fecha_final', $orden->fecha_final ? date('Y-m-d\TH:i:s', strtotime($orden->fecha_final)) : '') }}">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="">Tareas de equipos</label>
+                            <table class="table mt-3" id="tabla-tareas">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Tarea</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group mt-3 bg-gradient-dark">
+                            <label for="select-usuario">Seleccionar mano de obra:</label>
+                            <select id="select-usuario" class="custom-select" >
+                                @foreach ($usuarios as $usuario)
+                                    <option value="{{$usuario->cedula}}">{{$usuario->nombre}}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn btn-dark mt-3" id="btn-agregar">Agregar</button>
+
+                            <table class="table mt-3" id="tabla-opciones">
+                                <thead class="thead-dark">
+                                <h4 class="text-center"> Datos de la mano de obra</h4>
+                                <tr>
+                                    <th >Nombre </th>
+                                    <th >Cedula </th>
+                                    <th >Cargo </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($obreros as $obrero)
+                                    <tr>
+                                        <td>{{ $obrero->obreros->nombre }}</td>
+                                        <td>{{ $obrero->cedula }}</td>
+                                        <td>{{ $obrero->obreros->cargo }}</td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="form-group">
                             <label for="observacion">Observacion:</label>
                             <input type="text" name="observacion" id="observacion" class="form-control" value="{{old('observacion', $orden->observacion ?? '')}}">
@@ -104,9 +188,12 @@
             if(document.getElementById('id_acueducto').value === '' )
             {
                 document.getElementById('id_sistema').disabled = true;
+                document.getElementById('id_equipo').disabled = true;
                 return;
             }
             document.getElementById('id_sistema').disabled = false;
+            //document.getElementById('id_equipo').disabled = false;
+
             fetch('hasSistema', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -131,7 +218,13 @@
 
         document.getElementById('id_sistema').addEventListener('change', (e) => {
             $("#id_equipo").empty();
-
+            if(document.getElementById('id_sistema').value === '' )
+            {
+                document.getElementById('id_equipo').disabled = true;
+                return;
+            }
+            document.getElementById('id_equipo').disabled = false;
+            //document.getElementById('id_equipo').disabled = false;
             fetch('hasEquipo', {
                 method: 'POST',
                 body: JSON.stringify({

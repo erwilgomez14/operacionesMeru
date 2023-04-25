@@ -10,7 +10,8 @@ use App\Http\Controllers\SistemaController;
 use \App\Http\Controllers\UbicacionPlantaController;
 use \App\Http\Controllers\OrdenTrabajoController;
 use \App\Http\Controllers\MantenimientoPreventivoController;
-
+use \App\Http\Controllers\SubsistemaController;
+use \App\Http\Controllers\TareaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,24 +26,26 @@ use \App\Http\Controllers\MantenimientoPreventivoController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('panel')->group(function () {
+Route::prefix('panel')->middleware('auth')->group(function () {
     Route::resource('', PanelController::class);
     Route::get('/mantenimientopreventivo/pdf', [MantenimientoPreventivoController::class, 'pdf'])->name('mantenimientopreventivo.pdf');
     Route::resource('mantenimientopreventivo', MantenimientoPreventivoController::class);
     Route::get('/mantenimientopreventivo/hasOrden', [MantenimientoPreventivoController::class, 'hasOrden']);
 
-})->middleware('auth');
-Route::prefix('activos')->group(function () {
+});
+Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
     Route::resource('equipos', EquipoController::class);
     Route::resource('sistemas', SistemaController::class);
+    Route::resource('subsistemas', SubsistemaController::class);
+
     Route::resource('ubiplanta', UbicacionPlantaController::class);
 
-})->middleware('auth');
+});
 
-Route::prefix('mantenimiento')->group(function () {
+Route::prefix('mantenimiento')->middleware('auth')->group(function () {
     Route::get('/ordentrabajo/{ordentrabajo}/pdf', [OrdenTrabajoController::class, 'pdf'])->name('ordentrabajo.pdf');
-
+    Route::resource('grupotareas', TareaController::class);
     Route::resource('ubiplanta', UbicacionPlantaController::class);
     Route::resource('ordentrabajo', OrdenTrabajoController::class);
     Route::post('/ordentrabajo/hasTareas', [OrdenTrabajoController::class, 'hasTareas']);
@@ -56,7 +59,7 @@ Route::prefix('mantenimiento')->group(function () {
    // Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);
 
 
-})->middleware('auth');
+});
 
 Route::resource('usuarios', UsuarioController::class);
 Route::resource('rol', RolController::class);

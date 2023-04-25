@@ -160,9 +160,12 @@ class OrdenTrabajoController extends Controller
     {
 
         $registro = OrdenTrabajo::findOrFail($ordenTrabajo);
+
+        $id_subsistema = $registro->id_subsistema;
         $datosodtobrero = $registro->obreros;
         $obreros = OdtUsuario::where('id_orden', $ordenTrabajo)->get();
         //dd($obreros);
+        $equipos = Equipo::where('id_subsistema', $registro->id_subsistema)->get();
         $acueducto = Acueductos::findOrFail($registro->id_acueducto);
         $area = Sistema::findOrFail($registro->id_sistema);
         $equipo = Subsistema::findOrFail($registro->id_subsistema);
@@ -174,7 +177,8 @@ class OrdenTrabajoController extends Controller
             'area',
             'equipo',
             'tipo',
-            'obreros'));
+            'obreros',
+            'equipos'));
     }
 
     /**
@@ -182,15 +186,54 @@ class OrdenTrabajoController extends Controller
      */
     public function edit($ordenTrabajo)
     {
+        //dd(intval($ordenTrabajo));
+//        $odtusu = OdtUsuario::with('obreros')->where('id_orden', $ordenTrabajo)->get();
+        $obreros = OdtUsuario::where('id_orden', $ordenTrabajo)->get();
 
+        $usuario = [];
+
+        /*foreach ($odtusu as $usu){
+            $obreros[] = $usu->cedula;
+
+        }*/
+
+        /*$usua = User::whereIn('cedula', $obreros)->get()->keyBy('cedula');
+       // $usuario = User::whereIn('cedula', $obreros)->pluck('nombre', 'cedula');;
+        foreach ($odtusu as $usu){
+            $obreros = $usu->cedula;
+            foreach ($obreros as $obrero){
+                $usuario = $usua[$obrero];
+
+            }
+        }*/
+       // dd($usuario);
+       // $usu = User::where('cedula', $odtusu->cedula)-get();
+      //  $odtusu = OdtUsuario::where('id_orden',$ordenTrabajo)->get();
+        $usuarios = User::all();
+        /*foreach ($obreros as $obrero){*/
+//            $usuario [] = User::where('cedula', $obrero)->pluck();
+//        }
+       // dd($usuario);
         $orden = OrdenTrabajo::where('id_orden',$ordenTrabajo)->first();
         $acueductos = Acueductos::all();
         $sistemas = Sistema::all();
         $subsistemas = Subsistema::all();
+        $tiposorden = TipoOrdenTrabajo::all();
+        $ordenprioridad = PrioridadOrdenTrabajo::all();
+
+
+
+        //dd($usu);
+
         return view('mantenimiento.ordentrabajo.edit', compact('orden',
         'acueductos',
         'sistemas',
-        'subsistemas'));
+        'subsistemas',
+        'tiposorden',
+        'ordenprioridad',
+        'usuarios',
+        'obreros',
+        'usuario'));
     }
 
     /**

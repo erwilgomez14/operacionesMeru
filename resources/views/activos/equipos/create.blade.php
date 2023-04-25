@@ -31,15 +31,6 @@
                                 <input type="text" name="id_equipo" class="form-control" id="id_equipo" placeholder="id del equipo" value="{{old('id_equipo', $equipo->id_equipo ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="id_sistema">Sistema:</label>
-                                <select class="custom-select" aria-label="" name="id_sistema">
-                                    <option selected>Selecciona un sistema</option>
-                                    @foreach($sistemas as $sistema)
-                                    <option value="{{$sistema->id_sistema}}">{{$sistema->nom_sistema}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label for="id_subsistema">Subsistema:</label>
                                 <select class="custom-select" aria-label="" name="id_subsistema">
                                     <option selected>Selecciona un subsistema</option>

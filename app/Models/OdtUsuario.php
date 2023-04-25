@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OdtUsuario extends Model
 {
@@ -14,7 +15,7 @@ class OdtUsuario extends Model
 
     protected $table = 'ope_odt_usuario';
 
-    //protected $keyType = 'string';
+    protected $keyType = 'string';
     public $timestamps = false;
 
     public $incrementing = false;
@@ -23,7 +24,11 @@ class OdtUsuario extends Model
 
     public function obreros(): BelongsTo
     {
-        return $this->BelongsTo(User::class, 'cedula', 'cedula');
+        return $this->BelongsTo(User::class,  'cedula', 'cedula');
+    }
+    public function ordenes(): BelongsTo
+    {
+        return $this->BelongsTo(OrdenTrabajo::class, 'id_orden', 'id_orden');
     }
 }
 

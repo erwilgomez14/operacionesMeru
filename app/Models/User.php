@@ -19,6 +19,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $keyType = 'string';
 
     protected $table = 'ope_usuario';
     protected $primaryKey = 'cedula';
