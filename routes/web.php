@@ -12,6 +12,7 @@ use \App\Http\Controllers\OrdenTrabajoController;
 use \App\Http\Controllers\MantenimientoPreventivoController;
 use \App\Http\Controllers\SubsistemaController;
 use \App\Http\Controllers\TareaController;
+use \App\Http\Controllers\HerramientaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,9 @@ Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('equipos', EquipoController::class);
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);
+    Route::get('/herramientas/creategroup', [HerramientaController::class, 'creategroup'])->name('herramientas.creategroup');
+    Route::post('/herramientas/group', [HerramientaController::class, 'storegroup'])->name('herramientas.storeegroup');    
+    Route::resource('herramientas', HerramientaController::class);
 
     Route::resource('ubiplanta', UbicacionPlantaController::class);
 

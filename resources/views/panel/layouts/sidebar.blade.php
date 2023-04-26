@@ -185,7 +185,7 @@
                         <a href="{{route('subsistemas.index')}}"> Subsistemas </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Herramientas </a>
+                        <a href="{{route('herramientas.index')}}"> Herramientas </a>
                     </li>
                     <li>
                         <a href="{{route('equipos.index')}}"> Equipos </a>
