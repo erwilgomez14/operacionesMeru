@@ -40,7 +40,9 @@ Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);
     Route::get('/herramientas/creategroup', [HerramientaController::class, 'creategroup'])->name('herramientas.creategroup');
-    Route::post('/herramientas/group', [HerramientaController::class, 'storegroup'])->name('herramientas.storeegroup');    
+    Route::post('/herramientas/group', [HerramientaController::class, 'storegroup'])->name('herramientas.storeegroup');
+
+
     Route::resource('herramientas', HerramientaController::class);
 
     Route::resource('ubiplanta', UbicacionPlantaController::class);
@@ -49,6 +51,7 @@ Route::prefix('activos')->middleware('auth')->group(function () {
 
 Route::prefix('mantenimiento')->middleware('auth')->group(function () {
     Route::get('/ordentrabajo/{ordentrabajo}/pdf', [OrdenTrabajoController::class, 'pdf'])->name('ordentrabajo.pdf');
+    Route::post('/grupotareas/hasEquipo', [TareaController::class, 'hasEquipo']);
     Route::resource('grupotareas', TareaController::class);
     Route::resource('ubiplanta', UbicacionPlantaController::class);
     Route::resource('ordentrabajo', OrdenTrabajoController::class);

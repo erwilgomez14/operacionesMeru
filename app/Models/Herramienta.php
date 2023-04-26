@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Herramienta extends Model
 {
@@ -17,4 +18,9 @@ class Herramienta extends Model
         'id_herramienta',
         'id_grupo_herramienta',
     ];
+
+    public function grupos(): HasOne
+    {
+        return $this->hasOne(GrupoHerramienta::class, 'id_grupo_herramienta', 'id_grupo_herramienta');
+    }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
+use App\Models\GrupoHerramienta;
+use App\Models\Subsistema;
 use App\Models\Tarea;
 use App\Models\TipoEquipo;
 use Illuminate\Http\Request;
@@ -21,8 +24,11 @@ class TareaController extends Controller
      */
     public function create()
     {
-        $tipoequipo = TipoEquipo::all();
-        return view('mantenimiento.grupotarea.create', compact('tipoequipo'));
+        $tipoequipo = Subsistema::get();
+        $grupo_herramienta = GrupoHerramienta::get();
+        //dd($grupo_herramienta);
+        return view('mantenimiento.grupotarea.create', compact('tipoequipo',
+        'grupo_herramienta'));
     }
 
     /**
@@ -30,7 +36,10 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datostarea = $request->input('odt');
+
+        $tipo_eq =
+        dd();
     }
 
     /**
@@ -63,5 +72,20 @@ class TareaController extends Controller
     public function destroy(Tarea $tarea)
     {
         //
+    }
+
+    public function hasEquipo(Request $request){
+
+        if (isset($request->texto)){
+            $equipos = Equipo::where('id_subsistema',$request->texto)->get();
+            return response()->json([
+                'lista' => $equipos,
+                'success' => true
+            ]);
+        }else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
     }
 }

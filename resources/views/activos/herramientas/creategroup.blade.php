@@ -56,16 +56,16 @@
                               </div>
                             </div>
                           </div>
-                        </div>        
+                        </div>
                             </div>
 
 
                         </div>
 
-                        
+
                         <div class="form-group mt-3">
                             <label for="nombre_grupo">Nombre del grupo para las herramientas</label>
-                            <input type="text" name="nombre_grupo" class="form-control" id="nombre_grupo" placeholder="nombre" value="{{old('nombre_grupo', $grupo->nombre_grupo ?? '')}}">
+                            <input type="text" name="nombre_grupo" class="form-control" id="nombre_grupo" placeholder="nombre">
                         </div>
                         <div class="form-group pt-2">
                             <a href="{{route('herramientas.index')}}" class="btn btn-dark">Volver</a>
