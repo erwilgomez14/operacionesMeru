@@ -99,7 +99,6 @@ class OrdenTrabajoController extends Controller
     public function store(Request $request)
     {
         $datosodt = $request->input('odt');
-        //dd($datosodt);
         $odt = new OrdenTrabajo;
 
 
@@ -110,30 +109,21 @@ class OrdenTrabajoController extends Controller
         $odt->id_tipo_ot = $datosodt['id_tipo_orden'];
         $odt->id_prioridad = $datosodt['id_prioridad'];
         $odt->dias = $datosodt['dias'];
-       // $odt->hora = $datosodt['hora'];
         $odt->fecha = Carbon::now()->toDateString();
         $odt->fecha_inicio = $datosodt['fecha_inicio'];
         //dd($odt->fecha_inicio);
         $odt->fecha_final = $datosodt['fecha_final'];
         $odt->observacion = $datosodt['observacion'];
-     //   dd($odt);
+
 
         $odt->save();
-       //dd($odt);
 
-        //$data = ;
-       // dd($request->input('data'));
-        //dd($request);
         $datosmanoobra = $request->input('data');
-        //$userIds = [];
+
 
         foreach ($datosmanoobra as $dato) {
 
-            /*//$obrero = User::where('cedula', $dato['cedula'])->first(); // Obtener el usuario a partir de la cédula
 
-            if ($obrero) {
-                $userIds[] = $obrero->cedula; // Agregar el ID del usuario a un array
-            }*/
 
             $obreros = OdtUsuario::create([
                 'id_orden' => $odt->id_orden,
@@ -142,14 +132,7 @@ class OrdenTrabajoController extends Controller
 
         }
 
-        //dd($userIds);
 
-        //$odt->obreros()->attach($userIds);
-
-        //$odtobrero = OdtUsuario::all();
-        //dd($odtobrero);
-
-        /*return redirect()->route('ordentrabajo.index')->with('status', 'orden de trabajo creada satisfactoriamente');*/
         return response()->json(['success' => true, 'odt' => $odt]);
     }
 
@@ -166,6 +149,8 @@ class OrdenTrabajoController extends Controller
         $obreros = OdtUsuario::where('id_orden', $ordenTrabajo)->get();
         //dd($obreros);
         $equipos = Equipo::where('id_subsistema', $registro->id_subsistema)->get();
+        //$tareas = Equipo::where('id_tipo_eq', $equipos->id_tipo_eq)->get();
+        dd($equipos);
         $acueducto = Acueductos::findOrFail($registro->id_acueducto);
         $area = Sistema::findOrFail($registro->id_sistema);
         $equipo = Subsistema::findOrFail($registro->id_subsistema);

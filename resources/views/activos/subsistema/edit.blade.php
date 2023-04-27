@@ -22,16 +22,16 @@
                             $(".alert").alert();
                         </script>
                     @endif
-                    <form method="POST" action="{{route('subsistemas.store')}}">
+                    <form method="POST" action="{{route('subsistemas.update', $subsistema)}}">
                         @csrf
-                        <h2 class="tittle"> Creacion de SubSistema</h2>
+                        @method('PUT')
+                        <h2 class="tittle"> Edicion del SubSistema Nº : {{$subsistema->id_subsistema}}</h2>
 
                         <div class="form-group">
                             <label for="id_sistema">Sistema</label>
                             <select class="custom-select" name="id_sistema" aria-label="">
-                                <option selected id="id_sistema" disabled>Selecionar Sistema</option>
                                 @foreach($sistemas as $sistema)
-                                    <option value="{{$sistema->id_sistema}}">{{$sistema->nom_sistema}}</option>
+                                    <option value="{{ $sistema->id_sistema }}" @if($sistema->id_sistema == $subsistema->id_sistema) selected @endif>{{ $sistema->nom_sistema }}</option>
                                 @endforeach
                             </select>
                         </div>

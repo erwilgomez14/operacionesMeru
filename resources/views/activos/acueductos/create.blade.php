@@ -44,11 +44,6 @@
 
 
                         <div class="form-group">
-                            <label for="id_acueducto">ID del Acueducto:</label>
-                            <input type="text" name="id_acueducto" class="form-control" id="id_acueducto" placeholder="id del acueducto" value="{{old('id_acueducto', $acueducto->id_acueducto ?? '')}}">
-                        </div>
-
-                        <div class="form-group">
                             <label for="nom_acu">Nombre:</label>
                             <input type="text" name="nom_acu" class="form-control" id="nom_acu" placeholder="nombre..." value="{{old('nom_acu', $acueducto->nombre ?? '')}}">
                         </div>

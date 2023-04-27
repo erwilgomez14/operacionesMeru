@@ -1,5 +1,10 @@
 @extends('panel.layouts.page')
 
+@section('styles')
+{{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@endsection
+
 @section('content')
     <div class="row layout-top-spacing">
 
@@ -156,21 +161,34 @@
                 body: JSON.stringify({ data: datos,
                     odt})
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error al guardar la tarea');
+                    }
+                })
                 .then(data => {
-                    const odtNumber = data.odt.id_orden;
+                    const odtNumber = data.tra.id_tareas;
                     Swal.fire({
                         title: '¡Éxito!',
-                        text: `Orden de trabajo creada satisfactoriamente. Número de orden: ${odtNumber}`,
+                        text: `Tarea Nº: ${odtNumber} creada satisfactoriamente.`,
                         icon: 'success'
                     }).then((result) => {
-                        // Redirigir a la ruta
+                        // Redirigir a la ruta si se hizo clic en OK
                         if (result.isConfirmed) {
-                            window.location.href = '{{route('ordentrabajo.index')}}';
+                            window.location.href = '{{route('grupotareas.index')}}';
                         }
                     });
                 })
-                .catch(error => console.error(error));
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudo guardar la tarea',
+                        icon: 'error'
+                    });
+                });
         }
         btnAgregar.addEventListener('click', agregarOpcion);
         btnGuardar.addEventListener('click', guardarOpcion);

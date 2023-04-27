@@ -6,6 +6,7 @@ use App\Models\Equipo;
 use App\Models\GrupoHerramienta;
 use App\Models\Subsistema;
 use App\Models\Tarea;
+use App\Models\TareaGrupoHerramienta;
 use App\Models\TipoEquipo;
 use Illuminate\Http\Request;
 
@@ -38,8 +39,29 @@ class TareaController extends Controller
     {
         $datostarea = $request->input('odt');
 
-        $tipo_eq =
-        dd();
+        $tra = new Tarea;
+        $tra->tarea = $datostarea['tarea'];
+
+
+        $equipo = Equipo::where('id_equipo',$datostarea['id_equipo'] )->first();
+
+        $tra->id_tipo_eq = $equipo->id_tipo_eq;
+
+        $tra->save();
+        //dd($tra);
+        $tareagrupoherr = $request->input('data');
+
+        foreach ($tareagrupoherr as $dato) {
+            //dd($dato);
+            $tgh = TareaGrupoHerramienta::create([
+            'id_tarea' => $tra->id_tareas,
+            'id_grupo_herramienta' => $dato['id'],
+            ]);
+        }
+
+
+        return response()->json(['success' => true, 'tra' => $tra], 200);
+
     }
 
     /**

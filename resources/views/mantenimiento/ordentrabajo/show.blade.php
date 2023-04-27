@@ -86,6 +86,29 @@
                                 </tbody>
                             </table>
 
+                            <table class="table mt-3">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>Descripcion</th>
+                                    <th>tareas</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h4 class="text-center mt-4">Herramientas asignadas al conjuntos de tareas del subsistema</h4>
+                                @foreach ($equipos as $equipo)
+                                    <tr>
+                                        <td>{{ $equipo->desc_equipo }}</td>
+                                        <td>
+                                            @foreach ($equipo->tareas as $tarea)
+                                                {{ $tarea->tarea }}<br>
+                                            @endforeach
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
 
                             <div class="card-footer">
 

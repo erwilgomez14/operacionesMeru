@@ -33,7 +33,30 @@ class SubsistemaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'id_subsistema' => 'required|unique:ope_subsistema',
+            'id_sistema' => 'required',
+            'nombre_subsistema' => 'required',
+            'desc_subsistema' => 'required',
+            'capacidad_subsistema' => 'required|numeric',
+        ]);
+
+        $id_subsistema = $request->id_subsistema;
+        $partes = explode("-",$id_subsistema);
+        $postec = end($partes);
+
+        $subsistema = new Subsistema;
+        $subsistema->id_subsistema = $id_subsistema;
+        $subsistema->id_sistema = $request->id_sistema;
+        $subsistema->nombre_subsistema = $request->nombre_subsistema;
+        $subsistema->desc_subsistema = $request->desc_subsistema;
+        $subsistema->posicion_tecnica = substr($postec, 0, 3);
+        $subsistema->capacidad_subsistema = $request->capacidad_subsistema;
+        $subsistema->observacion = $request->observacion;
+
+        $subsistema->save();
+
+        return redirect()->route('subsistemas.index')->with('status', 'Subsistema: '.$subsistema->nombre_subsistema.' creado correctamente');
     }
 
     /**
@@ -41,7 +64,9 @@ class SubsistemaController extends Controller
      */
     public function show(Subsistema $subsistema)
     {
-        //
+        //dd($subsistema->sistemas);
+
+        return view('activos.subsistema.show', compact('subsistema'));
     }
 
     /**
@@ -49,7 +74,11 @@ class SubsistemaController extends Controller
      */
     public function edit(Subsistema $subsistema)
     {
-        //
+
+        $sistemas = Sistema::all();
+
+        return view('activos.subsistema.edit', compact('subsistema',
+        'sistemas'));
     }
 
     /**
@@ -57,7 +86,29 @@ class SubsistemaController extends Controller
      */
     public function update(Request $request, Subsistema $subsistema)
     {
-        //
+        $request->validate([
+            'id_sistema' => 'required',
+            'nombre_subsistema' => 'required',
+            'desc_subsistema' => 'required',
+            'capacidad_subsistema' => 'required|numeric',
+        ]);
+
+        $id_subsistema = $request->id_subsistema;
+        $partes = explode("-",$id_subsistema);
+        $postec = end($partes);
+
+        $subsistema->id_subsistema = $id_subsistema;
+        $subsistema->id_sistema = $request->id_sistema;
+        $subsistema->nombre_subsistema = $request->nombre_subsistema;
+        $subsistema->desc_subsistema = $request->desc_subsistema;
+        $subsistema->posicion_tecnica = substr($postec, 0, 3);
+        $subsistema->capacidad_subsistema = $request->capacidad_subsistema;
+        $subsistema->observacion = $request->observacion;
+
+        $subsistema->save();
+
+        return redirect()->route('subsistemas.index')->with('status', 'Subsistema: '.$subsistema->nombre_subsistema.' actualizado correctamente');
+        dd($request);
     }
 
     /**

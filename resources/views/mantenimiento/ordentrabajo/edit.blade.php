@@ -145,6 +145,7 @@
                                     <th >Nombre </th>
                                     <th >Cedula </th>
                                     <th >Cargo </th>
+                                    <th >Accion </th>
 
                                 </tr>
                                 </thead>
@@ -154,7 +155,9 @@
                                         <td>{{ $obrero->obreros->nombre }}</td>
                                         <td>{{ $obrero->cedula }}</td>
                                         <td>{{ $obrero->obreros->cargo }}</td>
-
+                                        <td>
+                                            <button class="btn btn-danger btn-sm eliminar-fila" data-cedula="{{ $obrero->cedula }}">Eliminar</button>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -165,7 +168,7 @@
                             <input type="text" name="observacion" id="observacion" class="form-control" value="{{old('observacion', $orden->observacion ?? '')}}">
                         </div>
                         <div class="form-group pt-2">
-                            <a href="{{ route('acueductos.index') }}" class="btn btn-dark">Volver</a>
+                            <a href="{{ route('ordentrabajo.index') }}" class="btn btn-dark">Volver</a>
                             <input class="btn btn-primary" {{--type="submit"--}} id="btn-guardar" value="Guardar">
                         </div>
                     </form>
@@ -280,38 +283,7 @@
                     tablaTareas.appendChild(tr);
                     id++;
                 });
-                // const tareas = data.tarea;
-                // const listado = document.getElementById('listadotareas');
-                //console.log(listaUsuarios);
-                /*for (){
-                    var li = document.createElement('li');
-                    li.textContent = tarea.tarea;
-                    listado.appendChild(li);
-                }*/
-                /*tareas.forEach(tarea=> {
-                    const li = document.createElement('li');
-                    li.textContent = data.tarea.tarea;
-                    listaUsuarios.appendChild(li);
-                });*/
-                // const fragmento = document.createDocumentFragment();
-                // data.tarea.forEach(tarea => {
-                //     const tr = document.createElement('tr');
-                //     //const li = document.createElement('li');
-                //     const tdId = document.createElement('td');
-                //     const tdTarea = document.createElement('td');
-                //
-                //     tdTarea.textContent = tarea.tarea;
-                //     tdId.textContent = tarea.
-                //     //li.textContent = tarea.tarea;
-                //     fragmento.appendChild(li);
-                // });
-                // console.log(fragmento);
-                /*for (let i in tareas) {
-                    listatareas = '<li>' + tareas[i]
-                        .tarea + '</li>';
-                }*/
-                // listado.appendChild(fragmento);
-                // document.getElementById("listadotareas").innerHTML = listatareas;
+
             }).catch(error => console.error(error));
         })
 
@@ -323,27 +295,45 @@
         let datos = [];
         let form = document.getElementById('formulario');
 
+        function eliminarManoObra(event) {
+            const fila = event.target.closest('tr'); // Obtener la fila correspondiente al botón de eliminar
+            fila.remove(); // Eliminar la fila de la tabla
+        }
         function agregarOpcion() {
             const tr = document.createElement('tr');
             const tdUsuario = document.createElement('td');
             const tdUsuarioCedula = document.createElement('td');
+            const tdEliminar = document.createElement('td');
             tdUsuario.textContent = selectUsuario.options[selectUsuario.selectedIndex].text;
             tdUsuarioCedula.textContent = selectUsuario.options[selectUsuario.selectedIndex].value;
+            const botonEliminar = document.createElement('button');
+            botonEliminar.textContent = 'Eliminar';
+            botonEliminar.classList.add('eliminar');
+            botonEliminar.addEventListener('click', function() {
+                tr.remove(); // elimina la fila correspondiente
+                actualizarDatos();
+
+            });
+            tdEliminar.appendChild(botonEliminar);
             tr.appendChild(tdUsuario);
             tr.appendChild(tdUsuarioCedula);
+            tr.appendChild(tdEliminar);
             tablaOpciones.appendChild(tr);
 
+            actualizarDatos();
+
+
+        }
+        function actualizarDatos() {
             const filas = tablaOpciones.getElementsByTagName('tr');
             datos = Array.from(filas).map(fila => {
                 const celdas = fila.getElementsByTagName('td');
                 return {
                     cedula: celdas[1].textContent,
-                    /*nombre: celdas[0].textContent*/
                 }
             });
-            console.log(tablaOpciones)
+            console.log(tablaOpciones);
             console.log(datos);
-
         }
 
         function guardarOpcion(event){

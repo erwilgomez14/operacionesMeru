@@ -25,13 +25,8 @@
                     <form method="POST" action="{{route('acueductos.update', $acueducto)}}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf()
-                        <h2 class="tittle"> Edicion de acueducto</h2>
+                        <h2 class="tittle"> Edicion del acueducto Nº: {{$acueducto->id_acueducto}}</h2>
 
-
-                        <div class="form-group">
-                            <label for="id_acueducto">ID del Acueducto:</label>
-                            <input type="text" name="id_acueducto" class="form-control" id="id_acueducto" placeholder="id del acueducto" value="{{old('id_acueducto', $acueducto->id_acueducto ?? '')}}">
-                        </div>
 
                         <div class="form-group">
                             <label for="nom_acu">Nombre:</label>
@@ -64,7 +59,7 @@
                         <div class="form-group">
                             <label for="id_gerencia">Gerencia</label>
                             <select class="custom-select" name="id_gerencia" aria-label="">
-                                <option selected disabled value="{{$acueducto->id_gerencia}}" >{{old('id_gerencia', $acueducto->sistemas->nom_sistema ?? 'Selecionar Gerencia')}}</option>
+                                <option selected disabled value="{{$acueducto->id_gerencia}}" >{{old('id_gerencia', $acueducto->gerencias->nombre_gerencia ?? 'Selecionar Gerencia')}}</option>
                                 @foreach($gerencias as $gerencia)
                                     <option value="{{$gerencia->id_gerencia}}">{{$gerencia->nombre_gerencia}}</option>
                                 @endforeach

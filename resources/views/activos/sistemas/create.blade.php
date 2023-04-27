@@ -42,15 +42,9 @@
                         @csrf
                         <h2 class="tittle"> Creacion de Sistema</h2>
 
-
-                        <div class="form-group">
-                            <label for="id_sistema">ID del Sistema:</label>
-                            <input type="text" name="id_sistema" class="form-control" id="id_sistema" placeholder="id del sistema" value="{{old('id_sistema', $sistema->id_sistema ?? '')}}">
-                        </div>
-
                         <div class="form-group">
                             <label for="id_acueducto">Acueducto:</label>
-                            <select class="custom-select" name="id_acueducto" aria-label="">
+                            <select class="custom-select" name="id_acueducto" id="id_acueducto" aria-label="">
                                 <option selected>Selecionar Acueducto</option>
                                 @foreach($acueductos as $acueducto)
                                     <option value="{{$acueducto->id_acueducto}}">{{$acueducto->nom_acu}}</option>
@@ -58,6 +52,12 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="id_sistema">ID del Sistema:</label>
+                            <input type="text" name="id_sistema" class="form-control" id="id_sistema" placeholder="id del sistema" value="{{old('id_sistema', $sistema->id_sistema ?? '')}}">
+                        </div>
+
+
                         <div class="form-group">
                             <label for="nom_sistema">Nombre:</label>
                             <input type="text" name="nom_sistema"class="form-control" id="nom_sistema" placeholder="nombre sistema" value="{{old('nom_sistema', $sistema->nom_sistema ?? '')}}">
@@ -128,6 +128,14 @@
 
 
 @section('scripts')
+    <script>
+        var acueducto_select = document.getElementById("id_acueducto");
+        var id_sistema_input = document.getElementById("id_sistema");
 
+        acueducto_select.addEventListener("change", function() {
+            var selected_option = acueducto_select.options[acueducto_select.selectedIndex].value;
+            id_sistema_input.value = selected_option+'-';
+        });
+    </script>
 @endsection
 
