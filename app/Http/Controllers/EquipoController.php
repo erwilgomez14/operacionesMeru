@@ -24,7 +24,15 @@ class EquipoController extends Controller
 
         return view('activos.equipos.page', compact('equipos'));
     }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function createtipoeq()
+    {
 
+        $tipos_eq = TipoEquipo::all();
+        return view('activos.equipos.createtipoeq', compact('tipos_eq'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -115,6 +123,32 @@ class EquipoController extends Controller
         $equipo->save();
 
         return redirect()->route('equipos.index')->with('status','Equipo Creado satisfactoriamente');
+    }
+
+    public function storetipoeq(Request $request)
+    {
+        $request->validate([
+            'nombre_tipoeq' => 'required|max:6|unique:ope_tipo_eq,nombre_tipeq',
+            'descripcion_tieq' => 'required|max:150',
+        ]);
+        $tipo_eq = new TipoEquipo;
+
+        $primer_tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'asc')->first();
+        $tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'desc')->first();
+        $nuevoid = $tipos_equipos->id_tipo_eq + 1;
+        $nuevoidstr = str_pad($nuevoid, 4, '0', STR_PAD_LEFT);
+
+        if($primer_tipos_equipos->id_tipo_eq == null){
+            $tipo_eq->id_tipo_eq = '0001';
+        }
+        $tipo_eq->id_tipo_eq = $nuevoidstr;
+        $tipo_eq->nombre_tipeq = $request->nombre_tipoeq;
+        $tipo_eq->descripcion_tieq = $request->descripcion_tieq;
+
+        $tipo_eq->save();
+
+        return redirect()->route('equipos.index')->with('status','Grupo de equipo Creado satisfactoriamente');
+
     }
 
     /**

@@ -109,6 +109,7 @@
 
                                 <a href="{{route('mantenimientopreventivo.index')}}" class="btn btn-primary">Volver al calendario</a>
                                 <a href="{{route('ordentrabajo.pdf', $registro->id_orden)}}" class="btn btn-primary" target="_blank">Imprimir orden</a>
+                                <a href="{{route('ordentrabajo.pdfff')}}" class="btn btn-primary" target="_blank">Imprimir orde1n</a>
                             </div>
                         </div>
 

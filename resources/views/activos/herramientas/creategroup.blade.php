@@ -28,7 +28,6 @@
                         <div class="row">
                             <div class="col-md-9">
                         <h2 class="tittle"> Creacion del grupo para las Herramientas</h2>
-
                             </div>
                             <div class="col-md-3">
                         <button type="button" class="btn btn-custom float-right" data-toggle="modal" data-target="#gruposModal">

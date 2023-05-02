@@ -13,6 +13,7 @@
                         </div>
                         <div class="col-md-6">
                             <a href="{{route('equipos.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Equipo</a>
+                            <a href="{{route('equipos.createtipoeq')}}" class="btn btn-custom btn-lg float-md-right mr-2" role="button" aria-pressed="true">Crear Tipo de Equipo</a>
                         </div>
                     </div>
                     <table class="table mt-3">

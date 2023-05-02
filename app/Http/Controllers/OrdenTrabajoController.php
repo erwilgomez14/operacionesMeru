@@ -16,6 +16,7 @@ use App\Models\PrioridadOrdenTrabajo;
 use App\Models\Equipo;
 use App\Models\User;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Pdf\OrdendetrabajoPDF;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -33,6 +34,14 @@ class OrdenTrabajoController extends Controller
     }
 
 
+    public function  pdfff(){
+        $dompdf = new Dompdf();
+        $html = view('mantenimiento.ordentrabajo.pdf')->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream();
+    }
     public function pdf($ordenTrabajo){
 
         $odt = OrdenTrabajo::where('id_orden',$ordenTrabajo)->first();

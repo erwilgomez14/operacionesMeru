@@ -7,108 +7,73 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container-fluid">
-    <table class="table table-striped ">
-        <thead class="">
-         <td>
-        <h1 class="text-center">Orden de trabajo Nº: {{$odt->id_orden}}</h1>
-    </td>
+<div class="card-header">
+    <h2 class="">Orden de trabajo Nº: {{--{{$registro->id_orden}}--}}</h2>
+
+</div>
+<div class="card-body">
+
+    <h4>Descripcion: {{--{{$registro->descrip_ot}}--}}</h4>
+    <h4>Acueducto: {{--{{$acueducto->nom_acu}}--}}</h4>
+    <h4>Area/estacion: {{--{{$area->nom_sistema}}--}}</h4>
+    <h4>Equipo: {{--{{$equipo->nombre_subsistema}}--}}</h4>
+    <h4>Tipo de Orden: {{--{{$tipo->desc_orden}}--}}</h4>
+    <h4>Fecha de creacion de la orden: {{--{{$registro->fecha}}--}}</h4>
+    <h4>Fecha de inicio programada: {{--{{$registro->fecha_inicio}}--}}</h4>
+    <h4>Fecha final programda: {{--{{$registro->fecha_final}}--}}</h4>
+    <h4>Duracion: {{--{{$registro->dias}}--}} dias</h4>
+
+
+    <table class="table mt-3">
+        <thead class="thead-dark">
+        <tr>
+            <th>Cedula</th>
+            <th>Nombre</th>
+        </tr>
         </thead>
         <tbody>
-          ...
-          <tr>
-            <td colspan="4">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="width: 70%; border: 1px solid black; padding: 5px;">
-                        <h3 class="ml-3">Descripcion de la orden: {{$odt->descrip_ot}}</h3>
-                      </td>
-                      <td style="border: 1px solid black; padding: 5px;">
-                        <h3 class="ml-3">Fecha de creacion: {{$odt->fecha}}</h3>
-                      </td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="width: 30%; border: 1px solid black; padding: 5px;">
-                      </td>
-                      <td style="border: 1px solid black; padding: 5px;">
-                        <h3 class="ml-3">Fecha de creacion: {{$odt->fecha}}</h3>
-                      </td>
-                    </tr>
-                </table>
-            </td>
-          </tr>
-          ...
+        <h4 class="text-center mt-4">Datos de la mano de obra</h4>
+
         </tbody>
-      </table>
-
-      <table style="width: 100%; border-collapse: collapse;">
+    </table>
+    <table class="table mt-3">
+        <thead class="thead-dark">
         <tr>
-          <td rowspan="2" style="width: 30%; border: 1px solid black; padding: 5px;">
-            <td  style="width:30%;">
-                <!-- Aquí va el contenido del primer td -->
-              </td>
-              <td style="width:18%;">Columna 1</td>
-              <td style="width:18%;">Columna 2</td>
-              <td style="width:18%;">Columna 3</td>
-              <td style="width:18%;">Columna 4</td>
-            </tr>
-            <tr>
-              <td>Contenido 1</td>
-              <td>Contenido 2</td>
-              <td>Contenido 3</td>
-              <td>Contenido 4</td>
-            </tr>
-          </td>
-
+            <th>#</th>
+            <th>Descripcion</th>
         </tr>
-      </table>
+        </thead>
+        <tbody>
+        <h4 class="text-center mt-4">Datos del conjuntos de equipos del subsistema</h4>
 
-    <div class="row">
-      <div class="col-12">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Producto 1</td>
-              <td>Descripción del producto 1</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Producto 2</td>
-              <td>Descripción del producto 2</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Producto 3</td>
-              <td>Descripción del producto 3</td>
-              <td>3</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 text-end mt-3">
-        <h5>Total: $100</h5>
-      </div>
-    </div>
-  </div>
+        </tbody>
+    </table>
+
+    <table class="table mt-3">
+        <thead class="thead-dark">
+        <tr>
+            <th>Descripcion</th>
+            <th>tareas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <h4 class="text-center mt-4">Tareas asignadas al conjuntos de equipos del subsistema</h4>
+
+        </tbody>
+    </table>
+
+    <table class="table mt-3">
+        <thead class="thead-dark">
+        <tr>
+            <th>Herramientas</th>
+            <th>tareas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <h4 class="text-center mt-4">Herramientas asignadas al conjuntos de tareas del subsistema</h4>
+
+        </tbody>
+    </table>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>

@@ -36,6 +36,8 @@ Route::prefix('panel')->middleware('auth')->group(function () {
 });
 Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
+    Route::get('equipos/createtipoeq', [EquipoController::class, 'createtipoeq'])->name('equipos.createtipoeq');
+    Route::post('equipos/storetipoeq', [EquipoController::class, 'storetipoeq'])->name('equipos.storetipoeq');
     Route::resource('equipos', EquipoController::class);
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);
@@ -50,6 +52,7 @@ Route::prefix('activos')->middleware('auth')->group(function () {
 });
 
 Route::prefix('mantenimiento')->middleware('auth')->group(function () {
+    Route::get('/ordentrabajo/ordenpdf', [OrdenTrabajoController::class, 'pdfff'])->name('ordentrabajo.pdfff');
     Route::get('/ordentrabajo/{ordentrabajo}/pdf', [OrdenTrabajoController::class, 'pdf'])->name('ordentrabajo.pdf');
     Route::post('/grupotareas/hasEquipo', [TareaController::class, 'hasEquipo']);
     Route::resource('grupotareas', TareaController::class);

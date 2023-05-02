@@ -26,9 +26,9 @@ class OrdenTrabajo extends Model
         'id_sistema'
     ];
 
-    public function acueductos(): HasMany
+    public function acueductos(): HasOne
     {
-        return $this->HasMany(Acueductos::class, 'id_acueducto', 'id_acueducto');
+        return $this->HasOne(Acueductos::class, 'id_acueducto', 'id_acueducto');
     }
 
     public function equipos(): HasOne
@@ -38,10 +38,17 @@ class OrdenTrabajo extends Model
     public function sistemas(): BelongsTo
     {
         return $this->BelongsTo(Sistema::class, 'id_sistema', 'id_sistema');
-    }
+    }public function subsistemas(): HasOne
+{
+    return $this->HasOne(Subsistema::class, 'id_subsistema', 'id_subsistema');
+}
     public function prioridad(): hasOne
     {
         return $this->hasOne(PrioridadOrdenTrabajo::class, 'id_prioridad', 'id_prioridad');
+    }
+    public function tipo(): hasOne
+    {
+        return $this->hasOne(TipoOrdenTrabajo::class, 'id_tipo_ot', 'id_tipo_orden');
     }
 
     public function obreros(): HasMany
