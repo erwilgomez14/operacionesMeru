@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acueductos;
+use App\Models\GrupoHerramienta;
+use App\Models\Herramienta;
 use App\Models\OdtUsuario;
 use App\Models\OrdenTrabajo;
 use App\Models\Sistema;
 use App\Models\Subsistema;
 use App\Models\Tarea;
+use App\Models\TareaGrupoHerramienta;
 use App\Models\TipoOrdenTrabajo;
 use App\Models\PrioridadOrdenTrabajo;
 use App\Models\Equipo;
@@ -149,8 +152,57 @@ class OrdenTrabajoController extends Controller
         $obreros = OdtUsuario::where('id_orden', $ordenTrabajo)->get();
         //dd($obreros);
         $equipos = Equipo::where('id_subsistema', $registro->id_subsistema)->get();
-        //$tareas = Equipo::where('id_tipo_eq', $equipos->id_tipo_eq)->get();
-        dd($equipos);
+//        $tareas = Tarea::where('id_tipo_eq', $equipos->id_tipo_eq)->get();
+        //$tareas = $equipos->tareas();
+        $coleccionEq = array();
+
+        foreach ($equipos as $equipo){
+            $tareas  = $equipo->tareas;
+            foreach ($tareas as $tarea){
+                $col = $tarea->tarea;
+                $col1 =  $tarea->id_tareas;
+                $col3 = $tarea->id_tipo_eq;
+                $nuevoItem = array(
+                    'id_tareas' => $col1,
+                    'tarea' => $col,
+                    'id_tipo_eq' => $col3,
+                );
+                //dd($nuevoItem);
+                array_push($coleccionEq, $nuevoItem);
+            }
+        }
+        $coleccionGrHr = array();
+        foreach ($coleccionEq as $item){
+            $id = $item['id_tareas'];
+            $item1 = TareaGrupoHerramienta::where('id_tarea', $id)->get();
+            foreach ($item1 as $item2){
+                $co = $item2->id_tarea;
+                $co1 =  $item2->id_grupo_herramienta;
+                $coleccionGrEq = array(
+                    'id_tarea' => $co,
+                    'id_grupo_herramienta' => $co1,
+                );
+                array_push($coleccionGrHr, $coleccionGrEq);
+            }
+        }
+        $colecciontahr = array();
+        foreach ($coleccionGrHr as $item3){
+            $grherram = GrupoHerramienta::where('id_grupo_herramienta', $item3['id_grupo_herramienta'])->get();
+            $trname = Tarea::where('id_tareas', $item3['id_tarea'])->get();
+            foreach ($trname as $trana){
+                $nametr = $trana['tarea'];
+            }
+            foreach ($grherram as $grhe){
+                $namegrhe = $grhe['nombre_grupo'];
+            }
+            // Agregamos los nuevos elementos al array
+            $colecciontahr[] = array(
+                'tarea' => $nametr,
+                'nombre_grupo' => $namegrhe,
+            );
+
+        }
+
         $acueducto = Acueductos::findOrFail($registro->id_acueducto);
         $area = Sistema::findOrFail($registro->id_sistema);
         $equipo = Subsistema::findOrFail($registro->id_subsistema);
@@ -163,7 +215,8 @@ class OrdenTrabajoController extends Controller
             'equipo',
             'tipo',
             'obreros',
-            'equipos'));
+            'equipos',
+            'colecciontahr'));
     }
 
     /**
