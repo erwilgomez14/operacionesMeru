@@ -27,15 +27,24 @@
                             @csrf
                             <h2 class="tittle"> Creacion de Equipo</h2>
                             <div class="form-group">
+                                <label for="id_subsistema">Subsistema:</label>
+                                <select class="custom-select" aria-label="" name="id_subsistema" id="id_subsistema">
+                                    <option selected disabled>Selecciona un subsistema</option>
+                                    @foreach($subsistemas as $subsistema)
+                                        <option value="{{$subsistema->id_subsistema}}">{{$subsistema->nombre_subsistema}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="id_equipo">ID de equipo:</label>
                                 <input type="text" name="id_equipo" class="form-control" id="id_equipo" placeholder="id del equipo" value="{{old('id_equipo', $equipo->id_equipo ?? '')}}">
                             </div>
                             <div class="form-group">
-                                <label for="id_subsistema">Subsistema:</label>
-                                <select class="custom-select" aria-label="" name="id_subsistema">
-                                    <option selected>Selecciona un subsistema</option>
-                                    @foreach($subsistemas as $subsistema)
-                                        <option value="{{$subsistema->id_subsistema}}">{{$subsistema->nombre_subsistema}}</option>
+                                <label for="id_tipo_eq">Tipo de equipo:</label>
+                                <select class="custom-select" aria-label="" name="id_tipo_eq">
+                                    <option selected disabled>Selecciona un tipo de equipo</option>
+                                    @foreach($tiposequipos as $tipoequipo)
+                                        <option value="{{$tipoequipo->id_tipo_eq}}">{{$tipoequipo->descripcion_tieq}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -46,10 +55,6 @@
                             <div class="form-group">
                                 <label for="desc_equipo">Descripcion de equipo:</label>
                                 <input type="text" name="desc_equipo" class="form-control" id="desc_equipo" placeholder="serial" value="{{old('desc_equipo', $equipo->desc_equipo ?? '')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="desc_equipo">Serial:</label>
-                                <input type="text" name="desc_equipo" class="form-control" id="desc_equipo" placeholder="descripcion de equipo" value="{{old('desc_equipo', $equipo->desc_equipo ?? '')}}">
                             </div>
                             <div class="form-group">
                                 <label for="potencia">Potencia:</label>
@@ -91,15 +96,7 @@
                                 <label for="rpm">RPM:</label>
                                 <input type="text" name="rpm" class="form-control" id="rpm" placeholder="rpm" value="{{old('rpm', $equipo->rpm ?? '')}}">
                             </div>
-                            <div class="form-group">
-                                <label for="id_tipo_eq">Tipo de equipo:</label>
-                                <select class="custom-select" aria-label="" name="id_tipo_eq">
-                                    <option selected>Selecciona un sistema</option>
-                                    @foreach($tiposequipos as $tipoequipo)
-                                        <option value="{{$tipoequipo->id_tipo_eq}}">{{$tipoequipo->descripcion_tieq}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 <label for="id_estatus">Estatus:</label>
                                 <input type="text" name="id_estatus" class="form-control" id="id_estatus" placeholder="id_estatus" value="{{old('id_estatus', $equipo->id_estatus ?? '')}}">
@@ -294,4 +291,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+        var acueducto_select = document.getElementById("id_subsistema");
+        var id_sistema_input = document.getElementById("id_equipo");
+
+        acueducto_select.addEventListener("change", function() {
+            var selected_option = acueducto_select.options[acueducto_select.selectedIndex].value;
+            id_sistema_input.value = selected_option+'-';
+        });
+    </script>
 @endsection

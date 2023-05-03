@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label for="id_sistema">Tipo de equipo</label>
                             <select class="custom-select" id="id_sistema" name="id_sistema" aria-label="">
-                                <option selected disabled>Selecionar Subsistema</option>
+                                <option selected disabled>Selecionar Tipo de equipo</option>
                                 @foreach($tipoequipo as $tipo)
                                     <option value="{{$tipo->id_subsistema}}">{{$tipo->nombre_subsistema}}</option>
                                 @endforeach

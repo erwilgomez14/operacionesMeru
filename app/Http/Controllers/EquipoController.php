@@ -57,6 +57,22 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'id_equipo' => 'required|unique:ope_equipo,id_equipo',
+            'id_subsistema' => 'required',
+            'desc_equipo' => 'required',
+            
+            'nvecrep' => 'numeric',
+            'permant' => 'string|max:4',
+            
+            'id_tipo_eq' => 'required',
+            'fecha_adquisicion' => 'required|date',
+            'fecha_instalacion' => 'required|date',
+            'num_etapas' => 'numeric'
+
+
+        ]);
+
         $equipo = new Equipo;
 
         $equipo->id_equipo = $request->id_equipo;

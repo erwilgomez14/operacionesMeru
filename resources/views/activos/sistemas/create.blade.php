@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label for="id_acueducto">Acueducto:</label>
                             <select class="custom-select" name="id_acueducto" id="id_acueducto" aria-label="">
-                                <option selected>Selecionar Acueducto</option>
+                                <option selected disabled>Selecionar Acueducto</option>
                                 @foreach($acueductos as $acueducto)
                                     <option value="{{$acueducto->id_acueducto}}">{{$acueducto->nom_acu}}</option>
 
@@ -68,11 +68,11 @@
                         </div>
                         <div class="form-group">
                             <label for="posiciones">Posiciones:</label>
-                            <input type="text" name="posiciones" class="form-control" id="posiciones" placeholder="posiciones" value="{{old('posiciones', $sistema->posiciones ?? '')}}">
+                            <input type="number" name="posiciones" class="form-control" id="posiciones" placeholder="posiciones" value="{{old('posiciones', $sistema->posiciones ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="posicion_necesaria">Posicion Necesaria</label>
-                            <input type="text" name="posicion_necesaria" class="form-control" id="posicion_necesaria" placeholder="Posicion Necesaria" value="{{old('posicion_necesaria', $sistema->posicion_necesaria ?? '')}}">
+                            <input type="number" name="posicion_necesaria" class="form-control" id="posicion_necesaria" placeholder="Posicion Necesaria" value="{{old('posicion_necesaria', $sistema->posicion_necesaria ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="id_area">Area</label>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group">
                             <label for="capacidad_sistema">Capacidad de Sistema</label>
-                            <input type="text" name="capacidad_sistema" class="form-control" id="capacidad_sistema" placeholder="Capacidad de Sistema" value="{{old('capacidad_sistema', $sistema->capacidad_sistema ?? '')}}">
+                            <input type="number" name="capacidad_sistema" class="form-control" id="capacidad_sistema" placeholder="Capacidad de Sistema" value="{{old('capacidad_sistema', $sistema->capacidad_sistema ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="georeferencia">Georeferencia</label>

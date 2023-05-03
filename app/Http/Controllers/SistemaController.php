@@ -44,13 +44,21 @@ class SistemaController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'id_sistema' => 'required|unique:ope_sistema,id_sistema',
+            'id_acueducto' => 'required',
+            'desc_sistema' => 'max:150',
+            'posiciones' => 'numeric',
+            'posiciones' => 'numeric',
+            'posicion_necesaria' => 'numeric',
+            'capacidad_sistema' => 'numeric',
+        ]);
+
         $sistema = new Sistema;
         $sistema->id_sistema = $request->id_sistema;
-        if($request->id_acueducto == 'Selecionar Acueducto'){
-            $sistema->id_acueducto = null;
-        }else {
-            $sistema->id_acueducto = $request->id_acueducto;
-        }
+        
+        $sistema->id_acueducto = $request->id_acueducto;
+        
         $sistema->nom_sistema = $request->nom_sistema;
         $sistema->desc_sistema = $request->desc_sistema;
         $sistema->posiciones = $request->posiciones;
@@ -75,7 +83,7 @@ class SistemaController extends Controller
 
         $sistema->save();
 
-        return view('activos.sistemas.page')->with('status', 'Sistema creado satisfactoriamente');
+        return redirect()->route('sistemas.index')->with('status', 'Sistema creado satisfactoriamente');
 
 
     }
