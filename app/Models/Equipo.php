@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -44,5 +45,8 @@ class Equipo extends Model
     {
         return $this->HasMany(Tarea::class, 'id_tipo_eq', 'id_tipo_eq');
     }
-
+    public function tareasPDD(): BelongsTo
+    {
+        return $this->BelongsTo(Tarea::class, 'id_tipo_eq', 'id_tipo_eq');
+    }
 }

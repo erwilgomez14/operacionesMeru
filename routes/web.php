@@ -25,7 +25,7 @@ use \App\Http\Controllers\HerramientaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 Route::prefix('panel')->middleware('auth')->group(function () {
     Route::resource('', PanelController::class);

@@ -108,8 +108,8 @@
                             <div class="card-footer">
 
                                 <a href="{{route('mantenimientopreventivo.index')}}" class="btn btn-primary">Volver al calendario</a>
-                                <a href="{{route('ordentrabajo.pdf', $registro->id_orden)}}" class="btn btn-primary" target="_blank">Imprimir orden</a>
-                                <a href="{{route('ordentrabajo.pdfff')}}" class="btn btn-primary" target="_blank">Imprimir orde1n</a>
+                                <a href="{{route('ordentrabajo.pdf', $registro->id_orden)}}" class="btn btn-dark" target="_blank">Imprimir orden</a>
+                                <a href="{{route('ordentrabajo.index')}}" class="btn btn-custom" target="_blank">Volver al listado</a>
                             </div>
                         </div>
 

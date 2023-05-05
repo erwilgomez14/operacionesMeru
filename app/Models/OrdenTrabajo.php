@@ -46,9 +46,9 @@ class OrdenTrabajo extends Model
     {
         return $this->hasOne(PrioridadOrdenTrabajo::class, 'id_prioridad', 'id_prioridad');
     }
-    public function tipo(): hasOne
+    public function tipo(): BelongsTo
     {
-        return $this->hasOne(TipoOrdenTrabajo::class, 'id_tipo_ot', 'id_tipo_orden');
+        return $this->BelongsTo(TipoOrdenTrabajo::class, 'id_tipo_ot', 'id_tipo_orden');
     }
 
     public function obreros(): HasMany

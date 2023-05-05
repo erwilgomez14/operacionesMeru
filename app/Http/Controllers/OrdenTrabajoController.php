@@ -163,6 +163,7 @@ class OrdenTrabajoController extends Controller
         $equipos = Equipo::where('id_subsistema', $registro->id_subsistema)->get();
 //        $tareas = Tarea::where('id_tipo_eq', $equipos->id_tipo_eq)->get();
         //$tareas = $equipos->tareas();
+
         $coleccionEq = array();
 
         foreach ($equipos as $equipo){

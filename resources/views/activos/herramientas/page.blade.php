@@ -31,9 +31,9 @@
                         <div class="col-md-6">
                             <h4>Bienvenido al listado de Herramientas de Meru Operaciones</h4>
                         </div>
-                        <div class="col-md-6">
-                            <a href="{{route('herramientas.creategroup')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear grupo de Heramienta</a>
-                            <a href="{{route('herramientas.create')}}" class="btn btn-secondary btn-lg float-md-right mt-3" role="button" aria-pressed="true">Crear Heramienta </a>
+                        <div class="col-md-6 float-left">
+                            <a href="{{route('herramientas.creategroup')}}" class="btn btn-primary btn-lg " role="button" aria-pressed="true">Crear grupo de Heramienta</a>
+                            <a href="{{route('herramientas.create')}}" class="btn btn-secondary btn-lg " role="button" aria-pressed="true">Crear Heramienta </a>
                         </div>
 
 
