@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permiso', function (Blueprint $table) {
-            $table->id()->comment('Id de los permisos');
-            $table->string('nombre')->comment('Nombre del permisos');
-            $table->string('slug')->comment('Nombre de la ruta');  
+        Schema::create('rol', function (Blueprint $table) {
+            $table->id()->comment('Id de los roles');
+            $table->string('nombre')->comment('Nombre del rol');
+            $table->string('slug')->comment('Nombre de la ruta');            
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permiso');
+        Schema::dropIfExists('rol');
     }
 };

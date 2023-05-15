@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permiso', function (Blueprint $table) {
-            $table->id()->comment('Id de los permisos');
-            $table->string('nombre')->comment('Nombre del permisos');
-            $table->string('slug')->comment('Nombre de la ruta');  
-            $table->timestamps();
+        Schema::create('ope_tipo_sistema', function (Blueprint $table) {
+            $table->string('id_tipo_sistema', 2)->primary()->nullable()->comment('Clave primaria de la tabla');
+            $table->string('descripcion_tipo',5)->nullable(true)->comment('Descripcion del Tipo de Sistema');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permiso');
+        Schema::dropIfExists('ope_tipo_sistema');
     }
 };

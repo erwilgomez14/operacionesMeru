@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ope_odt_usuario', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_odt');
-            $table->string('cedula');
+            $table->unsignedBigInteger('id_orden')->comment('Indicador de la tabla ope_orden_trabajo');
+            $table->string('cedula')->comment('Indicador de la tabla ope_usuario');
 
-            $table->foreign('id_odt')->references('id_orden')->on('ope_orden_trabajo');
-            $table->foreign('cedula')->references('cedula')->on('ope_usuario');
+           // $table->foreign('id_odt')->references('id_orden')->on('ope_orden_trabajo');
+            //$table->foreign('cedula')->references('cedula')->on('ope_usuario');
         });
     }
 

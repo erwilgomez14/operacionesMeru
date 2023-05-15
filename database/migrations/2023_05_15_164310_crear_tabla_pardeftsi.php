@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rol', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->string('slug');            
-            $table->timestamps();
+        Schema::create('pardeftsi', function (Blueprint $table) {
+            $table->string('id_pardeftsi', 1)->primary()->nullable()->comment('Clave primaria de la tabla');
+            $table->string('nombre_partsi', 50)->nullable(true)->comment('Nombre del Tipo de Sistema');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rol');
+        Schema::dropIfExists('pardeftsi');
     }
 };

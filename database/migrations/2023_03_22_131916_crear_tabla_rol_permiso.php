@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rol_permiso', function (Blueprint $table) {
-            $table->unsignedBigInteger('rol_id');
-            $table->unsignedBigInteger('permiso_id');
+            $table->unsignedBigInteger('rol_id')->comment('Id de los roles');
+            $table->unsignedBigInteger('permiso_id')->comment('Id de los permisos');
 
-            $table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
-            $table->foreign('permiso_id')->references('id')->on('permiso')->onDelete('cascade');
+           // $table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
+            //$table->foreign('permiso_id')->references('id')->on('permiso')->onDelete('cascade');
 
             $table->primary(['rol_id','permiso_id']);
         });

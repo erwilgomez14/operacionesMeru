@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuario_permiso', function (Blueprint $table) {
-            $table->string('cedula');
-            $table->unsignedBigInteger('permiso_id');
+            $table->string('cedula')->comment('Cedula de los usuarios');
+            $table->unsignedBigInteger('permiso_id')->comment('Id de los permisos');
 
-            $table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
-            $table->foreign('permiso_id')->references('id')->on('permiso')->onDelete('cascade');
+            //$table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
+            //$table->foreign('permiso_id')->references('id')->on('permiso')->onDelete('cascade');
 
             $table->primary(['cedula','permiso_id']);
         });

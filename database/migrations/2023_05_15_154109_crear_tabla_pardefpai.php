@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permiso', function (Blueprint $table) {
-            $table->id()->comment('Id de los permisos');
-            $table->string('nombre')->comment('Nombre del permisos');
-            $table->string('slug')->comment('Nombre de la ruta');  
-            $table->timestamps();
+        Schema::create('pardefpai', function (Blueprint $table) {
+            $table->string('codpai', 2)->primary()->nullable()->comment('Código de País');
+            $table->string('nompai', 50)->nullable(false)->comment('Nombre del país');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permiso');
+        Schema::dropIfExists('pardefpai');
     }
 };

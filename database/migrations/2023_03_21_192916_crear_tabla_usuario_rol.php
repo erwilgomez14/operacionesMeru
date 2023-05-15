@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuario_rol', function (Blueprint $table) {
-            $table->string('cedula');
-            $table->unsignedBigInteger('rol_id');
+            $table->string('cedula')->comment('Identificador de la tabla ope_usuario');
+            $table->unsignedBigInteger('rol_id')->comment('Identificador de la tabla rol');
 
-            $table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
-            $table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
+            //$table->foreign('cedula')->references('cedula')->on('ope_usuario')->onDelete('cascade');
+            //$table->foreign('rol_id')->references('id')->on('rol')->onDelete('cascade');
 
             $table->primary(['cedula','rol_id']);
         });
