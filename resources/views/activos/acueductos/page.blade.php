@@ -92,6 +92,9 @@
                                                     </form>
 
                                                 </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                 </td>
                             </tr>
                         @endforeach
