@@ -1,14 +1,17 @@
-<div class="sidebar-wrapper sidebar-theme">
+@php
+    $usuario = Auth::user();
+@endphp
+<div class="sidebar-wrapper sidebar-theme" style="background-color: {{ $usuario->cedula == '18900129' ? 'rgba(255, 192, 203, 0.5)' : 'transparent' }};">
 
-    <nav id="sidebar">
-        <div class="profile-info">
+    <nav id="sidebar" >
+        <div class="profile-info" style="background-color: {{ $usuario->cedula == '18900129' ? 'rgba(255, 192, 203, 0.5)' : 'transparent' }};">
             {{-- <figure class="user-cover-image"></figure> --}}
             <div class="user-info mt-n3">
                 {{-- <img src="assets/img/" alt="avatar"> --}}
                 {{-- <h6 class="">{{Auth::user()->nombre}}</h6> --}}
                 @auth
-                    <h5>{{Auth::user()->nombre}}</h5>
-                    <p>{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre : ""}}</p>
+                    <h5 style="margin-bottom: 0px !important">{{Auth::user()->nombre}}</h5>
+                    <p class="mb-2">{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre : ""}}</p>
                 @endauth
             </div>
         </div>

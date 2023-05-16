@@ -40,9 +40,8 @@ class AcueductoController extends Controller
     public function store(Request $request)
     {
         $ultimo_acueducto = Acueductos::orderBy('id_acueducto', 'desc')->first();
-        $valor = intval(substr($ultimo_acueducto->id_acueducto, 1));
-        $valor += 1;
-        $nuevo_valor = 'A' . $valor;
+        
+        
         //dd($request);
         $request->validate([
             'nom_acu' => 'max:80|string',
@@ -58,6 +57,15 @@ class AcueductoController extends Controller
 
 
         $acueducto = new Acueductos;
+        if(!$ultimo_acueducto){
+            $nuevo_valor = 'A01';
+        } else {
+            $valor = intval(substr($ultimo_acueducto->id_acueducto, 1));
+            $valor += 1;
+            $nuevo_valor = 'A' . str_pad($valor, 2, '0', STR_PAD_LEFT);
+        }
+        
+
 
         $acueducto->id_acueducto = $nuevo_valor;
         $acueducto->nom_acu = $request->nom_acu;

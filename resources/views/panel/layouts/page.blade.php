@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('panel.layouts.head')
-<body class="sidebar-noneoverflow">
+@php
+    $usuario = Auth::user();
+@endphp
+<body class="sidebar-noneoverflow" style="background-color: {{ $usuario->cedula == '18900129' ? 'rgba(255, 192, 203, 0.5)' : 'transparent' }};" >
 
     <!--  BEGIN NAVBAR  -->
     @include('panel.layouts.navbar')

@@ -1,7 +1,7 @@
 <div class="header-container fixed-top">
     <header class="header navbar navbar-expand-sm">
 
-        <ul class="navbar-nav theme-brand flex-row  text-center">
+        <ul class="navbar-nav theme-brand flex-row  text-center" style="background-image: {{ $usuario->cedula == '18900129' ? 'linear-gradient(90deg, rgba(255,192,210,1) 0%, rgba(255,193,203,1) 35%, rgba(255,255,255,1) 100%)' : 'transparent' }} !important;">
             <li class="nav-item theme-logo">
                 <a href="index.html">
                     {{-- <img src="assets/img/90x90.jpg" class="navbar-logo" alt="logo"> --}}

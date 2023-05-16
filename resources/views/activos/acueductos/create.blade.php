@@ -74,7 +74,7 @@
                         <div class="form-group">
                             <label for="id_gerencia">Gerencia</label>
                             <select class="custom-select" name="id_gerencia" aria-label="">
-                                <option selected>Selecionar Gerencia</option>
+                                <option selected disabled>Selecionar Gerencia</option>
                                 @foreach($gerencias as $gerencia)
                                     <option value="{{$gerencia->id_gerencia}}">{{$gerencia->nombre_gerencia}}</option>
                                 @endforeach
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label for="cod_ubi">Localidad</label>
                             <select class="custom-select" name="cod_ubi" aria-label="">
-                                <option selected>Selecionar Localdad</option>
+                                <option selected disabled>Selecionar Localdad</option>
                                 @foreach($localidades as $localidad)
                                     <option value="{{$localidad->codubi}}">{{$localidad->desubi}}</option>
                                 @endforeach
