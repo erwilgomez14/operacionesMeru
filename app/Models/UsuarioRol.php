@@ -9,13 +9,15 @@ class UsuarioRol extends Model
 {
     use HasFactory;
 
+    
     protected $table = 'usuario_rol';
-
+    protected $primaryKey = ['cedula', 'rol_id'];
     public $timestamps = false;
 
+    
     protected $fillable = [
-        'cedula',
-        'rol_id',
+       // 'cedula',
+       // 'rol_id',
     ];
 
 }

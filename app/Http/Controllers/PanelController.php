@@ -22,8 +22,8 @@ class PanelController extends Controller
         //$usuario = $usuario->roles;
         //dd($usuario);
         $rolUsuario = UsuarioRol::get();
-
-        $rolUsuario = $rolUsuario->where('cedula',$user->cedula)->toArray();
+        //dd($rolUsuario);
+        //$rolUsuario = $rolUsuario->where('cedula',$user->cedula)->toArray();
 
 
 
