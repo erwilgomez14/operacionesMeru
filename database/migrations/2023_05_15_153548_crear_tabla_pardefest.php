@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pardefest', function (Blueprint $table) {
             $table->string('codpai', 2)->nullable()->comment('Referencia al Código de País');
             $table->string('codest', 2)->nullable()->comment('Código de Estado');
-            $table->string('nommun', 50)->nullable(false)->comment('Nombre del Estado');
+            $table->string('nomest', 50)->nullable(false)->comment('Nombre del Estado');
             
-            $table->primary(['codpai', 'codest']);
+            $table->primary('codpai');
         });
     }
 
