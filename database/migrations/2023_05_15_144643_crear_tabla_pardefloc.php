@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pardefloc', function (Blueprint $table) {
             $table->string('codpai', 3)->nullable()->comment('Referencia al Código de País');
             $table->string('codest', 2)->nullable()->comment('Referencia al Código de Estado');
-            $table->string('codloc', 2)->nullable()->comment('Código de localidad');
+            $table->string('codloc', 3)->nullable()->comment('Código de localidad');
             $table->string('nomloc', 50)->nullable(false)->comment('Nombre de localidad');
             $table->string('aliloc', 50)->nullable(true)->comment('Alias de Localidad');
             $table->string('codmun', 2)->nullable()->comment('Referencia al Código de Municipio');

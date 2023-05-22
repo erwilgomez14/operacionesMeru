@@ -13,18 +13,17 @@
 
                         </div>
                         <div class="card-body">
-                            <h4>Nombre: {{$acueducto->nom_acu}}</h4>
-                            <h4>Descripcion: {{$acueducto->dexc_acu}}</h4>
-                            <h4>Fuente de abasteciemiento: {{$acueducto->fuente_abast}}</h4>
-                            <h4>Capacidad de Almacenamiento: {{$acueducto->capacidad_almac}}</h4>
-                            <h4>Tiempo de operacion: {{$acueducto->tiempo_oper}}</h4>
-                            <h4>Energi util: {{$acueducto->energia_util}}</h4>
-                            <h4>Modelo de planta: {{$acueducto->modelo_planta}}</h4>
+                            <h4><span style="font-weight: bold;">Nombre:</span> {{$acueducto->nom_acu}}</h4>
+                            <h4><span style="font-weight: bold;">Descripcion:</span> {{$acueducto->desc_acu}}</h4>
+                            <h4><span style="font-weight: bold;">Fuente de abasteciemiento:</span> {{$acueducto->fuente_abast}}</h4>
+                            <h4><span style="font-weight: bold;">Capacidad de Almacenamiento:</span> {{$acueducto->capacidad_almac}} L/S</h4>
+                            <h4><span style="font-weight: bold;">Tiempo de operacion:</span> {{$acueducto->tiempo_oper}} Horas</h4>
+                            <h4><span style="font-weight: bold;">Energia util:</span> {{$acueducto->energia_util}}</h4>
                             @if($acueducto->id_gerencia != null)
-                                <h4>Gerencia: {{$acueducto->gerencias->nombre_gerencia}}</h4>
+                                <h4><span style="font-weight: bold;">Gerencia:</span> {{$acueducto->gerencias->nombre_gerencia}}</h4>
                             @endif
                             @if($acueducto->cod_ubi != null)
-                                <h4>Ubicacion: {{$acueducto->localidades->desubi}}</h4>
+                                <h4><span style="font-weight: bold;">Ubicacion:</span> {{$acueducto->localidades->desubi}}</h4>
                             @endif
 
                             <div class="card-footer">

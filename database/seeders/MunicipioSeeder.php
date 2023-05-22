@@ -45,8 +45,8 @@ class MunicipioSeeder extends Seeder
             'codpai' => '01',
             'codest' => '01',
             'codmun' => '05',
-            'nommun' => 'HERES',
-            'alimun' => 'HE'
+            'nommun' => 'ANGOSTURA DEL ORINOCO',
+            'alimun' => 'ADO'
         ]);
         Municipio::create([
             'codpai' => '01',

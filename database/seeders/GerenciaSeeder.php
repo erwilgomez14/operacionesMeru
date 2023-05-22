@@ -16,15 +16,15 @@ class GerenciaSeeder extends Seeder
     {
         Gerencia::create([
             'id_gerencia' => '001',
-            'nombre_gerencia' => 'GERENCIA GENERAL DE OPERACIONES DEL SUR'
+            'nombre_gerencia' => 'GERENCIA DE MANTENIMIENTO SUR'
         ]);
         Gerencia::create([
             'id_gerencia' => '002',
-            'nombre_gerencia' => 'GERENCIA GENERAL DE OPERACIONES DEL OESTE'
+            'nombre_gerencia' => 'GERENCIA MANTENIMIENTO OESTE'
         ]);
         Gerencia::create([
             'id_gerencia' => '003',
-            'nombre_gerencia' => 'GERENCIA GENERAL DE OPERACIONES CARONI'
+            'nombre_gerencia' => 'GERENCIA MANTENIMIENTO CARONI'
         ]);
     }
 }
