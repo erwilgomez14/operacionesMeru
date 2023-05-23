@@ -4,6 +4,7 @@
 <script src="{{asset("template/bootstrap/js/bootstrap.min.js")}}"></script>
 <script src="{{asset("template/plugins/perfect-scrollbar/perfect-scrollbar.min.js")}}"></script>
 <script src="{{asset("template/assets/js/app.js")}}"></script>
+<script src="{{asset("template/assets/js/elements/tooltip.js")}}"></script>
 
     <script>
         $(document).ready(function() {

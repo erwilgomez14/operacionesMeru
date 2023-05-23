@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ope_grupo_herramientas', function (Blueprint $table) {
+        Schema::create('ope_grupo_herramienta', function (Blueprint $table) {
             $table->id('id_grupo_herramienta')->comment('Clave primaria');
             $table->string('nombre_grupo', 255)->comment('Nombre del grupo herramienta');
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ope_grupo_herramientas');
+        Schema::dropIfExists('ope_grupo_herramienta');
     }
 };

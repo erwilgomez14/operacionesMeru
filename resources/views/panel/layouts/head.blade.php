@@ -18,6 +18,7 @@
     <link href="{{asset("template/assets/css/scrollspyNav.css")}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/regular.css")}}">
     <link rel="stylesheet" href="{{asset("template/plugins/font-icons/fontawesome/css/fontawesome.css")}}">
+    <link href="{{asset("template/assets/css/elements/tooltip.css")}}" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     @yield('styles')
     <style>

@@ -1,5 +1,10 @@
 @extends('panel.layouts.page')
 
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/plugins/table/datatable/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/plugins/table/datatable/dt-global_style.css') }}">
+@endsection
+
 @section('content')
     <div class="row layout-top-spacing">
 
@@ -7,7 +12,7 @@
             <div class="widget-content-area br-4">
                 <div class="widget-one">
                     @include('include.sesionalert')
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <h4>Bienvenido al listado de Subsistemas de Meru Operaciones</h4>
                         </div>
@@ -15,16 +20,17 @@
                             <a href="{{route('subsistemas.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Subsistema</a>
                         </div>
                     </div>
-                    <table class="table mt-3">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
+
+                    <table id="zero-config" class="table table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($subsistemas as $subsistema)
+                            @foreach ($subsistemas as $subsistema)
                             <tr>
                                 <td>{{$subsistema->id_subsistema}}</td>
 
@@ -37,9 +43,45 @@
                             </tr>
                         @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#exampleModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var acuid = button.data('acuid') // Extract info from data-* attributes
+            var modal = $(this)
+            modal.find('form').attr('action', '/activos/acueductos/' + acuid);
+        })
+    </script>
+    <script src="{{ asset('template/plugins/table/datatable/datatables.js') }}"></script>
+    <script>
+        $('#zero-config').DataTable({
+            "oLanguage": {
+                "oPaginate": {
+                    "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+                    "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+                },
+                "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Buscar:",
+                "sLengthMenu": "Resultados :  _MENU_",
+            },
+            "stripeClasses": [],
+            "lengthMenu": [7, 10, 20, 50],
+            "pageLength": 7
+        });
+    </script>
 @endsection
