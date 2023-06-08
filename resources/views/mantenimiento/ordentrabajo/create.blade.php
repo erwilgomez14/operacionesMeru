@@ -3,21 +3,22 @@
 @section('styles')
     <style>
         /*
-                The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
-            */
+                    The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
+                */
         /*.navbar .navbar-item.navbar-dropdown {
-                margin-left: auto;
-            }*/
+                    margin-left: auto;
+                }*/
         .layout-px-spacing {
             min-height: calc(100vh - 140px) !important;
         }
+
         button.eliminar {
-             background-color: #dc3545;
-             color: white;
-             border: none;
-             padding: 5px 10px;
-             border-radius: 5px;
-             cursor: pointer;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
@@ -88,7 +89,7 @@
                         </div>
                         <div class="form-group">
                             <label for="id_equipo">Equipo</label>
-                            <select id="id_equipo" class="custom-select" name="id_equipo"  aria-label="">
+                            <select id="id_equipo" class="custom-select" name="id_equipo" aria-label="">
                             </select>
                         </div>
 
@@ -96,8 +97,8 @@
                             <h6>Seleccionar Tipo de Orden</h6>
                             @foreach ($tiposorden as $item)
                                 <div class="form-check">
-                                    <input class="form-check-input" name="id_tipo_orden" type="radio" value="{{ $item->id_tipo_orden }}"
-                                        id="flexCheckDefault">
+                                    <input class="form-check-input" name="id_tipo_orden" type="radio"
+                                        value="{{ $item->id_tipo_orden }}" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         {{ $item->desc_orden }}
                                     </label>
@@ -108,8 +109,8 @@
                             <h6>Seleccionar Prioridad de la Orden</h6>
                             @foreach ($ordenprioridad as $item1)
                                 <div class="form-check">
-                                    <input class="form-check-input" name="id_prioridad" type="radio" value="{{ $item1->id_prioridad }}"
-                                           id="flexCheckDefault">
+                                    <input class="form-check-input" name="id_prioridad" type="radio"
+                                        value="{{ $item1->id_prioridad }}" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         {{ $item1->desc_priori }}
                                     </label>
@@ -128,42 +129,32 @@
 
                             <label for="fecha_final">Fecha Final</label>
                             <div>
-                            <input type="datetime-local" name="fecha_final" class="form-control" id="fecha_final"
-                                placeholder="id del acueducto"
-                                value="{{ old('fecha_final', $ordenTrabajo->fecha_final ?? '') }}">
+                                <input type="datetime-local" name="fecha_final" class="form-control" id="fecha_final"
+                                    placeholder="id del acueducto"
+                                    value="{{ old('fecha_final', $ordenTrabajo->fecha_final ?? '') }}">
                             </div>
                         </div>
-                        <div class="form-group" >
-                            <label for="">Tareas de equipos</label>
-                            <table class="table mt-3" id="tabla-tareas">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Tarea</th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                        
 
                         <div class="form-group mt-3 bg-gradient-dark">
                             <label for="select-usuario">Seleccionar mano de obra:</label>
-                            <select id="select-usuario" class="custom-select" >
-                            @foreach ($usuarios as $usuario)
-                                    <option value="{{$usuario->cedula}}" data-cargo="{{$usuario->cargo}}">{{$usuario->nombre}}</option>
-                            @endforeach
+                            <select id="select-usuario" class="custom-select">
+                                @foreach ($usuarios as $usuario)
+                                    <option value="{{ $usuario->cedula }}" data-cargo="{{ $usuario->cargo }}">
+                                        {{ $usuario->nombre }}</option>
+                                @endforeach
                             </select>
                             <button type="button" class="btn btn-dark mt-3" id="btn-agregar">Agregar</button>
 
                             <table class="table mt-3" id="tabla-opciones">
                                 <thead class="thead-dark">
-                                <h4 class="text-center"> Datos de la mano de obra</h4>
-                                <tr>
-                                    <th >Nombre </th>
-                                    <th >Cedula </th>
-                                    <th >Cargo </th>
-                                    <th >Accion </th>
-                                </tr>
+                                    <h4 class="text-center"> Datos de la mano de obra</h4>
+                                    <tr>
+                                        <th>Nombre </th>
+                                        <th>Cedula </th>
+                                        <th>Cargo </th>
+                                        <th>Accion </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
 
@@ -176,8 +167,8 @@
                             <input type="text" name="observacion" id="observacion" class="form-control">
                         </div>
                         <div class="form-group pt-2">
-                            <a href="{{ route('acueductos.index') }}" class="btn btn-dark">Volver</a>
-                            <input class="btn btn-primary" {{--type="submit"--}} id="btn-guardar" value="Guardar">
+                            <a href="{{ route('ordentrabajo.index') }}" class="btn btn-dark">Volver</a>
+                            <input class="btn btn-primary" {{-- type="submit" --}} id="btn-guardar" value="Guardar">
                         </div>
                     </form>
 
@@ -238,7 +229,8 @@
             }).then(data => {
                 var opciones = "<option value=''>Seleecionar Equipo</option>";
                 for (let i in data.lista) {
-                    opciones += '<option value="' + data.lista[i].id_subsistema + '" data-tipo="'+data.lista[i].id_tipo_eq+'">' + data.lista[i]
+                    opciones += '<option value="' + data.lista[i].id_subsistema + '" data-tipo="' + data
+                        .lista[i].id_tipo_eq + '">' + data.lista[i]
                         .nombre_subsistema + '</option>';
                 }
                 console.log(opciones);
@@ -246,7 +238,7 @@
             }).catch(error => console.error(error));
         })
 
-        document.getElementById("id_equipo").addEventListener('change', (e) =>{
+        document.getElementById("id_equipo").addEventListener('change', (e) => {
             //console.log(document.getElementById("id_equipo"));
             const tablaTareas = document.getElementById('tabla-tareas').getElementsByTagName('tbody')[0];
             const opcionSeleccionada = event.target.options[event.target.selectedIndex];
@@ -294,6 +286,7 @@
             const fila = event.target.closest('tr'); // Obtener la fila correspondiente al botón de eliminar
             fila.remove(); // Eliminar la fila de la tabla
         }
+
         function agregarOpcion() {
             const tr = document.createElement('tr');
             const tdUsuario = document.createElement('td');
@@ -324,6 +317,7 @@
 
 
         }
+
         function actualizarDatos() {
             const filas = tablaOpciones.getElementsByTagName('tr');
             datos = Array.from(filas).map(fila => {
@@ -336,7 +330,7 @@
             console.log(datos);
         }
 
-        function guardarOpcion(event){
+        function guardarOpcion(event) {
             event.preventDefault();
             const id_acueducto = document.getElementById('id_acueducto').value;
             const descrip_ot = document.getElementById('descrip_ot').value;
@@ -357,7 +351,7 @@
                 id_tipo_orden,
                 id_prioridad,
                 dias,
-               // hora,
+                // hora,
                 fecha_inicio,
                 fecha_final,
                 observacion
@@ -367,14 +361,16 @@
             console.log(form);
             console.log(datos);
             fetch('/mantenimiento/ordentrabajo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "X-CSRF-Token": csrfToken
-                },
-                body: JSON.stringify({ data: datos,
-                    odt})
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-Token": csrfToken
+                    },
+                    body: JSON.stringify({
+                        data: datos,
+                        odt
+                    })
+                })
                 .then(response => response.json())
                 .then(data => {
                     const odtNumber = data.odt.id_orden;
@@ -385,10 +381,10 @@
                     }).then((result) => {
                         // Redirigir a la ruta
                         if (result.isConfirmed) {
-                        window.location.href = '{{route('ordentrabajo.index')}}';
-                    }
+                            window.location.href = '{{ route('ordentrabajo.index') }}';
+                        }
                     });
-            })
+                })
                 .catch(error => console.error(error));
         }
 
@@ -416,6 +412,5 @@
 
         //     sistema.innerHTML = opciones;
         // })
-
     </script>
 @endsection
