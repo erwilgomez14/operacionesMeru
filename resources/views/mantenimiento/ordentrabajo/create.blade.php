@@ -135,7 +135,6 @@
                             </div>
                         </div>
                         
-
                         <div class="form-group mt-3 bg-gradient-dark">
                             <label for="select-usuario">Seleccionar mano de obra:</label>
                             <select id="select-usuario" class="custom-select">
