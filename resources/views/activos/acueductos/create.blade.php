@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tiempo_oper">Tiempo de operacion</label>
-                            <input type="number" name="tiempo_oper" class="form-control" id="tiempo_oper" placeholder="tiempo de operacion" value="{{old('tiempo_oper', $acueducto->cargo ?? '')}}">
+                            <input type="number" name="tiempo_operacion" class="form-control" id="tiempo_oper" placeholder="tiempo de operacion" value="{{old('tiempo_oper', $acueducto->cargo ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="energia_util">Energia util</label>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="id_gerencia">Gerencia</label>
-                            <select class="custom-select" name="id_gerencia" aria-label="">
+                            <select class="custom-select" name="gerencia" aria-label="">
                                 <option selected disabled>Selecionar Gerencia</option>
                                 @foreach($gerencias as $gerencia)
                                     <option value="{{$gerencia->id_gerencia}}">{{$gerencia->nombre_gerencia}}</option>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="cod_ubi">Localidad</label>
-                            <select class="custom-select" name="cod_ubi" aria-label="">
+                            <select class="custom-select" name="localidad" aria-label="">
                                 <option selected disabled>Selecionar Localdad</option>
                                 @foreach($localidades as $localidad)
                                     <option value="{{$localidad->codubi}}">{{$localidad->desubi}}</option>
