@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Acueductos;
 use App\Models\Gerencia;
 use App\Models\Localidad;
+use App\Models\Modeloplanta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -29,8 +30,9 @@ class AcueductoController extends Controller
 
         $gerencias = Gerencia::all();
         $localidades = Localidad::all();
+        $modelosplanta = Modeloplanta::all();
 
-        return view('activos.acueductos.create', compact('gerencias', 'localidades'));
+        return view('activos.acueductos.create', compact('gerencias', 'localidades', 'modelosplanta'));
 
     }
 
@@ -44,14 +46,15 @@ class AcueductoController extends Controller
         
         //dd($request);
         $request->validate([
-            'nom_acu' => 'max:80|string',
-            'desc_acu' => 'max:150|string',
-            'fuente_abast' => 'max:80|string',
-            'capacidad_almac' => 'numeric',
-            'tiempo_oper' => 'numeric',
+            'nombre_acueducto' => 'max:80|string',
+            'descripcion_acueducto' => 'max:150|string',
+            'fuente_abastecimiento' => 'max:80|string',
+            'capacidad_produccion' => 'numeric',
+            'tiempo_operacion' => 'numeric',
             'energia_util' => 'max:20|string',
-            'modelo_planta' => 'max:20|string',
-
+            'modelo_planta' => 'required',
+            'gerencia' => 'required',
+            'localidad' => 'required',
         ]);
 
 
@@ -68,23 +71,16 @@ class AcueductoController extends Controller
 
 
         $acueducto->id_acueducto = $nuevo_valor;
-        $acueducto->nom_acu = $request->nom_acu;
-        $acueducto->desc_acu = $request->desc_acu;
-        $acueducto->fuente_abast = $request->fuente_abast;
-        $acueducto->capacidad_almac = $request->capacidad_almac;
-        $acueducto->tiempo_oper = $request->tiempo_oper;
+        $acueducto->nom_acu = $request->nombre_acueducto;
+        $acueducto->desc_acu = $request->descripcion_acueducto;
+        $acueducto->fuente_abast = $request->fuente_abastecimiento;
+        $acueducto->capacidad_almac = $request->capacidad_produccion;
+        $acueducto->tiempo_oper = $request->tiempo_operacion;
         $acueducto->energia_util = $request->energia_util;
         $acueducto->modelo_planta = $request->modelo_planta;
-        if($request->id_gerencia == 'Selecionar Gerencia'){
-            $acueducto->id_gerencia = null;
-        }else {
-            $acueducto->id_gerencia = $request->id_gerencia;
-        }
-        if($request->cod_ubi == 'Selecionar Localidad'){
-            $acueducto->cod_ubi = null;
-        }else {
-            $acueducto->cod_ubi = $request->cod_ubi;
-        }
+        $acueducto->id_gerencia = $request->gerencia;
+        $acueducto->cod_ubi = $request->localidad;
+        
 
         $acueducto->save();
 

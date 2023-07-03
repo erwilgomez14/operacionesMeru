@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoSeeder::class);
         $this->call(MunicipioSeeder::class);
         $this->call(CiudadSeeder::class);
+        $this->call(modeloplantas::class);
     }
 }

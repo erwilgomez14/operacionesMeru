@@ -40,6 +40,10 @@ class FortifyServiceProvider extends ServiceProvider
       //  dd($user1);
         $user = User::where('usuario', $request->uid)->first();
 
+        if(!$user){
+            return false;
+        }
+
         if ($user1->uid === $user->usuario &&
             $user1->clave === md5($request->password) &&
             $user1->idstatus === 1) {

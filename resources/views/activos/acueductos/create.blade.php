@@ -45,19 +45,19 @@
 
                         <div class="form-group">
                             <label for="nom_acu">Nombre:</label>
-                            <input type="text" name="nom_acu" class="form-control" id="nom_acu" placeholder="nombre..." value="{{old('nom_acu', $acueducto->nombre ?? '')}}">
+                            <input type="text" name="nombre_acueducto" class="form-control" id="nom_acu" placeholder="nombre..." value="{{old('nom_acu', $acueducto->nombre ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="desc_acu">Descripcion</label>
-                            <input type="text" name="desc_acu"class="form-control" id="desc_acu" placeholder="descripcion acueducto" value="{{old('desc_acu', $acueducto->usuario ?? '')}}">
+                            <input type="text" name="descripcion_acueducto"class="form-control" id="desc_acu" placeholder="descripcion acueducto" value="{{old('desc_acu', $acueducto->usuario ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="fuente_abast">Fuente de abastesimiento</label>
-                            <input type="text" name="fuente_abast" class="form-control" id="fuente_abast" placeholder="fuente de abastesimiento" value="{{old('fuente_abast', $acueducto->cargo ?? '')}}">
+                            <input type="text" name="fuente_abastecimiento" class="form-control" id="fuente_abast" placeholder="fuente de abastesimiento" value="{{old('fuente_abast', $acueducto->cargo ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="capacidad_almac">Capacidad de Almacenamiento:</label>
-                            <input type="number" name="capacidad_almac" class="form-control" id="capacidad_almac" placeholder="capacidad de almacenamiento" value="{{old('capacidad_almac', $acueducto->cargo ?? '')}}">
+                            <input type="number" name="capacidad_produccion" class="form-control" id="capacidad_almac" placeholder="capacidad de almacenamiento" value="{{old('capacidad_almac', $acueducto->cargo ?? '')}}">
                         </div>
                         <div class="form-group">
                             <label for="tiempo_oper">Tiempo de operacion</label>
@@ -67,9 +67,18 @@
                             <label for="energia_util">Energia util</label>
                             <input type="text" name="energia_util" class="form-control" id="energia_util" placeholder="energia util" value="{{old('energia_util', $acueducto->cargo ?? '')}}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="modelo_planta">Modelo de planta</label>
                             <input type="text" name="modelo_planta" class="form-control" id="modelo_planta" placeholder="modelo de planta" value="{{old('modelo_planta', $acueducto->cargo ?? '')}}">
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="modelo_planta">Modelo de planta</label>
+                            <select class="custom-select" name="modelo_planta" aria-label="">
+                                <option selected disabled>Selecionar Modelo de planta</option>
+                                @foreach($modelosplanta as $modeloplanta)
+                                    <option value="{{$modeloplanta->id}}">{{$modeloplanta->concepto}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="id_gerencia">Gerencia</label>
