@@ -54,7 +54,7 @@ class AcueductoController extends Controller
             'energia_util' => 'max:20|string',
             'modelo_planta' => 'required',
             'gerencia' => 'required',
-            'localidad' => 'required',
+            'ubicacion' => 'required',
         ]);
 
 
@@ -79,7 +79,7 @@ class AcueductoController extends Controller
         $acueducto->energia_util = $request->energia_util;
         $acueducto->modelo_planta = $request->modelo_planta;
         $acueducto->id_gerencia = $request->gerencia;
-        $acueducto->cod_ubi = $request->localidad;
+        $acueducto->cod_ubi = $request->ubicacion;
         
 
         $acueducto->save();

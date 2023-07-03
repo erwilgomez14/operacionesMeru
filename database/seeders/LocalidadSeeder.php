@@ -190,5 +190,21 @@ class LocalidadSeeder extends Seeder
             'codloc' => '026',
             'desubi' => 'LA URBANA',
         ]);
+        Localidad::create([
+            'codubi' => '023',
+            'codpai' => '01',
+            'codest' => '01',
+            'codmun' => '06',
+            'codloc' => '005',
+            'desubi' => 'SECTOR DE CAPAPUICITO, CARRETERA NACIONAL DE UPATA-EL PAO TRONCAL 19',
+        ]);
+        Localidad::create([
+            'codubi' => '024',
+            'codpai' => '01',
+            'codest' => '01',
+            'codmun' => '09',
+            'codloc' => '025',
+            'desubi' => 'POBLACION SAN MARTIN DE TURUMBA, CARRETERA VIEJA A GUAYANA',
+        ]);
     }
 }

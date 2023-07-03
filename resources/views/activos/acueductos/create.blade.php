@@ -90,8 +90,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="cod_ubi">Localidad</label>
-                            <select class="custom-select" name="localidad" aria-label="">
+                            <label for="cod_ubi">Ubicacion</label>
+                            <select class="custom-select" name="ubicacion" aria-label="">
                                 <option selected disabled>Selecionar Localdad</option>
                                 @foreach($localidades as $localidad)
                                     <option value="{{$localidad->codubi}}">{{$localidad->desubi}}</option>
