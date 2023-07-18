@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="index.html" class="nav-link"> MERU </a>
+                <a href="{{route('index')}}" class="nav-link"> MERU </a>
                 <p>Mantenimiento - Operaciones</p>
             </li>
             <li class="nav-item toggle-sidebar">
