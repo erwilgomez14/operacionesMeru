@@ -1,26 +1,34 @@
 @extends('panel.layouts.page')
 
 @section('styles')
-   {{-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>--}}
+    {{-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script> --}}
     <script src="{{ asset('template/plugins/fullcalendar-6.1.5/dist/index.global.js') }}"></script>
-   <style>
-       .fc-daygrid-event {
-           margin-top: 10px;
-           padding: 4px;
-           border-radius: 4px;
-           font-size: 14px;
-           font-weight: 500;
-           color: #fff;
-       }
-       .fc-event-blue {
-           background-color: #176cf9;
-       }
-       .fc-scroller-harness{
-           height: 25.6px;
-       }
-   </style>
+    <script src="{{ asset('template/plugins/fullcalendar-6.1.5/dist/es.js') }}"></script>
+    <style>
+        .fc-daygrid-event {
+            margin-top: 10px;
+            padding: 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+        }
 
+        .fc-event-blue {
+            background-color: #176cf9;
+        }
 
+        .fc-scroller-harness {
+            height: 25.6px;
+        }
+
+        .fc .fc-timegrid-axis-cushion {
+            flex-shrink: 0;
+            max-width: 60px;
+           
+            margin-bottom: 10px;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="row layout-top-spacing">
@@ -29,10 +37,10 @@
             <div class="widget-content-area br-4">
                 <div class="widget-one">
 
-                <div id='calendar'></div>
-                <div class="mt-5">
-                    <a href="{{route('mantenimientopreventivo.pdf')}}" class="btn btn-primary">Imprimir Reporte</a>
-                </div>
+                    <div id='calendar'></div>
+                    <div class="mt-5">
+                        <a href="{{ route('mantenimientopreventivo.pdf') }}" class="btn btn-primary">Imprimir Reporte</a>
+                    </div>
 
                 </div>
             </div>
@@ -44,7 +52,6 @@
 
 @section('scripts')
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
 
             const calendarEl = document.getElementById('calendar');
@@ -56,9 +63,9 @@
                 },
                 events: @json($eventos),
                 eventColor: '#176cf9',
+                locale: 'es',
             });
             calendar.render();
         });
     </script>
-
 @endsection
