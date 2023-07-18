@@ -17,7 +17,7 @@
         </div>
         {{-- <div class="shadow-bottom"></div> --}}
         <ul class="list-unstyled menu-categories mt-n1" id="accordionExample">
-            <li class="menu d-none">
+            {{-- <li class="menu d-none">
                 <a href="javascript:void(0);" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -29,7 +29,7 @@
                         <span> Menu 1</span>
                     </div>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="menu">
                 <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -61,9 +61,9 @@
                     <li>
                         <a class="ml-n4" href="{{route('mantenimientopreventivo.index')}}">Mantenimiento Preventivo</a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="ml-n4" href="javascript:void(0);"> Ordenes de trabajo asignadas </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
 
@@ -98,15 +98,15 @@
                     <li>
                         <a class="ml-n4" href="{{route('ordentrabajo.index')}}"> Ordenes de Trabajo </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="ml-n4" href="javascript:void(0);"> Mantenimineto Programado </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="ml-n4" href="{{route('grupotareas.index')}}"> Grupo de tareas </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="ml-n4" href="javascript:void(0);"> Areas de procesos </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Evaluacion de Indicadores </a>
                     </li>
@@ -122,9 +122,9 @@
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Reportar fallas en equipo </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="ml-n4" href="{{route('ubiplanta.index')}}"> Ubicacion en plantas </a>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a href="#sm2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Submenu 2
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -193,9 +193,9 @@
                     <li>
                         <a href="{{route('equipos.index')}}"> Equipos </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);"> Indicadores </a>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </li>
@@ -283,9 +283,9 @@
                     <li>
                         <a href="javascript:void(0);"> Modelos de equipos </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="javascript:void(0);"> Tipos de Equipos </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endcan
