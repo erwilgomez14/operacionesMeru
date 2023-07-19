@@ -30,7 +30,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <h4>Bienvenido al listado de Sistemas de Meru Operaciones</h4>
+                            <h4>Listado de Sistemas</h4>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ route('sistemas.create') }}" class="btn btn-primary btn-lg float-md-right"

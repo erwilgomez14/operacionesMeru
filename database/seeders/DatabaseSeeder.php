@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MunicipioSeeder::class);
         $this->call(CiudadSeeder::class);
         $this->call(modeloplantas::class);
+        $this->call(AreaSeeders::class);
     }
 }

@@ -39,6 +39,8 @@ Route::prefix('activos')->middleware('auth')->group(function () {
     Route::get('equipos/createtipoeq', [EquipoController::class, 'createtipoeq'])->name('equipos.createtipoeq');
     Route::post('equipos/storetipoeq', [EquipoController::class, 'storetipoeq'])->name('equipos.storetipoeq');
     Route::resource('equipos', EquipoController::class);
+    Route::get('/consultar-sistema', [SistemaController::class, 'consultarSistema']);
+
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);
     Route::get('/herramientas/creategroup', [HerramientaController::class, 'creategroup'])->name('herramientas.creategroup');

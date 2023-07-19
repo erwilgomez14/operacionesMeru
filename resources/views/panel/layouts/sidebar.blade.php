@@ -122,9 +122,9 @@
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Reportar fallas en equipo </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a class="ml-n4" href="{{route('ubiplanta.index')}}"> Ubicacion en plantas </a>
-                    </li> --}}
+                    </li>
                     {{-- <li>
                         <a href="#sm2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Submenu 2
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

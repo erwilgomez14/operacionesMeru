@@ -19,8 +19,7 @@ return new class extends Migration
             $table->integer('posiciones')->nullable(true)->comment('Cantidad de posiciones instaladas o necesarias para operar');
             $table->integer('posicion_necesaria')->nullable(true)->comment('Posisciones Necesarias para mantener el sistema 100% operativo');
             $table->string('id_area', 4)->nullable(true)->comment('Identificador de la tabla ope_area');
-            $table->string('id_ubicpl', 4)->nullable(true)->comment('Identificador de la tabla pardefubicpl');
-            $table->string('id_pardeftsi', 1)->nullable(true)->comment('Identificador de la tabla pardeftsi');
+            $table->string('ubicacion', 200)->nullable(true)->comment('Ubicacion del sistema');
             $table->integer('capacidad_sistema')->nullable(true)->comment('Capacidad medida en Litros por segundo');
             $table->string('georeferencia', 125)->nullable(true)->comment('Longitud y Latitud de Georeferencia del Sistema');
         });

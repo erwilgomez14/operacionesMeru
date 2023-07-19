@@ -26,16 +26,22 @@ class SistemaController extends Controller
      */
     public function create()
     {
+        $sistema = null;
         $acueductos = Acueductos::all();
         $areas = Area::all();
         $ubiplantas = UbicacionPlanta::all();
         $maestrosistemas = MaestroSistema::all();
 
-        return view('activos.sistemas.create',
-            compact('acueductos',
+        return view(
+            'activos.sistemas.create',
+            compact(
+                'acueductos',
                 'areas',
                 'ubiplantas',
-                'maestrosistemas'));
+                'maestrosistemas',
+                'sistema',
+            )
+        );
     }
 
     /**
@@ -44,50 +50,41 @@ class SistemaController extends Controller
     public function store(Request $request)
     {
 
+        //dd($request);
         $request->validate([
             'id_sistema' => 'required|unique:ope_sistema,id_sistema',
             'id_acueducto' => 'required',
-            'desc_sistema' => 'max:150',
-            'posiciones' => 'numeric',
-            'posiciones' => 'numeric',
-            'posicion_necesaria' => 'numeric',
-            'capacidad_sistema' => 'numeric',
+            'nom_sistema' => 'required',
+            'descripcion' => 'required|max:150',
+            'posiciones' => 'required|numeric',
+            // 'posiciones' => 'numeric',
+            'posicion_necesaria' => 'required|numeric',
+            'capacidad_sistema' => 'required|numeric',
+            'id_area' => 'required|required',
+            'georeferencia' => 'required',
+            'ubicacion' => 'required|required',
         ]);
 
         $sistema = new Sistema;
         $sistema->id_sistema = $request->id_sistema;
-        
-        $sistema->id_acueducto = $request->id_acueducto;
-        
-        $sistema->nom_sistema = $request->nom_sistema;
-        $sistema->desc_sistema = $request->desc_sistema;
-        $sistema->posiciones = $request->posiciones;
-        $sistema->posicion_necesaria = $request->posicion_necesaria;
-        if($request->id_area == 'Selecionar area'){
-            $sistema->id_area = null;
-        }else {
-            $sistema->id_area = $request->id_area;
-        }
-        if($request->id_ubicpl == 'Selecionar ubicacion'){
-            $sistema->id_ubicpl = null;
-        }else {
-            $sistema->id_ubicpl = $request->id_ubicpl;
-        }
-        if($request->id_pardeftsi == 'Selecionar tipo de sistema'){
-            $sistema->id_pardeftsi = null;
-        }else {
-            $sistema->id_pardeftsi = $request->id_pardeftsi;
-        }
-        $sistema->capacidad_sistema = $request->capacidad_sistema;
-        $sistema->georeferencia = $request->georeferencia;
 
+        $sistema->id_acueducto = $request->id_acueducto;
+
+        $sistema->nom_sistema = strtoupper($request->nom_sistema);
+        $sistema->desc_sistema = strtoupper($request->descripcion);
+        $sistema->posiciones = $request->posiciones;
+        $sistema->capacidad_sistema = $request->capacidad_sistema;
+        $sistema->posicion_necesaria = $request->posicion_necesaria;
+        $sistema->id_area = $request->id_area;
+        $sistema->georeferencia = strtoupper($request->georeferencia);
+        $sistema->ubicacion = strtoupper($request->ubicacion);
+
+        //dd($sistema);
         $sistema->save();
 
         return redirect()->route('sistemas.index')->with('status', 'Sistema creado satisfactoriamente');
-
-
     }
-        /**
+    /**
      * Display the specified resource.
      */
     public function show(Sistema $sistema)
@@ -106,11 +103,13 @@ class SistemaController extends Controller
         $ubiplantas = UbicacionPlanta::all();
         $maestrosistemas = MaestroSistema::all();
         //dd($maestrosistemas->first());
-        return view('activos.sistemas.edit', compact('sistema',
+        return view('activos.sistemas.edit', compact(
+            'sistema',
             'acueductos',
-                'areas',
-                'ubiplantas',
-                'maestrosistemas'));
+            'areas',
+            'ubiplantas',
+            'maestrosistemas'
+        ));
     }
 
     /**
@@ -118,29 +117,40 @@ class SistemaController extends Controller
      */
     public function update(Request $request, Sistema $sistema)
     {
-        $sistema->id_sistema = $request->id_sistema;
-        if($request->id_acueducto != null){
-            $sistema->id_acueducto = $request->id_acueducto;
-        };
+
+        $request->validate([
+            'nom_sistema' => 'required',
+            'descripcion' => 'required|max:150',
+            'posiciones' => 'required|numeric',
+            // 'posiciones' => 'numeric',
+            'posicion_necesaria' => 'required|numeric',
+            'capacidad_sistema' => 'required|numeric',
+            'id_area' => 'required|required',
+            'georeferencia' => 'required',
+            'ubicacion' => 'required|required',
+        ]);
+        //$sistema->id_sistema = $request->id_sistema;
+
+        //$sistema->id_acueducto = $request->id_acueducto;
+
         $sistema->nom_sistema = $request->nom_sistema;
-        $sistema->desc_sistema = $request->desc_sistema;
+        $sistema->desc_sistema = $request->descripcion;
         $sistema->posiciones = $request->posiciones;
         $sistema->posicion_necesaria = $request->posicion_necesaria;
-        if($request->id_area != null){
-            $sistema->id_area = $request->id_area;
-        };
-        if($request->id_ubicpl != null){
-            $sistema->id_ubicpl = $request->id_ubicpl;
-        };
-        if($request->id_pardeftsi != null){
-            $sistema->id_pardeftsi = $request->id_pardeftsi;
-        };
+
+        $sistema->id_area = $request->id_area;
+
+
+        $sistema->ubicacion = $request->ubicacion;
+
         $sistema->capacidad_sistema = $request->capacidad_sistema;
         $sistema->georeferencia = $request->georeferencia;
+
+        //dd($sistema);
+
         $sistema->save();
 
         return redirect()->route('sistemas.index')->with('status', 'Sistema editado satisfactoriamente');
-
     }
 
     /**
@@ -150,8 +160,33 @@ class SistemaController extends Controller
     {
         //
     }
-    public function obtenersistema(Sistema $sistema,Acueductos $acueducto)
+    public function obtenersistema(Sistema $sistema, Acueductos $acueducto)
     {
         dd($sistema->acueductos());
+    }
+
+    public function consultarSistema(Request $request)
+    {
+        $idSistema = $request->input('id_sistema');
+        $idacueducto = $request->input('id_acueducto');
+
+
+        //dd($idacueducto);
+        // Realizar la consulta en la base de datos para verificar si existe
+        $sistemaExistente = Sistema::where('id_sistema', $idSistema)->first();
+
+        if ($sistemaExistente) {
+            // Consultar el último sistema asociado al acueducto
+            $ultimoSistema = Sistema::where('id_acueducto', $idacueducto)->latest('id_sistema')->first();
+            //preg_match('/S(\d+)/', $ultimosistema->id_sistema, $matches);
+            $corr = substr($ultimoSistema->id_sistema, 5);
+            $corr = intval($corr) + 1;
+            $newIdSistema = $ultimoSistema->id_acueducto . '-S' . str_pad($corr, 2, '0', STR_PAD_LEFT);
+            //dd($newIdSistema);
+            return response()->json(['exists' => true, 'newIdSistema' => $newIdSistema]);
+        } else {
+            // Devuelve una respuesta JSON con el campo "exists" igual a false si el sistema no existe
+            return response()->json(['exists' => false]);
+        }
     }
 }

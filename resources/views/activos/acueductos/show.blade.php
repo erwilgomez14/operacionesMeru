@@ -26,13 +26,15 @@
                                 <h4><span style="font-weight: bold;">Ubicacion:</span> {{$acueducto->localidades->desubi}}</h4>
                             @endif
 
-                            <div class="card-footer">
+                            
+                        </div>
+                        <div class="card-footer">
 
-                                <a href="{{route('acueductos.index')}}" class="btn btn-primary">Volver al listado</a>
-                            </div>
+                            <a href="{{route('acueductos.index')}}" class="btn btn-primary">Volver al listado</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection

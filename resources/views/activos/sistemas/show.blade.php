@@ -19,8 +19,7 @@
                             <h4>Posiciones: {{$sistema->posiciones}}</h4>
                             <h4>Posicion Necesaria: {{$sistema->posicion_necesaria}}</h4>
                             <h4>Area: {{$sistema->areas->descripcion_area}}</h4>
-                            <h4>Maestro de Sistem: {{$sistema->msistemas->nombre_partsi}}</h4>
-                            <h4>Ubicaion en planta: {{$sistema->ubicacionesPlantas->descripcion_ubicpl}}</h4>
+                            <h4>Ubicaion: {{$sistema->ubicacion}}</h4>
                             <h4>Capacidad Sistema: {{$sistema->capacidad_sistema}}</h4>
                             @if($sistema->georeferencia != null)
                                 <h4>Georeferencia: {{$sistema->georeferencia}}</h4>

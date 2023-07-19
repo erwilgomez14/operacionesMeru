@@ -1,4 +1,4 @@
-<div class="row form-group">
+<div class="row form-group mt-3">
     <div class="col">
         <label for="nombre_acueducto">Nombre:</label>
         <input type="text" name="nombre_acueducto" class="form-control" id="nombre_acueducto" placeholder="Nombre..."
@@ -6,9 +6,9 @@
     </div>
 
     <div class="col">
-        <label for="fuente_abast">Fuente de abastesimiento</label>
+        <label for="fuente_abast">Fuente de abastecimiento</label>
         <input type="text" name="fuente_abastecimiento" class="form-control" id="fuente_abast"
-            placeholder="Fuente de abastesimiento..."
+            placeholder="Fuente de abastecimiento..."
             value="{{ old('fuente_abastecimiento', $acueducto->fuente_abast ?? '') }}">
     </div>
 </div>
