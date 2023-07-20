@@ -53,38 +53,38 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="id_area">Proceso</label>
-    <select class="custom-select" name="id_area" aria-label="">
-        <option value="" @if (old('id_area') === null && !isset($sistema->id_area)) selected @endif disabled>
-            Selecionar Proceso</option>
-        @foreach ($areas as $area)
-            <option value="{{ $area->id_area }}"
-                {{ (old('id_area') && old('id_area') == $area->id_area) || (isset($sistema->id_area) && $sistema->id_area == $area->id_area) ? 'selected' : '' }}>
-                {{ $area->descripcion_area }}
-            </option>
-        @endforeach
-    </select>
+
 </div>
 <div class="form-group">
     <div class="row">
-        <div class="col">
-            <label for="georeferencia">Georeferencia</label>
-            {{-- <input type="text" name="georeferencia" class="form-control" id="georeferencia"
-                placeholder="Georeferencia"
-                value="{{ old('georeferencia', $sistema->georeferencia ?? '') }}"> --}}
-            <textarea class="form-control" aria-label="With textarea" name="georeferencia" placeholder="georeferencia...">{{ old('georeferencia', $sistema->georeferencia ?? '') }}</textarea>
-
+        <div class="col-4">
+            <label for="id_area">Proceso</label>
+            <select class="custom-select" name="id_area" aria-label="">
+                <option value="" @if (old('id_area') === null && !isset($sistema->id_area)) selected @endif disabled>
+                    Selecionar Proceso</option>
+                @foreach ($areas as $area)
+                    <option value="{{ $area->id_area }}"
+                        {{ (old('id_area') && old('id_area') == $area->id_area) || (isset($sistema->id_area) && $sistema->id_area == $area->id_area) ? 'selected' : '' }}>
+                        {{ $area->descripcion_area }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="col">
-            <label for="ubicacion">Ubicacion</label>
-            {{-- <input type="text" name="ubicacion" class="form-control" id="ubicacion"
-                placeholder="ubicacion" value="{{ old('ubicacion', $sistema->ubicacion ?? '') }}"> --}}
-            <textarea class="form-control" aria-label="With textarea" name="ubicacion" placeholder="ubicacion...">{{ old('ubicacion', $sistema->ubicacion ?? '') }}</textarea>
+            <label for="georeferencia">Georeferencia</label>
+            <input type="text" name="georeferencia" class="form-control" id="georeferencia"
+                placeholder="Georeferencia"
+                value="{{ old('georeferencia', $sistema->georeferencia ?? '') }}">
+            {{-- <textarea class="form-control" aria-label="With textarea" name="georeferencia" placeholder="georeferencia...">{{ old('georeferencia', $sistema->georeferencia ?? '') }}</textarea> --}}
+
         </div>
     </div>
 </div>
 <div class="form-group">
-
+    <label for="ubicacion">Ubicacion</label>
+    {{-- <input type="text" name="ubicacion" class="form-control" id="ubicacion"
+                placeholder="ubicacion" value="{{ old('ubicacion', $sistema->ubicacion ?? '') }}"> --}}
+    <textarea class="form-control" aria-label="With textarea" name="ubicacion" placeholder="ubicacion...">{{ old('ubicacion', $sistema->ubicacion ?? '') }}</textarea>
 </div>
 
 <div class="form-group pt-2">
