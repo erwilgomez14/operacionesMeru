@@ -40,6 +40,7 @@ Route::prefix('activos')->middleware('auth')->group(function () {
     Route::post('equipos/storetipoeq', [EquipoController::class, 'storetipoeq'])->name('equipos.storetipoeq');
     Route::resource('equipos', EquipoController::class);
     Route::get('/consultar-sistema', [SistemaController::class, 'consultarSistema']);
+    Route::get('/consultar-subsistema', [SubsistemaController::class, 'consultar_subsistema']);
 
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);

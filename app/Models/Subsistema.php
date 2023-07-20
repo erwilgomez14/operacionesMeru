@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Subsistema extends Model
 {
@@ -21,5 +22,9 @@ class Subsistema extends Model
     public function sistemas(): BelongsTo
     {
         return $this->belongsTo(Sistema::class, 'id_sistema', 'id_sistema');
+    }
+    public function estatus(): HasOne
+    {
+        return $this->hasOne(Estatu::class, 'id_estatus', 'id_estatus');
     }
 }

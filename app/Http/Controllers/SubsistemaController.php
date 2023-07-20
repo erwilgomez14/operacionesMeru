@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estatu;
 use App\Models\Sistema;
 use App\Models\Subsistema;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class SubsistemaController extends Controller
     public function create()
     {
         $sistemas = Sistema::all();
-        return view('activos.subsistema.create', compact('sistemas'));
+        $estatus = Estatu::all();
+        return view('activos.subsistema.create', compact('sistemas','estatus'));
     }
 
     /**
@@ -33,26 +35,26 @@ class SubsistemaController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'id_subsistema' => 'required|unique:ope_subsistema',
+            'id_subsistema' => 'required|unique:ope_subsistema,id_subsistema',
             'id_sistema' => 'required',
             'nombre_subsistema' => 'required',
             'desc_subsistema' => 'required',
             'capacidad_subsistema' => 'required|numeric',
+            'id_estatus' => 'required',
         ]);
-
-        $id_subsistema = $request->id_subsistema;
-        $partes = explode("-",$id_subsistema);
-        $postec = end($partes);
+        //dd($request);
 
         $subsistema = new Subsistema;
-        $subsistema->id_subsistema = $id_subsistema;
+        $subsistema->id_subsistema = $request->id_subsistema;
         $subsistema->id_sistema = $request->id_sistema;
-        $subsistema->nombre_subsistema = $request->nombre_subsistema;
-        $subsistema->desc_subsistema = $request->desc_subsistema;
-        $subsistema->posicion_tecnica = substr($postec, 0, 3);
+        $subsistema->nombre_subsistema = strtoupper($request->nombre_subsistema);
+        $subsistema->desc_subsistema = strtoupper($request->desc_subsistema);
+        $subsistema->id_estatus = $request->id_estatus;
         $subsistema->capacidad_subsistema = $request->capacidad_subsistema;
-        $subsistema->observacion = $request->observacion;
+        $subsistema->observacion = strtoupper($request->observacion);
+        //dd($subsistema);
 
         $subsistema->save();
 
@@ -74,11 +76,12 @@ class SubsistemaController extends Controller
      */
     public function edit(Subsistema $subsistema)
     {
+        $estatus = Estatu::all();
 
         $sistemas = Sistema::all();
 
         return view('activos.subsistema.edit', compact('subsistema',
-        'sistemas'));
+        'sistemas', 'estatus'));
     }
 
     /**
@@ -87,28 +90,20 @@ class SubsistemaController extends Controller
     public function update(Request $request, Subsistema $subsistema)
     {
         $request->validate([
-            'id_sistema' => 'required',
             'nombre_subsistema' => 'required',
             'desc_subsistema' => 'required',
             'capacidad_subsistema' => 'required|numeric',
         ]);
 
-        $id_subsistema = $request->id_subsistema;
-        $partes = explode("-",$id_subsistema);
-        $postec = end($partes);
-
-        $subsistema->id_subsistema = $id_subsistema;
-        $subsistema->id_sistema = $request->id_sistema;
         $subsistema->nombre_subsistema = $request->nombre_subsistema;
         $subsistema->desc_subsistema = $request->desc_subsistema;
-        $subsistema->posicion_tecnica = substr($postec, 0, 3);
         $subsistema->capacidad_subsistema = $request->capacidad_subsistema;
         $subsistema->observacion = $request->observacion;
 
         $subsistema->save();
 
         return redirect()->route('subsistemas.index')->with('status', 'Subsistema: '.$subsistema->nombre_subsistema.' actualizado correctamente');
-        dd($request);
+        //dd($request);
     }
 
     /**
@@ -117,5 +112,31 @@ class SubsistemaController extends Controller
     public function destroy(Subsistema $subsistema)
     {
         //
+    }
+
+    public function consultar_subsistema(Request $request)
+    {
+        //dd($request);
+        $idSistema = $request->input('id_sistema');
+        $id_subsistema = $request->input('id_subsistema');
+
+
+        //dd($id_subsistema);
+        // Realizar la consulta en la base de datos para verificar si existe
+        $subsistemaExistente = Subsistema::where('id_subsistema', $id_subsistema)->first();
+
+        if ($subsistemaExistente) {
+            // Consultar el último sistema asociado al acueducto
+            $ultimoSubsistema = Subsistema::where('id_sistema', $idSistema)->latest('id_subsistema')->first();
+            //preg_match('/S(\d+)/', $ultimosistema->id_sistema, $matches);
+            $corr = substr($ultimoSubsistema->id_subsistema, 10);
+            $corr = intval($corr) + 1;
+            $newIdSubistema = $ultimoSubsistema->id_sistema . '-SB' . str_pad($corr, 2, '0', STR_PAD_LEFT);
+            //dd($newIdSubistema);
+            return response()->json(['exists' => true, 'newIdSubistema' => $newIdSubistema]);
+        } else {
+            // Devuelve una respuesta JSON con el campo "exists" igual a false si el sistema no existe
+            return response()->json(['exists' => false]);
+        }
     }
 }

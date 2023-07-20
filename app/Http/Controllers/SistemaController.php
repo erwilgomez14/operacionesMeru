@@ -133,18 +133,18 @@ class SistemaController extends Controller
 
         //$sistema->id_acueducto = $request->id_acueducto;
 
-        $sistema->nom_sistema = $request->nom_sistema;
-        $sistema->desc_sistema = $request->descripcion;
+        $sistema->nom_sistema = strtoupper($request->nom_sistema);
+        $sistema->desc_sistema = strtoupper($request->descripcion);
         $sistema->posiciones = $request->posiciones;
         $sistema->posicion_necesaria = $request->posicion_necesaria;
 
         $sistema->id_area = $request->id_area;
 
 
-        $sistema->ubicacion = $request->ubicacion;
+        $sistema->ubicacion = strtoupper($request->ubicacion);
 
         $sistema->capacidad_sistema = $request->capacidad_sistema;
-        $sistema->georeferencia = $request->georeferencia;
+        $sistema->georeferencia = strtoupper($request->georeferencia);
 
         //dd($sistema);
 

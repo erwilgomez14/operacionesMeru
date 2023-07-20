@@ -22,43 +22,11 @@
                             $(".alert").alert();
                         </script>
                     @endif
-                    <form method="POST" action="{{route('subsistemas.store')}}">
+                    <form method="POST" action="{{ route('subsistemas.store') }}">
                         @csrf
-                        <h2 class="tittle"> Creacion de SubSistema</h2>
+                        <h2 class="tittle">Creacion de SubSistema</h2>
 
-                        <div class="form-group">
-                            <label for="id_sistema">Sistema</label>
-                            <select class="custom-select" name="id_sistema" aria-label="">
-                                <option selected id="id_sistema" disabled>Selecionar Sistema</option>
-                                @foreach($sistemas as $sistema)
-                                    <option value="{{$sistema->id_sistema}}">{{$sistema->nom_sistema}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_subsistema">ID del SubSistema:</label>
-                            <input type="text" name="id_subsistema" class="form-control" id="id_subsistema" placeholder="id del subsistema" value="{{old('id_subsistema', $subsistema->id_subsistema ?? '')}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre_subsistema">Nombre del SubSistema:</label>
-                            <input type="text" name="nombre_subsistema" class="form-control" id="nombre_subsistema" placeholder="nombre del subsistema" value="{{old('nombre_subsistema', $subsistema->nombre_subsistema ?? '')}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="desc_subsistema">Descripcion del SubSistema:</label>
-                            <input type="text" name="desc_subsistema" class="form-control" id="desc_subsistema" placeholder="descripcion del subsistema" value="{{old('desc_subsistema', $subsistema->desc_subsistema ?? '')}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="capacidad_subsistema">Capacidad del SubSistema:</label>
-                            <input type="number" name="capacidad_subsistema" class="form-control" id="capacidad_subsistema" placeholder="capacidad del subsistema" value="{{old('capacidad_subsistema', $subsistema->capacidad_subsistema ?? '')}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="observacion">Observacion:</label>
-                            <input type="text" name="observacion" class="form-control" id="observacion" placeholder="observacion" value="{{old('observacion', $subsistema->observacion ?? '')}}">
-                        </div>
-                        <div class="form-group pt-2">
-                            <a href="{{route('subsistemas.index')}}" class="btn btn-dark">Volver</a>
-                            <input class="btn btn-primary" type="submit" value="Guardar">
-                        </div>
+                        @include('activos.subsistema.formsubsistema')
                     </form>
 
                 </div>
@@ -69,26 +37,35 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            // Obtener el elemento select que contiene los sistemas
-            var sistemasSelect = $("select[name='id_sistema']");
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectSistema = document.getElementById("id_sistema");
+        const inputSubsistema = document.getElementById("id_subsistema");
 
-            // Obtener el elemento input de id_subsistema
-            var idSubsistemaInput = $("input[name='id_subsistema']");
-
-            // Obtener el elemento input de posicion_tecnica
-            var posicionTecnicaInput = $("input[name='posicion_tecnica']");
-            // Escuchar el evento "change" en el select de sistemas
-            sistemasSelect.on("change", function() {
-                // Obtener el valor seleccionado del select
-                var selectedSistema = sistemasSelect.val() + '-';
-
-                // Actualizar el valor del input de id_subsistema
-                idSubsistemaInput.val(selectedSistema);
-
-
-            });
+        selectSistema.addEventListener("change", function() {
+            const selectedValue = selectSistema.value;
+            if (selectedValue && selectedValue !== "disabled") {
+                const modifiedValue = selectedValue + "-SB01";
+                //console.log(modifiedValue);
+                // Realizar la petición fetch
+                fetch(
+                        `/activos/consultar-subsistema?id_sistema=${selectedValue}&id_subsistema=${modifiedValue}`
+                        )
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.exists) {
+                            inputSubsistema.value = data.newIdSubistema;
+                        } else {
+                            inputSubsistema.value = modifiedValue;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al hacer la petición fetch:", error);
+                    });
+            } else {
+                inputSistema.value = "";
+            }
         });
-    </script>
+    });
+</script>
 @endsection
