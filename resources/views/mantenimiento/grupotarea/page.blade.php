@@ -8,14 +8,14 @@
                 <div class="widget-one">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>Bienvenido al Grupo de tareas del Meru Operaciones</h4>
+                            <h3>Grupo de tareas</h3>
                         </div>
                         <div class="col-md-6">
                             <a href="{{route('grupotareas.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Tarea</a>
                         </div>
                     </div>
                     <div class="mt-5">
-                    <h3> Presione un Grupo </h3>
+                    <h4> Presione un Grupo </h4>
                     <div class="mt-3" style="margin: 0 auto">
 
                         <a href="" class="btn btn-primary btn-lg mr-3" role="button" aria-pressed="true">Motor</a>

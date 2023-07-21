@@ -28,7 +28,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <h4>Listado de Acueductos</h4>
+                            <h3>Listado de Acueductos</h3>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ route('acueductos.create') }}" class="btn btn-primary btn-lg float-md-right"

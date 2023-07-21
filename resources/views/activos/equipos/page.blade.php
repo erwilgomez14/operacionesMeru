@@ -15,7 +15,7 @@
                     @include('include.sesionalert')
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <h4>Bienvenido al listado de Equipos de Meru Operaciones</h4>
+                            <h3>Listado de Equipos</h3>
                         </div>
                         <div class="col-md-6">
                             <a href="{{route('equipos.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Equipo</a>

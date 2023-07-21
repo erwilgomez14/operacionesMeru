@@ -25,7 +25,7 @@
         .fc .fc-timegrid-axis-cushion {
             flex-shrink: 0;
             max-width: 60px;
-           
+
             margin-bottom: 10px;
         }
     </style>
@@ -36,7 +36,11 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
             <div class="widget-content-area br-4">
                 <div class="widget-one">
-
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h3>Mantenimiento Preventivo</h3>
+                        </div>
+                    </div>
                     <div id='calendar'></div>
                     <div class="mt-5">
                         <a href="{{ route('mantenimientopreventivo.pdf') }}" class="btn btn-primary">Imprimir Reporte</a>

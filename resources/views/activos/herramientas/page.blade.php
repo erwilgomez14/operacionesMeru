@@ -28,14 +28,11 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <h4>Bienvenido al listado de Herramientas de Meru Operaciones</h4>
+                            <h3>Listado de Herramientas</h3>
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ route('herramientas.creategroup') }}" class="btn btn-primary btn-lg float-md-right"
-                                role="button" aria-pressed="true">Crear grupo de Herramienta</a>
-                            <a href="{{ route('herramientas.create') }}"
-                                class="btn btn-secondary btn-lg float-md-right mr-2" role="button"
-                                aria-pressed="true">Crear Herramienta</a>
+                            <a href="{{ route('herramientas.creategroup') }}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear grupo de Herramienta</a>
+                            <a href="{{ route('herramientas.create') }}" class="btn btn-custom btn-lg float-md-right mr-2" role="button" aria-pressed="true">Crear Herramienta</a>
                         </div>
                     </div>
                     <table id="zero-config" class="table table-hover" style="width:100%">

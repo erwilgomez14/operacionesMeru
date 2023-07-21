@@ -14,7 +14,7 @@
                     @include('include.sesionalert')
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <h4>Listado de Subsistemas</h4>
+                            <h3>Listado de Subsistemas</h3>
                         </div>
                         <div class="col-md-6">
                             <a href="{{route('subsistemas.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Subsistema</a>
