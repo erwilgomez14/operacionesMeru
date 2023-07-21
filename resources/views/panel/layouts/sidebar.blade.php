@@ -94,7 +94,7 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="submenu1" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled ml-n3" id="submenu1" data-parent="#accordionExample">
                     <li>
                         <a class="ml-n4" href="{{route('ordentrabajo.index')}}"> Ordenes de Trabajo </a>
                     </li>
@@ -177,21 +177,21 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="submenu2" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled ml-n3" id="submenu2" data-parent="#accordionExample">
                     <li>
-                        <a href="{{route('acueductos.index')}}"> Acueductos </a>
+                        <a class="ml-n4" href="{{route('acueductos.index')}}"> Acueductos </a>
                     </li>
                     <li>
-                        <a href="{{route('sistemas.index')}}"> Sistemas </a>
+                        <a class="ml-n4" href="{{route('sistemas.index')}}"> Sistemas </a>
                     </li>
                     <li>
-                        <a href="{{route('subsistemas.index')}}"> Subsistemas </a>
+                        <a class="ml-n4" href="{{route('subsistemas.index')}}"> Subsistemas </a>
                     </li>
                     <li>
-                        <a href="{{route('herramientas.index')}}"> Herramientas </a>
+                        <a class="ml-n4" href="{{route('herramientas.index')}}"> Herramientas </a>
                     </li>
                     <li>
-                        <a href="{{route('equipos.index')}}"> Equipos </a>
+                        <a class="ml-n4" href="{{route('equipos.index')}}"> Equipos </a>
                     </li>
                     {{-- <li>
                         <a href="javascript:void(0);"> Indicadores </a>
@@ -228,15 +228,15 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="submenu3" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled ml-n3" id="submenu3" data-parent="#accordionExample">
                     <li>
-                        <a class="ml-n5" href="javascript:void(0);"> Piezas de equipos </a>
+                        <a class="ml-n4" href="javascript:void(0);"> Piezas de equipos </a>
                     </li>
                     <li>
-                        <a class="ml-n5" href="javascript:void(0);"> Suministros </a>
+                        <a class="ml-n4" href="javascript:void(0);"> Suministros </a>
                     </li>
                     <li>
-                        <a class="ml-n5" href="javascript:void(0);"> Stock actual </a>
+                        <a class="ml-n4" href="javascript:void(0);"> Stock actual </a>
                     </li>
 
                 </ul>
@@ -270,21 +270,21 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="submenu4" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled ml-n3" id="submenu4" data-parent="#accordionExample">
                     <li>
-                        <a href="{{route('usuarios.index')}}"> Usuarios </a>
+                        <a class="ml-n4" href="{{route('usuarios.index')}}"> Usuarios </a>
                     </li>
                     <li>
-                        <a href="{{route('rol.index')}}"> Roles </a>
+                        <a class="ml-n4" href="{{route('rol.index')}}"> Roles </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Marcas de equipos</a>
+                        <a class="ml-n4" href="javascript:void(0);"> Marcas de equipos</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);"> Modelos de equipos </a>
+                        <a class="ml-n4" href="javascript:void(0);"> Modelos de equipos </a>
                     </li>
                     {{-- <li>
-                        <a href="javascript:void(0);"> Tipos de Equipos </a>
+                        <a class="ml-n4" href="javascript:void(0);"> Tipos de Equipos </a>
                     </li> --}}
                 </ul>
             </li>
