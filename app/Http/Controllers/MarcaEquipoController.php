@@ -38,8 +38,8 @@ class MarcaEquipoController extends Controller
         ]);
 
         $marca = new Marca;
-        $marca->nombre_marca = $request->nombre;
-        $marca->descripcion_marca = $request->descripcion;
+        $marca->nombre_marca = strtoupper($request->nombre);
+        $marca->descripcion_marca = strtoupper($request->descripcion);
 
         $marca->save();
 //        dd($marca);
@@ -75,8 +75,8 @@ class MarcaEquipoController extends Controller
             'descripcion' => 'required',
         ]);
 
-        $marca->nombre_marca = $request->nombre;
-        $marca->descripcion_marca = $request->descripcion;
+        $marca->nombre_marca = strtoupper($request->nombre);
+        $marca->descripcion_marca = strtoupper($request->descripcion);
 
         $marca->save();
 //        dd($marca);

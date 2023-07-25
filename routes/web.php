@@ -14,6 +14,7 @@ use \App\Http\Controllers\SubsistemaController;
 use \App\Http\Controllers\TareaController;
 use \App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\MarcaEquipoController;
+use App\Http\Controllers\ModeloEquipoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,7 @@ Route::prefix('ajustes')->middleware('auth')->group(function () {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('rol', RolController::class);
     Route::resource('marca', MarcaEquipoController::class);
+    Route::resource('modelo', ModeloEquipoController::class);
 
 
 });

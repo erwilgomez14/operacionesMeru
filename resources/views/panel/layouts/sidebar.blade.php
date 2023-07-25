@@ -281,7 +281,7 @@
                         <a class="ml-n4" href="{{route('marca.index')}}"> Marcas de equipos</a>
                     </li>
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Modelos de equipos </a>
+                        <a class="ml-n4" href="{{route('modelo.index')}}"> Modelos de equipos </a>
                     </li>
                     {{-- <li>
                         <a class="ml-n4" href="javascript:void(0);"> Tipos de Equipos </a>
