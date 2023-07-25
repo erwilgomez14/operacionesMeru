@@ -24,7 +24,7 @@
                     </script>
                     @endif
 
-                    <h1 class="text-center">Iniciar Sesion en: <a href="index.html"><span class="brand-name">MERU
+                    <h1 class="text-center">Iniciar Sesion en: <a href="{{ route('login') }}"><span class="brand-name">MERU
                                 MANTENIMIENTO</span></a></h1>
                     {{-- <p class="signup-link">New Here? <a href="auth_register.html">Create an account</a></p> --}}
                     <form class="text-left" action="{{route('login')}}" method="POST">

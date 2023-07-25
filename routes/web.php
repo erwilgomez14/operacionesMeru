@@ -13,6 +13,8 @@ use \App\Http\Controllers\MantenimientoPreventivoController;
 use \App\Http\Controllers\SubsistemaController;
 use \App\Http\Controllers\TareaController;
 use \App\Http\Controllers\HerramientaController;
+use App\Http\Controllers\MarcaEquipoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,5 +76,11 @@ Route::prefix('mantenimiento')->middleware('auth')->group(function () {
 
 });
 
-Route::resource('usuarios', UsuarioController::class);
-Route::resource('rol', RolController::class);
+Route::prefix('ajustes')->middleware('auth')->group(function () {
+
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('rol', RolController::class);
+    Route::resource('marca', MarcaEquipoController::class);
+
+
+});

@@ -278,7 +278,7 @@
                         <a class="ml-n4" href="{{route('rol.index')}}"> Roles </a>
                     </li>
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Marcas de equipos</a>
+                        <a class="ml-n4" href="{{route('marca.index')}}"> Marcas de equipos</a>
                     </li>
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Modelos de equipos </a>
