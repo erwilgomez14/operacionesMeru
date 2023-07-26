@@ -24,7 +24,7 @@ class HerramientaController extends Controller
      */
     public function create()
     {
-        $grupos = GrupoHerramienta::orderBy('id_herramienta', 'asc')->get();
+        $grupos = GrupoHerramienta::orderBy('id_grupo_herramienta', 'asc')->get();
         return view('activos.herramientas.create', compact('grupos'));
     }
     public function creategroup()
