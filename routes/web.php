@@ -48,7 +48,9 @@ Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('sistemas', SistemaController::class);
     Route::resource('subsistemas', SubsistemaController::class);
     Route::get('/herramientas/creategroup', [HerramientaController::class, 'creategroup'])->name('herramientas.creategroup');
+    Route::get('/herramientas/obtener_formulario_edicion/{id}', [HerramientaController::class, 'obtenerFormularioEdicion'])->name('herramientas.getformedit');
     Route::post('/herramientas/group', [HerramientaController::class, 'storegroup'])->name('herramientas.storeegroup');
+    Route::post('/herramientas/group/{id}', [HerramientaController::class, 'updateGroup'])->name('herramientas.updategroup');
 
 
     Route::resource('herramientas', HerramientaController::class);

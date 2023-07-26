@@ -1,9 +1,8 @@
 @extends('panel.layouts.page')
 
 @section('styles')
-<link rel="stylesheet" type="text/css" href="{{asset('template/plugins/table/datatable/datatables.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('template/plugins/table/datatable/dt-global_style.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/plugins/table/datatable/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/plugins/table/datatable/dt-global_style.css') }}">
 @endsection
 
 @section('content')
@@ -27,12 +26,14 @@
 
 
                     <div class="row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <h3>Listado de Herramientas</h3>
                         </div>
-                        <div class="col-md-6">
-                            <a href="{{ route('herramientas.creategroup') }}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear grupo de Herramienta</a>
-                            <a href="{{ route('herramientas.create') }}" class="btn btn-custom btn-lg float-md-right mr-2" role="button" aria-pressed="true">Crear Herramienta</a>
+                        <div class="col-md-8">
+                            <a href="{{ route('herramientas.creategroup') }}" class="btn btn-primary btn-lg float-right"
+                                role="button" aria-pressed="true">Crear grupo de Herramienta</a>
+                            <a href="{{ route('herramientas.create') }}" class="btn btn-custom btn-lg float-right mr-2"
+                                role="button" aria-pressed="true">Crear Herramienta</a>
                         </div>
                     </div>
                     <table id="zero-config" class="table table-hover" style="width:100%">
@@ -49,7 +50,11 @@
                                 <tr>
                                     <td>{{ $herramienta['id_herramienta'] }}</td>
                                     <td>{{ $herramienta['nombre_herramienta'] }}</td>
-                                    <td>{{ $herramienta->grupos->nombre_grupo }}</td>
+                                    <td>
+                                        @if ($herramienta->id_grupo_herramienta != null)
+                                            {{ $herramienta->grupos->nombre_grupo }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <a class="rounded bs-tooltip" title="Ver"
                                             href="{{ route('herramientas.show', $herramienta) }}"><i
