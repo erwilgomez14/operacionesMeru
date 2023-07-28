@@ -35,11 +35,11 @@ class Equipo extends Model
     }
     public function modelos(): HasOne
     {
-        return $this->hasOne(Modelo::class, 'modelo', 'id_modelo');
+        return $this->hasOne(Modelo::class, 'id_modelo', 'modelo');
     }
     public function marcas(): HasOne
     {
-        return $this->hasOne(Marca::class, 'marca', 'id_marca');
+        return $this->hasOne(Marca::class, 'id_marca', 'marca');
     }
     public function tareas(): HasMany
     {

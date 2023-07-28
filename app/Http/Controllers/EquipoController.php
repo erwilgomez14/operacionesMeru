@@ -10,6 +10,9 @@ use App\Models\Subsistema;
 use App\Models\Tarea;
 use App\Models\TipoEquipo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Response;
+
 
 class EquipoController extends Controller
 {
@@ -46,10 +49,11 @@ class EquipoController extends Controller
         //$subsistemas = Subsistema::get();
         //dd($modelos->first());
         return view('activos.equipos.create', compact(
-        'tiposequipos',
-        'subsistemas',
-        'marcas',
-        'modelos'));
+            'tiposequipos',
+            'subsistemas',
+            'marcas',
+            'modelos'
+        ));
     }
 
     /**
@@ -57,26 +61,34 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
+        $equipos = Equipo::all();
+
+        // if ($equipos->count() == 0) {
+        //     $idEquipo = $request->id_equipo. 'E01';
+            
+        // }
+        //dd($request);
         $request->validate([
             'id_equipo' => 'required|unique:ope_equipo,id_equipo',
             'id_subsistema' => 'required',
             'desc_equipo' => 'required',
-            
+
             'nvecrep' => 'numeric',
             'permant' => 'string|max:4',
-            
+
             'id_tipo_eq' => 'required',
             'fecha_adquisicion' => 'required|date',
             'fecha_instalacion' => 'required|date',
-            'num_etapas' => 'numeric'
-
+            'num_etapas' => 'numeric',
+            'modelo' => 'required',
+            'marca' => 'required',
 
         ]);
 
         $equipo = new Equipo;
 
         $equipo->id_equipo = $request->id_equipo;
-        $equipo->id_sistema = $request->id_sistema;
+        //$equipo->id_sistema = $request->id_sistema;
         $equipo->id_subsistema = $request->id_subsistema;
         $equipo->serial = $request->serial;
         $equipo->desc_equipo = $request->desc_equipo;
@@ -91,8 +103,8 @@ class EquipoController extends Controller
         $equipo->permant = $request->permant;
         $equipo->rpm = $request->rpm;
         $equipo->id_tipo_eq = $request->id_tipo_eq;
-        $equipo->id_estatus = $request->id_estatus;
-        $equipo->fabricante = $request->fabricante;
+        //$equipo->id_estatus = $request->id_estatus;
+        //$equipo->fabricante = $request->fabricante;
         $equipo->amperios = $request->amperios;
         $equipo->ciclos = $request->ciclos;
         $equipo->ph = $request->ph;
@@ -107,7 +119,7 @@ class EquipoController extends Controller
         $equipo->succion = $request->succion;
         $equipo->num_etapas = $request->num_etapas;
         $equipo->capacidad = $request->capacidad;
-        $equipo->frecuencia = $request->frecuencia;
+        //$equipo->frecuencia = $request->frecuencia;
         $equipo->corriente = $request->corriente;
         $equipo->impedancia = $request->impedancia;
         $equipo->tipo_filtro = $request->tipo_filtro;
@@ -138,33 +150,37 @@ class EquipoController extends Controller
 
         $equipo->save();
 
-        return redirect()->route('equipos.index')->with('status','Equipo Creado satisfactoriamente');
+        return redirect()->route('equipos.index')->with('status', 'Equipo Creado satisfactoriamente');
     }
 
     public function storetipoeq(Request $request)
     {
+
         $request->validate([
             'nombre_tipoeq' => 'required|max:6|unique:ope_tipo_eq,nombre_tipeq',
-            'descripcion_tieq' => 'required|max:150',
+            'descripcion_tieq' => 'required|max:150|unique:ope_tipo_eq,descripcion_tieq',
         ]);
         $tipo_eq = new TipoEquipo;
 
-        $primer_tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'asc')->first();
-        $tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'desc')->first();
-        $nuevoid = $tipos_equipos->id_tipo_eq + 1;
-        $nuevoidstr = str_pad($nuevoid, 4, '0', STR_PAD_LEFT);
+        $primer_tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'desc')->first();
 
-        if($primer_tipos_equipos->id_tipo_eq == null){
+        if (empty($tipos_equipos)) {
             $tipo_eq->id_tipo_eq = '0001';
         }
-        $tipo_eq->id_tipo_eq = $nuevoidstr;
+        $auxid = intval($primer_tipos_equipos->id_tipo_eq) + 1;
+
+
+        $auxid = str_pad($auxid, 4, '0', STR_PAD_LEFT);
+
+        $tipo_eq->id_tipo_eq = $auxid;
+
         $tipo_eq->nombre_tipeq = $request->nombre_tipoeq;
-        $tipo_eq->descripcion_tieq = $request->descripcion_tieq;
+        $tipo_eq->descripcion_tieq = trim(strtoupper($request->descripcion_tieq));
+
 
         $tipo_eq->save();
 
-        return redirect()->route('equipos.index')->with('status','Grupo de equipo Creado satisfactoriamente');
-
+        return redirect()->route('equipos.createtipoeq')->with('status', 'Grupo de equipo Creado satisfactoriamente');
     }
 
     /**
@@ -172,8 +188,8 @@ class EquipoController extends Controller
      */
     public function show(Equipo $equipo)
     {
+        //dd($equipo->marcas);
         return view('activos.equipos.show', compact('equipo'));
-
     }
 
     /**
@@ -188,12 +204,14 @@ class EquipoController extends Controller
         $marcas = Marca::get();
         $modelos = Modelo::get();
         //dd($modelos->first());
-        return view('activos.equipos.edit', compact('equipo',
+        return view('activos.equipos.edit', compact(
+            'equipo',
             'sistemas',
             'tiposequipos',
             'subsistemas',
             'marcas',
-            'modelos'));
+            'modelos'
+        ));
     }
 
     /**
@@ -201,13 +219,27 @@ class EquipoController extends Controller
      */
     public function update(Request $request, Equipo $equipo)
     {
-        $equipo->id_equipo = $request->id_equipo;
-        if($request->id_sistema != null){
-            $equipo->id_sistema = $request->id_sistema;
-        };
-        if($request->id_subsistema != null){
-            $equipo->id_subsistema = $request->id_subsistema;
-        };
+
+        $request->validate([
+            // 'id_equipo' => 'required|unique:ope_equipo,id_equipo',
+            // 'id_subsistema' => 'required',
+            'desc_equipo' => 'required',
+
+            'nvecrep' => 'numeric',
+            'permant' => 'string|max:4',
+
+            // 'id_tipo_eq' => 'required',
+            'fecha_adquisicion' => 'required|date',
+            'fecha_instalacion' => 'required|date',
+            'num_etapas' => 'numeric',
+            // 'modelo' => 'required',
+            // 'marca' => 'required',
+
+        ]);
+        
+        //$equipo->id_equipo = $request->id_equipo;
+        //$equipo->id_sistema = $request->id_sistema;
+        //$equipo->id_subsistema = $request->id_subsistema;
         $equipo->serial = $request->serial;
         $equipo->desc_equipo = $request->desc_equipo;
         $equipo->potencia = $request->potencia;
@@ -220,11 +252,9 @@ class EquipoController extends Controller
         $equipo->nvecrep = $request->nvecrep;
         $equipo->permant = $request->permant;
         $equipo->rpm = $request->rpm;
-        if($request->id_tipo_eq != null){
-            $equipo->id_tipo_eq = $request->id_tipo_eq;
-        };
-        $equipo->id_estatus = $request->id_estatus;
-        $equipo->fabricante = $request->fabricante;
+        $equipo->id_tipo_eq = $request->id_tipo_eq;
+        //$equipo->id_estatus = $request->id_estatus;
+        //$equipo->fabricante = $request->fabricante;
         $equipo->amperios = $request->amperios;
         $equipo->ciclos = $request->ciclos;
         $equipo->ph = $request->ph;
@@ -239,7 +269,7 @@ class EquipoController extends Controller
         $equipo->succion = $request->succion;
         $equipo->num_etapas = $request->num_etapas;
         $equipo->capacidad = $request->capacidad;
-        $equipo->frecuencia = $request->frecuencia;
+        //$equipo->frecuencia = $request->frecuencia;
         $equipo->corriente = $request->corriente;
         $equipo->impedancia = $request->impedancia;
         $equipo->tipo_filtro = $request->tipo_filtro;
@@ -263,18 +293,42 @@ class EquipoController extends Controller
         $equipo->eficiencia_maxima = $request->eficiencia_maxima;
         $equipo->diseno = $request->diseno;
         $equipo->cuerpo = $request->cuerpo;
-        if($request->modelo != null){
-            $equipo->modelo = $request->modelo;
-        };
-        if($request->marca != null){
-            $equipo->marca = $request->marca;
-        };
+        $equipo->modelo = $request->modelo;
+        $equipo->marca = $request->marca;
 
-       // dd($equipo);
+        //dd($equipo);
 
         $equipo->save();
 
-        return redirect()->route('equipos.index')->with('status','Equipo Editado satisfactoriamente');
+        return redirect()->route('equipos.index')->with('status', 'Equipo: '.$equipo->id_equipo.' Editado satisfactoriamente');
+    }
+
+    public function updateTipo(Request $request, $id)
+    {
+        try {
+            $grupos = TipoEquipo::all();
+            $grupo = $grupos->find($request->input('grupoId'));
+            $request->validate([
+                'descripcion_tieq' => [
+                    'required',
+                    'string',
+                    Rule::unique('ope_tipo_eq', 'descripcion_tieq')->ignore($grupo->descripcion_tieq, 'descripcion_tieq'),
+                ],
+            ]);
+
+            $grupo->descripcion_tieq = strtoupper($request->input('descripcion_tieq'));
+
+            $grupo->save();
+
+            // Crear un mensaje de éxito
+            $mensajeExito = ['mensaje' => 'El Tipo de equipo se actualizó correctamente'];
+
+            // Devolver una respuesta JSON con el mensaje de éxito
+            return response()->json($mensajeExito);
+        } catch (\Exception $e) {
+            // Devolver una respuesta JSON con el mensaje de error y el código de estado 422
+            return response()->json(['error' => 'Error en la actualización del Tipo de equipo', 'mensaje' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
@@ -283,5 +337,46 @@ class EquipoController extends Controller
     public function destroy(Equipo $equipo)
     {
         //
+    }
+
+    public function obtenerFormularioEdicion($id)
+    {
+        // Obtén el grupo con el ID proporcionado desde la base de datos utilizando Eloquent.
+        $grupo = TipoEquipo::find($id);
+        // Verifica si se encontró el grupo.
+        if (!$grupo) {
+            return response()->json(['error' => 'Grupo no encontrado'], 404);
+        }
+
+
+        // Retorna el formulario de edición utilizando la vista Blade "formulario_edicion.blade.php"
+        return view('activos.equipos.formgrupoherr', ['tipo' => $grupo]);
+    }
+
+    public function consultarSistema(Request $request)
+    {
+        $idSubSistema = $request->input('id_subsistema');
+        $idEquipo = $request->input('id_equipo');
+
+        
+        //dd($idacueducto);
+        // Realizar la consulta en la base de datos para verificar si existe
+        $equipoExistente = Equipo::where('id_subsistema', $idSubSistema)->first();
+        //dd($equipoExistente);
+        if ($equipoExistente) {
+            // Consultar el último sistema asociado al acueducto
+            $ultimoEquipo = Equipo::where('id_subsistema', $idSubSistema)->latest('id_subsistema')->first();
+            //preg_match('/S(\d+)/', $ultimosistema->id_sistema, $matches);
+            $corr = substr($ultimoEquipo->id_equipo, 14);
+            $corr = intval($corr) + 1;
+            // dd($ultimoEquipo->id_subsistema);
+
+            $newIdEquipo = $ultimoEquipo->id_subsistema . '-E' . str_pad($corr, 2, '0', STR_PAD_LEFT);
+            //dd($newIdEquipo);
+            return response()->json(['exists' => true, 'newIdEquipo' => $newIdEquipo]);
+        } else {
+            // Devuelve una respuesta JSON con el campo "exists" igual a false si el sistema no existe
+            return response()->json(['exists' => false]);
+        }
     }
 }

@@ -39,20 +39,26 @@ Route::prefix('panel')->middleware('auth')->group(function () {
 });
 Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
+
     Route::get('equipos/createtipoeq', [EquipoController::class, 'createtipoeq'])->name('equipos.createtipoeq');
     Route::post('equipos/storetipoeq', [EquipoController::class, 'storetipoeq'])->name('equipos.storetipoeq');
-    Route::resource('equipos', EquipoController::class);
-    Route::get('/consultar-sistema', [SistemaController::class, 'consultarSistema']);
-    Route::get('/consultar-subsistema', [SubsistemaController::class, 'consultar_subsistema']);
+    Route::get('/equipos/obtener_formulario_edicion/{id}', [EquipoController::class, 'obtenerFormularioEdicion'])->name('equipos.getformedit');
+    Route::post('/equipos/tipo/{id}', [EquipoController::class, 'updateTipo'])->name('equipos.updatetipo');
+    Route::get('/consultar-equipo', [EquipoController::class, 'consultarSistema']);
 
+    Route::resource('equipos', EquipoController::class);
+
+    Route::get('/consultar-sistema', [SistemaController::class, 'consultarSistema']);
     Route::resource('sistemas', SistemaController::class);
+
+    
+    Route::get('/consultar-subsistema', [SubsistemaController::class, 'consultar_subsistema']);
     Route::resource('subsistemas', SubsistemaController::class);
+
     Route::get('/herramientas/creategroup', [HerramientaController::class, 'creategroup'])->name('herramientas.creategroup');
     Route::get('/herramientas/obtener_formulario_edicion/{id}', [HerramientaController::class, 'obtenerFormularioEdicion'])->name('herramientas.getformedit');
     Route::post('/herramientas/group', [HerramientaController::class, 'storegroup'])->name('herramientas.storeegroup');
     Route::post('/herramientas/group/{id}', [HerramientaController::class, 'updateGroup'])->name('herramientas.updategroup');
-
-
     Route::resource('herramientas', HerramientaController::class);
 
     Route::resource('ubiplanta', UbicacionPlantaController::class);
