@@ -233,7 +233,7 @@
                         <a class="ml-n4" href="javascript:void(0);"> Piezas de equipos </a>
                     </li>
                     <li>
-                        <a class="ml-n4" href="javascript:void(0);"> Suministros </a>
+                        <a class="ml-n4" href="{{ route('suministros.index') }}"> Suministros </a>
                     </li>
                     <li>
                         <a class="ml-n4" href="javascript:void(0);"> Stock actual </a>

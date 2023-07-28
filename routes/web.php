@@ -15,6 +15,7 @@ use \App\Http\Controllers\TareaController;
 use \App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\MarcaEquipoController;
 use App\Http\Controllers\ModeloEquipoController;
+use App\Http\Controllers\SuministroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,13 @@ Route::prefix('mantenimiento')->middleware('auth')->group(function () {
     Route::post('equipos', [OrdenTrabajoController::class, 'hasEquipo']);
 
    // Route::get('ordentrabajo/{acueducto}/acueducto', [OrdenTrabajoController::class, 'obtenersistemas']);
+
+
+});
+Route::prefix('suministros')->middleware('auth')->group(function () {
+
+    Route::resource('suministros', SuministroController::class);
+
 
 
 });
