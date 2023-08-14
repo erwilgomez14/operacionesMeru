@@ -21,9 +21,9 @@
     <div class="row">
         <div class="col">
             <label for="capacidad_produccion">Capacidad de Almacenamiento:</label>
-            <input type="number" name="capacidad_produccion" class="form-control" id="capacidad_produccion"
+            <input type="text" name="capacidad_produccion" class="form-control" id="capacidad_produccion"
                 placeholder="capacidad de almacenamiento"
-                value="{{ old('capacidad_produccion', $acueducto->capacidad_almac ?? '') }}">
+                value="{{ old('capacidad_produccion', $acueducto->capacidad_almac ?? '') }}" step="any">
         </div>
         <div class="col">
             <label for="tiempo_operacion">Tiempo de operacion</label>

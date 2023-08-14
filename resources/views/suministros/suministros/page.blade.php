@@ -11,9 +11,6 @@
                 <div class="widget-one">
 
                     @if (session('status'))
-                        {{-- <div class="alert alert-success" role="alert">
-                <strong>{{session('status')}}</strong>
-            </div> --}}
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
