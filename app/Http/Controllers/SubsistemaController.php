@@ -6,6 +6,8 @@ use App\Models\Estatu;
 use App\Models\Sistema;
 use App\Models\Subsistema;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 use function Sodium\compare;
 
 class SubsistemaController extends Controller
@@ -90,15 +92,24 @@ class SubsistemaController extends Controller
     public function update(Request $request, Subsistema $subsistema)
     {
         $request->validate([
+            'id_sistema' => 'required',
+            'id_subsistema' => [
+                'max:80',
+                'string',
+                Rule::unique('ope_subsistema', 'id_subsistema')->ignore($subsistema->id_subsistema, 'id_subsistema'),
+            ],
             'nombre_subsistema' => 'required',
             'desc_subsistema' => 'required',
             'capacidad_subsistema' => 'required|numeric',
         ]);
-
+        $subsistema->id_sistema = $request->id_sistema;
+        $subsistema->id_subsistema = $request->id_subsistema;
         $subsistema->nombre_subsistema = $request->nombre_subsistema;
         $subsistema->desc_subsistema = $request->desc_subsistema;
         $subsistema->capacidad_subsistema = $request->capacidad_subsistema;
         $subsistema->observacion = $request->observacion;
+
+        //dd($subsistema);
 
         $subsistema->save();
 
