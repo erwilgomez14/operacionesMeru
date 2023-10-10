@@ -39,20 +39,23 @@ class EquipoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Equipo $equipo)
     {
-        //$sistemas = Sistema::get();
+        //$equipo = null;
         $tiposequipos = TipoEquipo::get();
         $subsistemas = Subsistema::get();
         $marcas = Marca::get();
         $modelos = Modelo::get();
+        $sistemas = Sistema::get();
         //$subsistemas = Subsistema::get();
         //dd($modelos->first());
         return view('activos.equipos.create', compact(
             'tiposequipos',
             'subsistemas',
             'marcas',
-            'modelos'
+            'modelos',
+            'sistemas',
+            'equipo'
         ));
     }
 
@@ -61,14 +64,19 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {
+
+        //dd($request);
+
         $equipos = Equipo::all();
 
         // if ($equipos->count() == 0) {
         //     $idEquipo = $request->id_equipo. 'E01';
-            
+
         // }
         //dd($request);
         $request->validate([
+            'id_sistema' => 'required',
+
             'id_equipo' => 'required|unique:ope_equipo,id_equipo',
             'id_subsistema' => 'required',
             'desc_equipo' => 'required',
@@ -90,6 +98,7 @@ class EquipoController extends Controller
         $equipo->id_equipo = $request->id_equipo;
         //$equipo->id_sistema = $request->id_sistema;
         $equipo->id_subsistema = $request->id_subsistema;
+        $equipo->id_sistema = $request->id_sistema;
         $equipo->serial = $request->serial;
         $equipo->desc_equipo = $request->desc_equipo;
         $equipo->potencia = $request->potencia;
@@ -156,6 +165,7 @@ class EquipoController extends Controller
     public function storetipoeq(Request $request)
     {
 
+
         $request->validate([
             'nombre_tipoeq' => 'required|max:6|unique:ope_tipo_eq,nombre_tipeq',
             'descripcion_tieq' => 'required|max:150|unique:ope_tipo_eq,descripcion_tieq',
@@ -197,6 +207,7 @@ class EquipoController extends Controller
      */
     public function edit(Equipo $equipo)
     {
+        //$datosDeEdicion = Equipo::findOrFail($equipo);
 
         $sistemas = Sistema::get();
         $tiposequipos = TipoEquipo::get();
@@ -210,7 +221,7 @@ class EquipoController extends Controller
             'tiposequipos',
             'subsistemas',
             'marcas',
-            'modelos'
+            'modelos',
         ));
     }
 
@@ -221,8 +232,8 @@ class EquipoController extends Controller
     {
 
         $request->validate([
-            // 'id_equipo' => 'required|unique:ope_equipo,id_equipo',
-            // 'id_subsistema' => 'required',
+             'id_equipo' => 'required',
+             'id_subsistema' => 'required',
             'desc_equipo' => 'required',
 
             'nvecrep' => 'numeric',
@@ -236,10 +247,10 @@ class EquipoController extends Controller
             // 'marca' => 'required',
 
         ]);
-        
-        //$equipo->id_equipo = $request->id_equipo;
-        //$equipo->id_sistema = $request->id_sistema;
-        //$equipo->id_subsistema = $request->id_subsistema;
+
+        $equipo->id_equipo = $request->id_equipo;
+        $equipo->id_sistema = $request->id_sistema;
+        $equipo->id_subsistema = $request->id_subsistema;
         $equipo->serial = $request->serial;
         $equipo->desc_equipo = $request->desc_equipo;
         $equipo->potencia = $request->potencia;
@@ -300,7 +311,7 @@ class EquipoController extends Controller
 
         $equipo->save();
 
-        return redirect()->route('equipos.index')->with('status', 'Equipo: '.$equipo->id_equipo.' Editado satisfactoriamente');
+        return redirect()->route('equipos.index')->with('status', 'Equipo: ' . $equipo->id_equipo . ' Editado satisfactoriamente');
     }
 
     public function updateTipo(Request $request, $id)
@@ -358,7 +369,7 @@ class EquipoController extends Controller
         $idSubSistema = $request->input('id_subsistema');
         $idEquipo = $request->input('id_equipo');
 
-        
+
         //dd($idacueducto);
         // Realizar la consulta en la base de datos para verificar si existe
         $equipoExistente = Equipo::where('id_subsistema', $idSubSistema)->first();
@@ -378,5 +389,15 @@ class EquipoController extends Controller
             // Devuelve una respuesta JSON con el campo "exists" igual a false si el sistema no existe
             return response()->json(['exists' => false]);
         }
+    }
+
+    public function getSubsistemas($sistemaId)
+    {
+
+        $subsistemas = Subsistema::where('id_sistema', $sistemaId)->get();
+        $subsistemasArray = $subsistemas->pluck('nombre_subsistema', 'id_subsistema')->toArray();
+
+        //dd($subsistemas);
+        return response()->json($subsistemasArray);
     }
 }

@@ -41,6 +41,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Acueducto</th>
                                 <th scope="col">Nombre</th>
                                 <th>Acciones</th>
                             </tr>
@@ -49,6 +50,7 @@
                             @foreach ($sistemas as $sistema)
                                 <tr>
                                     <td>{{ $sistema->id_sistema }}</td>
+                                    <td>{{ $sistema->acueductos->nom_acu }}</td>
                                     <td>{{ $sistema->nom_sistema }}</td>
                                     <td>
                                         <a class="rounded bs-tooltip" title="Ver"
@@ -70,6 +72,7 @@
                         <tfoot>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Acueducto</th>
                                 <th scope="col">Nombre</th>
                                 <th>Acciones</th>
                             </tr>

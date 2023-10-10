@@ -40,6 +40,7 @@ Route::prefix('panel')->middleware('auth')->group(function () {
 });
 Route::prefix('activos')->middleware('auth')->group(function () {
     Route::resource('acueductos', AcueductoController::class)->middleware('rol:gerente,super-usuario');
+    Route::get('getSubsistemas/{sistema}', [EquipoController::class, 'getSubsistemas'])->name('getsubsistemas');
 
     Route::get('equipos/createtipoeq', [EquipoController::class, 'createtipoeq'])->name('equipos.createtipoeq');
     Route::post('equipos/storetipoeq', [EquipoController::class, 'storetipoeq'])->name('equipos.storetipoeq');

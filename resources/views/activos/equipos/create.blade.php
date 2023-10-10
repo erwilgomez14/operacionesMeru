@@ -35,45 +35,4 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const selectAcueducto = document.getElementById("id_subsistema");
-            const inputSistema = document.getElementById("id_equipo");
 
-            selectAcueducto.addEventListener("change", function() {
-                const selectedValue = selectAcueducto.value;
-                if (selectedValue && selectedValue !== "disabled") {
-                    const modifiedValue = selectedValue + "-E01";
-
-                    // Realizar la petición fetch
-                    fetch(
-                            `/activos/consultar-equipo?id_subsistema=${selectedValue}&id_equipo=${modifiedValue}`
-                        )
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.exists) {
-                                inputSistema.value = data.newIdEquipo;
-                            } else {
-                                inputSistema.value = modifiedValue;
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error al hacer la petición fetch:", error);
-                        });
-                } else {
-                    inputSistema.value = "";
-                }
-            });
-        });
-    </script>
-    {{-- <script>
-        var acueducto_select = document.getElementById("id_subsistema");
-        var id_sistema_input = document.getElementById("id_equipo");
-
-        acueducto_select.addEventListener("change", function() {
-            var selected_option = acueducto_select.options[acueducto_select.selectedIndex].value;
-            id_sistema_input.value = selected_option+'-';
-        });
-    </script> --}}
-@endsection

@@ -1,21 +1,43 @@
+{{-- @if (Route::currentRouteName() == 'equipos.create') --}}
+
 <div class="row form-group">
+
+<div class="col">
+    <label for="id_sistema">Sistema</label>
+    <select class="custom-select" name="id_sistema" id="id_sistema" aria-label="">
+        <option value="" @if (old('id_sistema') === null && !isset($subsistema->id_sistema)) selected @endif disabled>
+            Selecionar Sistema</option>
+        @foreach ($sistemas as $sistema)
+            <option value="{{ $sistema->id_sistema }}"
+                {{ (old('id_sistema') && old('id_sistema') == $sistema->id_sistema) || (isset($equipo->id_sistema) && $equipo->id_sistema == $sistema->id_sistema) ? 'selected' : '' }}>
+                {{ $sistema->nom_sistema }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
+    
+
     <div class="col">
         <label for="id_subsistema" class="obligatorio">Subsistema:</label>
         <select class="custom-select" aria-label="" name="id_subsistema" id="id_subsistema" required>
-            {{-- <option selected disabled>Selecciona un subsistema</option> --}}
             <option value="" @if (old('id_subsistema') === null && !isset($equipo->id_subsistema)) selected @endif disabled>
-                Selecionar subsistema</option>
-            @foreach ($subsistemas as $subsistema)
-                {{-- <option value="{{ $subsistema->id_subsistema }}">
-                    {{ $subsistema->nombre_subsistema }}</option> --}}
-                <option value="{{ $subsistema->id_subsistema }}"
-                    {{ (old('id_subsistema') && old('id_subsistema') == $subsistema->id_subsistema) || (isset($equipo->id_subsistema) && $equipo->id_subsistema == $subsistema->id_subsistema) ? 'selected' : '' }}>
-                    {{ $subsistema->nombre_subsistema }}
-                </option>
-            @endforeach
+                Selecionar Subsistema</option>
+            @if ($equipo != null)
+                @foreach ($subsistemas as $subsistema)
+                    <option value="{{ $subsistema->id_subsistema }}"
+                        {{ (old('id_subsistema') && old('id_subsistema') == $subsistema->id_subsistema) || (isset($subsistema->id_subsistema) && $subsistema->id_subsistema == $equipo->id_subsistema) ? 'selected' : '' }}>
+                        {{ $subsistema->nombre_subsistema }}
+                    </option>
+                @endforeach
+            @endif
         </select>
     </div>
 
+</div>
+{{-- @endif --}}
+
+<div class="row form-group">
     <div class="col">
         <label class="obligatorio" for="id_tipo_eq">Tipo de equipo:</label>
         <select class="custom-select" aria-label="" name="id_tipo_eq" id="id_tipo_eq">
@@ -38,12 +60,10 @@
         <input type="text" name="id_equipo" class="form-control" id="id_equipo" placeholder="id del equipo"
             value="{{ old('id_equipo', $equipo->id_equipo ?? '') }}" readonly>
     </div>
-
 </div>
+
 <div class="form-group">
     <label for="desc_equipo" class="obligatorio">Descripcion de equipo:</label>
-    {{-- <input type="text" name="desc_equipo" class="form-control" id="desc_equipo"
-        placeholder="serial" value="{{ old('desc_equipo', $equipo->desc_equipo ?? '') }}"> --}}
     <textarea class="form-control" aria-label="With textarea" name="desc_equipo" placeholder="Descripcion...">{{ old('desc_equipo', $equipo->desc_equipo ?? '') }}</textarea>
 
 </div>
@@ -373,3 +393,79 @@
     <a href="{{ route('equipos.index') }}" class="btn btn-dark">Volver</a>
     <input class="btn btn-primary" type="submit" value="Guardar">
 </div>
+
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        // Manejar el cambio en el select de sistemas
+        $('#id_sistema').on('change', function() {
+            var selectedSystem = $(this).val();
+
+            // Generar la URL de la ruta utilizando route()
+            var url = "{{ route('getsubsistemas', ':selectedSystem') }}".replace(':selectedSystem',
+                selectedSystem);
+
+            // Realizar una solicitud AJAX para obtener los subsistemas relacionados
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    // Actualizar el select de subsistemas
+                    var $idSubsistema = $('#id_subsistema');
+                    $idSubsistema.empty();
+
+                    // Agregar una opción predeterminada para seleccionar
+                    $idSubsistema.append(
+                        '<option value="" disabled selected>Seleccionar Subsistema</option>'
+                    );
+
+                    // Llenar el select de subsistemas con los datos recibidos
+                    $.each(data, function(key, value) {
+                        $idSubsistema.append('<option value="' + key + '">' +
+                            value + '</option>');
+                    });
+
+                    // Habilitar el select de subsistemas
+                    $idSubsistema.prop('disabled', false);
+
+                    // Continuar con el otro script
+                    const selectAcueducto = document.getElementById("id_subsistema");
+                    const inputSistema = document.getElementById("id_equipo");
+
+                    selectAcueducto.addEventListener("change", function() {
+                        const selectedValue = selectAcueducto.value;
+                        if (selectedValue && selectedValue !== "disabled") {
+                            const modifiedValue = selectedValue + "-E01";
+
+                            // Realizar la petición fetch
+                            fetch(
+                                `/activos/consultar-equipo?id_subsistema=${selectedValue}&id_equipo=${modifiedValue}`
+                            )
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.exists) {
+                                    inputSistema.value = data.newIdEquipo;
+                                } else {
+                                    inputSistema.value = modifiedValue;
+                                }
+                            })
+                            .catch(error => {
+                                console.error(
+                                    "Error al hacer la petición fetch:",
+                                    error);
+                            });
+                        } else {
+                            inputSistema.value = "";
+                        }
+                    });
+                }
+            });
+        });
+
+        // Deshabilitar el select de subsistemas al cargar la página
+        $('#id_subsistema').prop('disabled', true);
+    });
+</script>
+
+@endsection
