@@ -25,6 +25,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Acueduto</th>
+                                <th scope="col">Sistema</th>
                                 <th scope="col">Nombre</th>
                                 <th>Acciones</th>
                             </tr>
@@ -33,6 +35,8 @@
                             @foreach ($subsistemas as $subsistema)
                             <tr>
                                 <td>{{$subsistema->id_subsistema}}</td>
+                                <td>{{$subsistema->sistemas->acueductos->nom_acu}}</td>
+                                <td>{{$subsistema->sistemas->nom_sistema}}</td>
 
                                 <td>{{$subsistema->nombre_subsistema}}</td>
                                 <td>
@@ -46,6 +50,8 @@
                         <tfoot>
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">Acueduto</th>
+                                <th scope="col">Sistema</th>
                                 <th scope="col">Nombre</th>
                                 <th>Acciones</th>
                             </tr>

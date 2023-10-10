@@ -63,3 +63,38 @@
     <a href="{{ route('subsistemas.index') }}" class="btn btn-dark">Volver</a>
     <input class="btn btn-primary" type="submit" value="Guardar">
 </div>
+
+
+@section('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectSistema = document.getElementById("id_sistema");
+        const inputSubsistema = document.getElementById("id_subsistema");
+
+        selectSistema.addEventListener("change", function() {
+            const selectedValue = selectSistema.value;
+            if (selectedValue && selectedValue !== "disabled") {
+                const modifiedValue = selectedValue + "-SB01";
+                //console.log(modifiedValue);
+                // Realizar la petición fetch
+                fetch(
+                        `/activos/consultar-subsistema?id_sistema=${selectedValue}&id_subsistema=${modifiedValue}`
+                        )
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.exists) {
+                            inputSubsistema.value = data.newIdSubistema;
+                        } else {
+                            inputSubsistema.value = modifiedValue;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al hacer la petición fetch:", error);
+                    });
+            } else {
+                inputSistema.value = "";
+            }
+        });
+    });
+</script>
+@endsection

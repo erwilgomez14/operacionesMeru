@@ -39,10 +39,10 @@
 
 @section('scripts')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const selectSistema = document.getElementById("id_sistema");
-            selectSistema.disabled = true;
-        });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const selectSistema = document.getElementById("id_sistema");
+        //     selectSistema.disabled = true;
+        // });
         document.addEventListener("DOMContentLoaded", function() {
             const selectEstatus = document.getElementById("id_estatus");
             selectEstatus.disabled = true;
