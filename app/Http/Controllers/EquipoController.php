@@ -173,16 +173,18 @@ class EquipoController extends Controller
         $tipo_eq = new TipoEquipo;
 
         $primer_tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'desc')->first();
-
-        if (empty($tipos_equipos)) {
+//dd($primer_tipos_equipos);
+        if ($primer_tipos_equipos == null) {
             $tipo_eq->id_tipo_eq = '0001';
-        }
-        $auxid = intval($primer_tipos_equipos->id_tipo_eq) + 1;
+        } else {
+            $auxid = intval($primer_tipos_equipos->id_tipo_eq) + 1;
 
 
         $auxid = str_pad($auxid, 4, '0', STR_PAD_LEFT);
 
         $tipo_eq->id_tipo_eq = $auxid;
+        }
+        
 
         $tipo_eq->nombre_tipeq = $request->nombre_tipoeq;
         $tipo_eq->descripcion_tieq = trim(strtoupper($request->descripcion_tieq));
