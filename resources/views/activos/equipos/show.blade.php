@@ -29,25 +29,23 @@
                                 <h4>Frame: {{ $equipo->frame }}</h4>
                             @endif
                             @if ($equipo->fs != null)
-                                <h4>Fs: {{ $equipo->fs }}</h4>
+                                <h4>Factor de servicio: {{ $equipo->fs }}</h4>
                             @endif
-                            @if ($equipo->peso != null)
-                                <h4>Peso: {{ $equipo->peso }}</h4>
-                            @endif
+
                             @if ($equipo->temperatura != null)
                                 <h4>Temperatura: {{ $equipo->temperatura }}</h4>
                             @endif
                             @if ($equipo->nvecrep != null)
-                                <h4>Nve Crep: {{ $equipo->nvecrep }}</h4>
+                                <h4>Numero de reparaciones: {{ $equipo->nvecrep }}</h4>
                             @endif
-                            @if ($equipo->permant != null)
-                                <h4>Permanente: {{ $equipo->permant }}</h4>
+                            @if ($equipo->clase_islamiento != null)
+                                <h4>Clase de islamiento: {{ $equipo->clase_islamiento }}</h4>
                             @endif
-                            @if ($equipo->rpm != null)
-                                <h4>RPM: {{ $equipo->rpm }}</h4>
+                            @if ($equipo->lubricacion != null)
+                                <h4>Lubricante: {{ $equipo->lubricacion }}</h4>
                             @endif
                             @if ($equipo->id_tipo_eq != null)
-                                <h4>Tipo de Equipo: {{ $equipo->tipoequipo->descripcion_tieq }}</h4>
+                                {{-- <h4>Tipo de Equipo: {{ $equipo->tipoequipo->nombre_tipeq }}</h4> --}}
                             @endif
                             @if ($equipo->id_estatus != null)
                                 <h4>Estatus: {{ $equipo->id_estatus }}</h4>
@@ -61,14 +59,14 @@
                             @if ($equipo->ciclos != null)
                                 <h4>Ciclos: {{ $equipo->ciclos }}</h4>
                             @endif
-                            @if ($equipo->ph != null)
-                                <h4>Ph: {{ $equipo->ph }}</h4>
+                            @if ($equipo->lubricacion != null)
+                                <h4>Lubricacion: {{ $equipo->lubricacion }}</h4>
                             @endif
                             @if ($equipo->capacidad_ac_sup != null)
-                                <h4>Capacidad Acueducto Superior: {{ $equipo->capacidad_ac_sup }}</h4>
+                                <h4>Capacidad de aceite superior: {{ $equipo->capacidad_ac_sup }}</h4>
                             @endif
                             @if ($equipo->capacidad_ac_inf != null)
-                                <h4>Capacidad Acueducto Inferior: {{ $equipo->capacidad_ac_inf }}</h4>
+                                <h4>Capacidad de aceite inferior: {{ $equipo->capacidad_ac_inf }}</h4>
                             @endif
                             @if ($equipo->fecha_adquisicion != null)
                                 <h4>Fecha de adquisicion: {{ $equipo->fecha_adquisicion }}</h4>
@@ -83,13 +81,13 @@
                                 <h4>Altura: {{ $equipo->altura }}</h4>
                             @endif
                             @if ($equipo->descarga != null)
-                                <h4>Descarga: {{ $equipo->descarga }}</h4>
+                                <h4>Diametro de descarga: {{ $equipo->descarga }}</h4>
                             @endif
                             @if ($equipo->longitud_columna != null)
                                 <h4>Longitud de la columna: {{ $equipo->longitud_columna }}</h4>
                             @endif
                             @if ($equipo->succion != null)
-                                <h4>Succion: {{ $equipo->succion }}</h4>
+                                <h4>Diametro de succion: {{ $equipo->succion }}</h4>
                             @endif
                             @if ($equipo->num_etapas != null)
                                 <h4>Numero de Etapas: {{ $equipo->num_etapas }}</h4>
@@ -103,14 +101,14 @@
                             @if ($equipo->corriente != null)
                                 <h4>Corriente: {{ $equipo->corriente }}</h4>
                             @endif
-                            @if ($equipo->impedancia != null)
-                                <h4>Impedancia: {{ $equipo->impedancia }}</h4>
+                            @if ($equipo->cantidad_rd_sup != null)
+                                <h4>Rodamiento superior: {{ $equipo->cantidad_rd_sup }}</h4>
                             @endif
                             @if ($equipo->tipo_filtro != null)
-                                <h4>Tipo de Filtro: {{ $equipo->tipo_filtro }}</h4>
+                                <h4>tipo de filtro: {{ $equipo->tipo_filtro }}</h4>
                             @endif
-                            @if ($equipo->rata_filtracion != null)
-                                <h4>Filtracion rata: {{ $equipo->rata_filtracion }}</h4>
+                            @if ($equipo->cantidad_rd_inf != null)
+                                <h4>Rodamiento inferior: {{ $equipo->cantidad_rd_inf }}</h4>
                             @endif
                             @if ($equipo->capacidad_filtracion != null)
                                 <h4>Capacidad de filtracion: {{ $equipo->capacidad_filtracion }}</h4>
@@ -142,8 +140,8 @@
                             @if ($equipo->tipo != null)
                                 <h4>Tipo: {{ $equipo->tipo }}</h4>
                             @endif
-                            @if ($equipo->presion != null)
-                                <h4>Presion: {{ $equipo->presion }}</h4>
+                            @if ($equipo->peso != null)
+                                <h4>Peso: {{ $equipo->peso }}</h4>
                             @endif
                             @if ($equipo->material != null)
                                 <h4>Material: {{ $equipo->material }}</h4>
@@ -157,11 +155,9 @@
                             @if ($equipo->rango != null)
                                 <h4>Rango: {{ $equipo->rango }}</h4>
                             @endif
-                            @if ($equipo->precision != null)
-                                <h4>Precision: {{ $equipo->precision }}</h4>
-                            @endif
-                            @if ($equipo->capacidad_dinamica != null)
-                                <h4>Capacidad dinamica: {{ $equipo->capacidad_dinamica }}</h4>
+
+                            @if ($equipo->cabezal != null)
+                                <h4>Cabezal: {{ $equipo->cabezal }}</h4>
                             @endif
                             @if ($equipo->eficiencia_maxima != null)
                                 <h4>Eficiencia maxima: {{ $equipo->eficiencia_maxima }}</h4>

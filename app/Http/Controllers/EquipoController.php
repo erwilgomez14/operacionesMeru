@@ -81,22 +81,22 @@ class EquipoController extends Controller
             'id_subsistema' => 'required',
             'desc_equipo' => 'required',
 
-            'nvecrep' => 'numeric',
-            'permant' => 'string|max:4',
+            // 'nvecrep' => 'numeric',
+            // 'permant' => 'string|max:4',
 
-            'id_tipo_eq' => 'required',
-            'fecha_adquisicion' => 'required|date',
-            'fecha_instalacion' => 'required|date',
-            'num_etapas' => 'numeric',
-            'modelo' => 'required',
-            'marca' => 'required',
+            // 'id_tipo_eq' => 'required',
+            // 'fecha_adquisicion' => 'required|date',
+            // 'fecha_instalacion' => 'required|date',
+            // 'num_etapas' => 'numeric',
+            // 'modelo' => 'required',
+            // 'marca' => 'required',
 
         ]);
 
         $equipo = new Equipo;
 
         $equipo->id_equipo = $request->id_equipo;
-        //$equipo->id_sistema = $request->id_sistema;
+        $equipo->id_sistema = $request->id_sistema;
         $equipo->id_subsistema = $request->id_subsistema;
         $equipo->id_sistema = $request->id_sistema;
         $equipo->serial = $request->serial;
@@ -109,14 +109,14 @@ class EquipoController extends Controller
         $equipo->peso = $request->peso;
         $equipo->temperatura = $request->temperatura;
         $equipo->nvecrep = $request->nvecrep;
-        $equipo->permant = $request->permant;
-        $equipo->rpm = $request->rpm;
+        $equipo->clase_islamiento = $request->clase_islamiento;
+        $equipo->lubricacion = $request->lubricacion;
         $equipo->id_tipo_eq = $request->id_tipo_eq;
         //$equipo->id_estatus = $request->id_estatus;
         //$equipo->fabricante = $request->fabricante;
         $equipo->amperios = $request->amperios;
         $equipo->ciclos = $request->ciclos;
-        $equipo->ph = $request->ph;
+        $equipo->aceite = $request->aceite;
         $equipo->capacidad_ac_sup = $request->capacidad_ac_sup;
         $equipo->capacidad_ac_inf = $request->capacidad_ac_inf;
         $equipo->fecha_adquisicion = $request->fecha_adquisicion;
@@ -129,10 +129,10 @@ class EquipoController extends Controller
         $equipo->num_etapas = $request->num_etapas;
         $equipo->capacidad = $request->capacidad;
         //$equipo->frecuencia = $request->frecuencia;
-        $equipo->corriente = $request->corriente;
-        $equipo->impedancia = $request->impedancia;
+        $equipo->grasa = $request->grasa;
+        $equipo->cantidad_rd_inf = $request->cantidad_rd_inf;
         $equipo->tipo_filtro = $request->tipo_filtro;
-        $equipo->rata_filtracion = $request->rata_filtracion;
+        $equipo->cantidad_rd_sup = $request->cantidad_rd_sup;
         $equipo->capacidad_filtracion = $request->capacidad_filtracion;
         $equipo->rendimiento = $request->rendimiento;
         $equipo->perdida_carga = $request->perdida_carga;
@@ -145,10 +145,10 @@ class EquipoController extends Controller
         $equipo->presion = $request->presion;
         $equipo->material = $request->material;
         $equipo->sustancia = $request->sustancia;
-        $equipo->dias_almacenamiento = $request->dias_almacenamiento;
+       // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
         $equipo->rango = $request->rango;
-        $equipo->precision = $request->precision;
-        $equipo->capacidad_dinamica = $request->capacidad_dinamica;
+        $equipo->peso = $request->peso;
+        $equipo->cabezal = $request->cabezal;
         $equipo->eficiencia_maxima = $request->eficiencia_maxima;
         $equipo->diseno = $request->diseno;
         $equipo->cuerpo = $request->cuerpo;
@@ -173,18 +173,18 @@ class EquipoController extends Controller
         $tipo_eq = new TipoEquipo;
 
         $primer_tipos_equipos = TipoEquipo::orderBy('id_tipo_eq', 'desc')->first();
-//dd($primer_tipos_equipos);
+        //dd($primer_tipos_equipos);
         if ($primer_tipos_equipos == null) {
             $tipo_eq->id_tipo_eq = '0001';
         } else {
             $auxid = intval($primer_tipos_equipos->id_tipo_eq) + 1;
 
 
-        $auxid = str_pad($auxid, 4, '0', STR_PAD_LEFT);
+            $auxid = str_pad($auxid, 4, '0', STR_PAD_LEFT);
 
-        $tipo_eq->id_tipo_eq = $auxid;
+            $tipo_eq->id_tipo_eq = $auxid;
         }
-        
+
 
         $tipo_eq->nombre_tipeq = $request->nombre_tipoeq;
         $tipo_eq->descripcion_tieq = trim(strtoupper($request->descripcion_tieq));
@@ -234,80 +234,80 @@ class EquipoController extends Controller
     {
 
         $request->validate([
-             'id_equipo' => 'required',
-             'id_subsistema' => 'required',
+           // 'id_equipo' => 'required',
+           // 'id_subsistema' => 'required',
             'desc_equipo' => 'required',
 
-            'nvecrep' => 'numeric',
-            'permant' => 'string|max:4',
+            // 'nvecrep' => 'numeric',
+            // 'permant' => 'string|max:4',
 
             // 'id_tipo_eq' => 'required',
-            'fecha_adquisicion' => 'required|date',
-            'fecha_instalacion' => 'required|date',
-            'num_etapas' => 'numeric',
+            // 'fecha_adquisicion' => 'required|date',
+            // 'fecha_instalacion' => 'required|date',
+            // 'num_etapas' => 'numeric',
             // 'modelo' => 'required',
             // 'marca' => 'required',
 
         ]);
 
-        $equipo->id_equipo = $request->id_equipo;
-        $equipo->id_sistema = $request->id_sistema;
-        $equipo->id_subsistema = $request->id_subsistema;
-        $equipo->serial = $request->serial;
-        $equipo->desc_equipo = $request->desc_equipo;
-        $equipo->potencia = $request->potencia;
-        $equipo->velocidad = $request->velocidad;
-        $equipo->voltaje = $request->voltaje;
-        $equipo->frame = $request->frame;
-        $equipo->fs = $request->fs;
-        $equipo->peso = $request->peso;
-        $equipo->temperatura = $request->temperatura;
-        $equipo->nvecrep = $request->nvecrep;
-        $equipo->permant = $request->permant;
-        $equipo->rpm = $request->rpm;
-        $equipo->id_tipo_eq = $request->id_tipo_eq;
-        //$equipo->id_estatus = $request->id_estatus;
-        //$equipo->fabricante = $request->fabricante;
-        $equipo->amperios = $request->amperios;
-        $equipo->ciclos = $request->ciclos;
-        $equipo->ph = $request->ph;
-        $equipo->capacidad_ac_sup = $request->capacidad_ac_sup;
-        $equipo->capacidad_ac_inf = $request->capacidad_ac_inf;
-        $equipo->fecha_adquisicion = $request->fecha_adquisicion;
-        $equipo->fecha_instalacion = $request->fecha_instalacion;
-        $equipo->caudal = $request->caudal;
-        $equipo->altura = $request->altura;
-        $equipo->descarga = $request->descarga;
-        $equipo->longitud_columna = $request->longitud_columna;
-        $equipo->succion = $request->succion;
-        $equipo->num_etapas = $request->num_etapas;
-        $equipo->capacidad = $request->capacidad;
-        //$equipo->frecuencia = $request->frecuencia;
-        $equipo->corriente = $request->corriente;
-        $equipo->impedancia = $request->impedancia;
-        $equipo->tipo_filtro = $request->tipo_filtro;
-        $equipo->rata_filtracion = $request->rata_filtracion;
-        $equipo->capacidad_filtracion = $request->capacidad_filtracion;
-        $equipo->rendimiento = $request->rendimiento;
-        $equipo->perdida_carga = $request->perdida_carga;
-        $equipo->area = $request->area;
-        $equipo->ancho = $request->ancho;
-        $equipo->diametro = $request->diametro;
-        $equipo->clase = $request->clase;
-        $equipo->flow = $request->flow;
-        $equipo->tipo = $request->tipo;
-        $equipo->presion = $request->presion;
-        $equipo->material = $request->material;
-        $equipo->sustancia = $request->sustancia;
-        $equipo->dias_almacenamiento = $request->dias_almacenamiento;
-        $equipo->rango = $request->rango;
-        $equipo->precision = $request->precision;
-        $equipo->capacidad_dinamica = $request->capacidad_dinamica;
-        $equipo->eficiencia_maxima = $request->eficiencia_maxima;
-        $equipo->diseno = $request->diseno;
-        $equipo->cuerpo = $request->cuerpo;
-        $equipo->modelo = $request->modelo;
-        $equipo->marca = $request->marca;
+      //  $equipo->id_equipo = $request->id_equipo;
+       // $equipo->id_sistema = $request->id_sistema;
+       // $equipo->id_subsistema = $request->id_subsistema;
+       $equipo->serial = $request->serial;
+       $equipo->desc_equipo = $request->desc_equipo;
+       $equipo->potencia = $request->potencia;
+       $equipo->velocidad = $request->velocidad;
+       $equipo->voltaje = $request->voltaje;
+       $equipo->frame = $request->frame;
+       $equipo->fs = $request->fs;
+       $equipo->peso = $request->peso;
+       $equipo->temperatura = $request->temperatura;
+       $equipo->nvecrep = $request->nvecrep;
+       $equipo->clase_islamiento = $request->clase_islamiento;
+       $equipo->lubricacion = $request->lubricacion;
+       $equipo->id_tipo_eq = $request->id_tipo_eq;
+       //$equipo->id_estatus = $request->id_estatus;
+       //$equipo->fabricante = $request->fabricante;
+       $equipo->amperios = $request->amperios;
+       $equipo->ciclos = $request->ciclos;
+       $equipo->aceite = $request->aceite;
+       $equipo->capacidad_ac_sup = $request->capacidad_ac_sup;
+       $equipo->capacidad_ac_inf = $request->capacidad_ac_inf;
+       $equipo->fecha_adquisicion = $request->fecha_adquisicion;
+       $equipo->fecha_instalacion = $request->fecha_instalacion;
+       $equipo->caudal = $request->caudal;
+       $equipo->altura = $request->altura;
+       $equipo->descarga = $request->descarga;
+       $equipo->longitud_columna = $request->longitud_columna;
+       $equipo->succion = $request->succion;
+       $equipo->num_etapas = $request->num_etapas;
+       $equipo->capacidad = $request->capacidad;
+       //$equipo->frecuencia = $request->frecuencia;
+       $equipo->grasa = $request->grasa;
+       $equipo->cantidad_rd_inf = $request->cantidad_rd_inf;
+       $equipo->tipo_filtro = $request->tipo_filtro;
+       $equipo->cantidad_rd_sup = $request->cantidad_rd_sup;
+       $equipo->capacidad_filtracion = $request->capacidad_filtracion;
+       $equipo->rendimiento = $request->rendimiento;
+       $equipo->perdida_carga = $request->perdida_carga;
+       $equipo->area = $request->area;
+       $equipo->ancho = $request->ancho;
+       $equipo->diametro = $request->diametro;
+       $equipo->clase = $request->clase;
+       $equipo->flow = $request->flow;
+       $equipo->tipo = $request->tipo;
+       $equipo->presion = $request->presion;
+       $equipo->material = $request->material;
+       $equipo->sustancia = $request->sustancia;
+      // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
+       $equipo->rango = $request->rango;
+       $equipo->peso = $request->peso;
+       $equipo->cabezal = $request->cabezal;
+       $equipo->eficiencia_maxima = $request->eficiencia_maxima;
+       $equipo->diseno = $request->diseno;
+       $equipo->cuerpo = $request->cuerpo;
+       $equipo->modelo = $request->modelo;
+       $equipo->marca = $request->marca;
 
         //dd($equipo);
 
