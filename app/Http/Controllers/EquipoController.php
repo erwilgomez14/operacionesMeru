@@ -80,6 +80,7 @@ class EquipoController extends Controller
             'id_equipo' => 'required|unique:ope_equipo,id_equipo',
             'id_subsistema' => 'required',
             'desc_equipo' => 'required',
+            'photo' => 'image|mimes:jpg,png|max:2048',
 
             // 'nvecrep' => 'numeric',
             // 'permant' => 'string|max:4',
@@ -145,7 +146,7 @@ class EquipoController extends Controller
         $equipo->presion = $request->presion;
         $equipo->material = $request->material;
         $equipo->sustancia = $request->sustancia;
-       // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
+        // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
         $equipo->rango = $request->rango;
         $equipo->peso = $request->peso;
         $equipo->cabezal = $request->cabezal;
@@ -154,7 +155,13 @@ class EquipoController extends Controller
         $equipo->cuerpo = $request->cuerpo;
         $equipo->modelo = $request->modelo;
         $equipo->marca = $request->marca;
+        if ($request->hasFile('photo')) {
+            $imagen = $request->file('photo');
+            $nombreArchivo = 'imagen_' . time() . '.' . $imagen->getClientOriginalExtension();
+            $ruta = $imagen->storeAs('public/storage', $nombreArchivo);
 
+            $equipo->photo = 'storage/' . $nombreArchivo;
+        }
         //dd($equipo);
 
         $equipo->save();
@@ -234,10 +241,10 @@ class EquipoController extends Controller
     {
 
         $request->validate([
-           // 'id_equipo' => 'required',
-           // 'id_subsistema' => 'required',
+            // 'id_equipo' => 'required',
+            // 'id_subsistema' => 'required',
             'desc_equipo' => 'required',
-
+            'photo' => 'image|mimes:jpg,png|max:2048',
             // 'nvecrep' => 'numeric',
             // 'permant' => 'string|max:4',
 
@@ -250,66 +257,75 @@ class EquipoController extends Controller
 
         ]);
 
-      //  $equipo->id_equipo = $request->id_equipo;
-       // $equipo->id_sistema = $request->id_sistema;
-       // $equipo->id_subsistema = $request->id_subsistema;
-       $equipo->serial = $request->serial;
-       $equipo->desc_equipo = $request->desc_equipo;
-       $equipo->potencia = $request->potencia;
-       $equipo->velocidad = $request->velocidad;
-       $equipo->voltaje = $request->voltaje;
-       $equipo->frame = $request->frame;
-       $equipo->fs = $request->fs;
-       $equipo->peso = $request->peso;
-       $equipo->temperatura = $request->temperatura;
-       $equipo->nvecrep = $request->nvecrep;
-       $equipo->clase_islamiento = $request->clase_islamiento;
-       $equipo->lubricacion = $request->lubricacion;
-       $equipo->id_tipo_eq = $request->id_tipo_eq;
-       //$equipo->id_estatus = $request->id_estatus;
-       //$equipo->fabricante = $request->fabricante;
-       $equipo->amperios = $request->amperios;
-       $equipo->ciclos = $request->ciclos;
-       $equipo->aceite = $request->aceite;
-       $equipo->capacidad_ac_sup = $request->capacidad_ac_sup;
-       $equipo->capacidad_ac_inf = $request->capacidad_ac_inf;
-       $equipo->fecha_adquisicion = $request->fecha_adquisicion;
-       $equipo->fecha_instalacion = $request->fecha_instalacion;
-       $equipo->caudal = $request->caudal;
-       $equipo->altura = $request->altura;
-       $equipo->descarga = $request->descarga;
-       $equipo->longitud_columna = $request->longitud_columna;
-       $equipo->succion = $request->succion;
-       $equipo->num_etapas = $request->num_etapas;
-       $equipo->capacidad = $request->capacidad;
-       //$equipo->frecuencia = $request->frecuencia;
-       $equipo->grasa = $request->grasa;
-       $equipo->cantidad_rd_inf = $request->cantidad_rd_inf;
-       $equipo->tipo_filtro = $request->tipo_filtro;
-       $equipo->cantidad_rd_sup = $request->cantidad_rd_sup;
-       $equipo->capacidad_filtracion = $request->capacidad_filtracion;
-       $equipo->rendimiento = $request->rendimiento;
-       $equipo->perdida_carga = $request->perdida_carga;
-       $equipo->area = $request->area;
-       $equipo->ancho = $request->ancho;
-       $equipo->diametro = $request->diametro;
-       $equipo->clase = $request->clase;
-       $equipo->flow = $request->flow;
-       $equipo->tipo = $request->tipo;
-       $equipo->presion = $request->presion;
-       $equipo->material = $request->material;
-       $equipo->sustancia = $request->sustancia;
-      // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
-       $equipo->rango = $request->rango;
-       $equipo->peso = $request->peso;
-       $equipo->cabezal = $request->cabezal;
-       $equipo->eficiencia_maxima = $request->eficiencia_maxima;
-       $equipo->diseno = $request->diseno;
-       $equipo->cuerpo = $request->cuerpo;
-       $equipo->modelo = $request->modelo;
-       $equipo->marca = $request->marca;
+        //  $equipo->id_equipo = $request->id_equipo;
+        // $equipo->id_sistema = $request->id_sistema;
+        // $equipo->id_subsistema = $request->id_subsistema;
+        $equipo->serial = $request->serial;
+        $equipo->desc_equipo = $request->desc_equipo;
+        $equipo->potencia = $request->potencia;
+        $equipo->velocidad = $request->velocidad;
+        $equipo->voltaje = $request->voltaje;
+        $equipo->frame = $request->frame;
+        $equipo->fs = $request->fs;
+        $equipo->peso = $request->peso;
+        $equipo->temperatura = $request->temperatura;
+        $equipo->nvecrep = $request->nvecrep;
+        $equipo->clase_islamiento = $request->clase_islamiento;
+        $equipo->lubricacion = $request->lubricacion;
+        $equipo->id_tipo_eq = $request->id_tipo_eq;
+        //$equipo->id_estatus = $request->id_estatus;
+        //$equipo->fabricante = $request->fabricante;
+        $equipo->amperios = $request->amperios;
+        $equipo->ciclos = $request->ciclos;
+        $equipo->aceite = $request->aceite;
+        $equipo->capacidad_ac_sup = $request->capacidad_ac_sup;
+        $equipo->capacidad_ac_inf = $request->capacidad_ac_inf;
+        $equipo->fecha_adquisicion = $request->fecha_adquisicion;
+        $equipo->fecha_instalacion = $request->fecha_instalacion;
+        $equipo->caudal = $request->caudal;
+        $equipo->altura = $request->altura;
+        $equipo->descarga = $request->descarga;
+        $equipo->longitud_columna = $request->longitud_columna;
+        $equipo->succion = $request->succion;
+        $equipo->num_etapas = $request->num_etapas;
+        $equipo->capacidad = $request->capacidad;
+        //$equipo->frecuencia = $request->frecuencia;
+        $equipo->grasa = $request->grasa;
+        $equipo->cantidad_rd_inf = $request->cantidad_rd_inf;
+        $equipo->tipo_filtro = $request->tipo_filtro;
+        $equipo->cantidad_rd_sup = $request->cantidad_rd_sup;
+        $equipo->capacidad_filtracion = $request->capacidad_filtracion;
+        $equipo->rendimiento = $request->rendimiento;
+        $equipo->perdida_carga = $request->perdida_carga;
+        $equipo->area = $request->area;
+        $equipo->ancho = $request->ancho;
+        $equipo->diametro = $request->diametro;
+        $equipo->clase = $request->clase;
+        $equipo->flow = $request->flow;
+        $equipo->tipo = $request->tipo;
+        $equipo->presion = $request->presion;
+        $equipo->material = $request->material;
+        $equipo->sustancia = $request->sustancia;
+        // $equipo->dias_almacenamiento = $request->dias_almacenamiento;
+        $equipo->rango = $request->rango;
+        $equipo->peso = $request->peso;
+        $equipo->cabezal = $request->cabezal;
+        $equipo->eficiencia_maxima = $request->eficiencia_maxima;
+        $equipo->diseno = $request->diseno;
+        $equipo->cuerpo = $request->cuerpo;
+        $equipo->modelo = $request->modelo;
+        $equipo->marca = $request->marca;
 
-        //dd($equipo);
+        if ($request->hasFile('photo')) {
+            $imagen = $request->file('photo');
+            $nombreArchivo = 'imagen_' . time() . '.' . $imagen->getClientOriginalExtension();
+            $ruta = $imagen->storeAs('public/storage', $nombreArchivo);
+
+            $equipo->photo = 'storage/' . $nombreArchivo;
+        }
+
+
+        //dd($equipo->photo);
 
         $equipo->save();
 

@@ -243,13 +243,13 @@
 
     <div class="col">
         <label for="cantidad_rd_inf">Rodamiento interior:</label>
-        <input type="text" name="cantidad_rd_inf" class="form-control" id="cantidad_rd_inf" placeholder="cantidad_rd_inf"
-            value="{{ old('cantidad_rd_inf', $equipo->cantidad_rd_inf ?? '') }}">
+        <input type="text" name="cantidad_rd_inf" class="form-control" id="cantidad_rd_inf"
+            placeholder="cantidad_rd_inf" value="{{ old('cantidad_rd_inf', $equipo->cantidad_rd_inf ?? '') }}">
     </div>
     <div class="col">
         <label for="cantidad_rd_sup">Rodamiento superior:</label>
-        <input type="text" name="cantidad_rd_sup" class="form-control" id="cantidad_rd_sup" placeholder="cantidad_rd_sup"
-            value="{{ old('cantidad_rd_sup', $equipo->cantidad_rd_sup ?? '') }}">
+        <input type="text" name="cantidad_rd_sup" class="form-control" id="cantidad_rd_sup"
+            placeholder="cantidad_rd_sup" value="{{ old('cantidad_rd_sup', $equipo->cantidad_rd_sup ?? '') }}">
     </div>
 
     {{-- <div class="col">
@@ -357,8 +357,7 @@
     </div>
     <div class="col">
         <label for="cabezal">cabezal:</label>
-        <input type="text" name="cabezal" class="form-control" id="cabezal"
-            placeholder="cabezal"
+        <input type="text" name="cabezal" class="form-control" id="cabezal" placeholder="cabezal"
             value="{{ old('cabezal', $equipo->cabezal ?? '') }}">
     </div>
 
@@ -413,7 +412,22 @@
             @endforeach
         </select>
     </div>
+
+
 </div>
+<div class="row mt-2 mb-2">
+    <div class="col">
+        <label class="obligatorio" for="photo">Curva del equipo:</label>
+        @if ($equipo->photo)
+            <div class="mt-3 mb-3">
+                {{-- <p>Imagen actual: {{ $equipo->photo }}</p> --}}
+                <img src="{{ asset('storage/' . $equipo->photo) }}" alt="Imagen actual" style="max-width: 200px;">
+            </div>
+        @endif
+        <input type="file" name="photo" class="form-control">
+    </div>
+</div>
+
 <div class="form-group pt-2">
     <a href="{{ route('equipos.index') }}" class="btn btn-dark">Volver</a>
     <input class="btn btn-primary" type="submit" value="Guardar">
