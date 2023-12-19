@@ -17,7 +17,11 @@ class TareaController extends Controller
      */
     public function index()
     {
-        return view('mantenimiento.grupotarea.page');
+        $tiposDeEquipo = TipoEquipo::get();
+        $tareas = Tarea::get();
+
+        // dd($tareas);
+        return view('mantenimiento.grupotarea.page', compact('tiposDeEquipo', 'tareas'));
     }
 
     /**
