@@ -25,9 +25,9 @@ class TareaController extends Controller
      */
     public function create()
     {
-        $tipoequipo = Subsistema::get();
+        $tipoequipo = TipoEquipo::get();
         $grupo_herramienta = GrupoHerramienta::get();
-        //dd($grupo_herramienta);
+        // dd($tipoequipo);
         return view('mantenimiento.grupotarea.create', compact('tipoequipo',
         'grupo_herramienta'));
     }
@@ -37,15 +37,18 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $datostarea = $request->input('odt');
 
         $tra = new Tarea;
         $tra->tarea = $datostarea['tarea'];
 
 
-        $equipo = Equipo::where('id_equipo',$datostarea['id_equipo'] )->first();
+        // $equipo = Equipo::where('id_equipo',$datostarea['id_equipo'] )->first();
 
-        $tra->id_tipo_eq = $equipo->id_tipo_eq;
+        // $tra->id_tipo_eq = $equipo->id_tipo_eq;
+        $tra->id_tipo_eq = $datostarea['id_sistema'];
+
 
         $tra->save();
         //dd($tra);

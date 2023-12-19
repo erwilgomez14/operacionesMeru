@@ -22,17 +22,12 @@
                                    placeholder="nombre de la tarea" value="{{old('tarea', $tarea->tarea ?? '')}}">
                         </div>
                         <div class="form-group">
-                            <label for="id_sistema">Tipo de equipo</label>
-                            <select class="custom-select" id="id_sistema" name="id_sistema" aria-label="">
+                            <label for="id_tipo_eq">Tipo de equipo</label>
+                            <select class="custom-select" id="id_tipo_eq" name="id_tipo_eq" aria-label="">
                                 <option selected disabled>Selecionar Tipo de equipo</option>
                                 @foreach($tipoequipo as $tipo)
-                                    <option value="{{$tipo->id_subsistema}}">{{$tipo->nombre_subsistema}}</option>
+                                    <option value="{{$tipo->id_tipo_eq}}">{{$tipo->descripcion_tieq}}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_equipo">Equipo</label>
-                            <select id="id_equipo" class="custom-select" name="id_equipo" aria-label="">
                             </select>
                         </div>
                         <div class="form-group mt-3 bg-gradient-dark">
@@ -74,29 +69,29 @@
 @section('scripts')
     <script>
         const csrfToken = document.head.querySelector("[name=csrf-token][content]").content;
-        document.getElementById('id_sistema').addEventListener('change', (e) => {
-            $("#id_equipo").empty();
-            fetch('/mantenimiento/grupotareas/hasEquipo', {
-                method: 'POST',
-                body: JSON.stringify({
-                    texto: e.target.value
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    "X-CSRF-Token": csrfToken
-                }
-            }).then(response => {
-                return response.json()
-            }).then(data => {
-                var opciones = "<option value=''>Seleccionar Sistema</option>";
-                for (let i in data.lista) {
-                    opciones += '<option value="' + data.lista[i].id_equipo + '">' + data.lista[i]
-                        .desc_equipo + '</option>';
-                }
-                console.log(opciones);
-                document.getElementById("id_equipo").innerHTML = opciones;
-            }).catch(error => console.error(error));
-        })
+        // document.getElementById('id_sistema').addEventListener('change', (e) => {
+        //     $("#id_equipo").empty();
+        //     fetch('/mantenimiento/grupotareas/hasEquipo', {
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             texto: e.target.value
+        //         }),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             "X-CSRF-Token": csrfToken
+        //         }
+        //     }).then(response => {
+        //         return response.json()
+        //     }).then(data => {
+        //         var opciones = "<option value=''>Seleccionar Sistema</option>";
+        //         for (let i in data.lista) {
+        //             opciones += '<option value="' + data.lista[i].id_equipo + '">' + data.lista[i]
+        //                 .desc_equipo + '</option>';
+        //         }
+        //         console.log(opciones);
+        //         document.getElementById("id_equipo").innerHTML = opciones;
+        //     }).catch(error => console.error(error));
+        // })
 
         const tablaOpciones = document.getElementById('tabla-opciones').getElementsByTagName('tbody')[0];
         const btnAgregar = document.getElementById('btn-agregar');
@@ -139,13 +134,13 @@
         function guardarOpcion(event){
             event.preventDefault();
             const tarea = document.getElementById('tarea').value;
-            const id_sistema = document.getElementById('id_sistema').value;
-            const id_equipo = document.getElementById('id_equipo').value;
+            const id_sistema = document.getElementById('id_tipo_eq').value;
+            //const id_equipo = document.getElementById('id_equipo').value;
 
             const odt = {
                 tarea,
                 id_sistema,
-                id_equipo,
+            //    id_equipo,
 
             };
             console.log(odt);
