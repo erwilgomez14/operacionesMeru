@@ -18,6 +18,7 @@ class SubsistemaController extends Controller
     public function index()
     {
         $subsistemas = Subsistema::all();
+
         return view('activos.subsistema.page',
         compact('subsistemas'));
     }

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<conexiones> 
+	<!-- Conexiones del Sistema  
+		dbms	= Tipo de Manejador de Base de Datos
+		servidor= Direccion del Servidor de Base de Datos
+		bd		= Nombre de Base de Datos
+		usuario	= Usuario de Base de Datos
+		clave	= Clave de Base de Datos
+		puerto	= Puerto del Servidor de Base de Datos 
+	-->
+
+	
+	 <conexion id="cnxMERU">
+		<dbms>postgresql</dbms>
+		<servidor>172.30.8.92</servidor>
+		<!-- <bd>meru_25/09/2021</bd> -->
+		 <bd>meru</bd> 
+		<usuario>admindba</usuario>
+		<clave>Hidrobolivar2021</clave>
+		<puerto>5432</puerto>
+	</conexion> 
+	
+	<conexion id="cnxAUTOGESTION">
+		<dbms>postgresql</dbms>  
+		<servidor>127.0.0.1</servidor>
+		<bd>autogestion</bd>
+		<usuario>rmendoza</usuario>
+		<clave>rj30032004</clave>
+		<puerto>5432</puerto>
+	</conexion>
+	<conexion id="cnxRRHH">
+		<dbms>postgresql</dbms>
+		<servidor>172.30.8.92</servidor>
+		<bd>meru_rrhh</bd>
+		<usuario>admindba</usuario>
+		<clave>Hidrobolivar2021</clave>
+		<puerto>5432</puerto>
+	</conexion>
+	<conexion id="cnxCOMERCIAL">
+		<dbms>postgresql</dbms>
+		<servidor>172.30.8.92</servidor> 
+		<bd>datos_meru_comercial</bd>
+		<usuario>admindba</usuario>
+		<clave>Hidrobolivar2021</clave>
+		<puerto>5432</puerto>
+	</conexion>
+	<nameProy>meru_integrado</nameProy>
+	<nameServ>caroni</nameServ>
+</conexiones>

@@ -17,7 +17,8 @@
                             <h3>Listado de Subsistemas</h3>
                         </div>
                         <div class="col-md-6">
-                            <a href="{{route('subsistemas.create')}}" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Subsistema</a>
+                            <a href="{{ route('subsistemas.create') }}" class="btn btn-primary btn-lg float-md-right"
+                                role="button" aria-pressed="true">Crear Subsistema</a>
                         </div>
                     </div>
 
@@ -33,19 +34,44 @@
                         </thead>
                         <tbody>
                             @foreach ($subsistemas as $subsistema)
-                            <tr>
-                                <td>{{$subsistema->id_subsistema}}</td>
-                                <td>{{$subsistema->sistemas->acueductos->nom_acu}}</td>
-                                <td>{{$subsistema->sistemas->nom_sistema}}</td>
+                                <tr>
+                                    <td>{{ $subsistema->id_subsistema }}</td>
+                                    <td>
+                                        @if ($subsistema->sistemas && $subsistema->sistemas->count() > 0)
+                                            @foreach ($subsistema->sistemas as $sistema)
+                                                @if ($sistema->acueductos)
+                                                    {{ $sistema->acueductos->nom_acu ?? '' }}
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            ''
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($subsistema->sistemas && $subsistema->sistemas->count() > 0)
+                                            @foreach ($subsistema->sistemas as $sistema)
+                                                {{ $sistema->nom_sistema ?? '' }}
+                                            @endforeach
+                                        @else
+                                            ''
+                                        @endif
+                                    </td>
 
-                                <td>{{$subsistema->nombre_subsistema}}</td>
-                                <td>
-                                    <a href="{{route('subsistemas.show', $subsistema)}}"><i class="far fa-eye"></i><span class="icon-name"></span></a>
+                                    <td>{{ $subsistema->nombre_subsistema }}</td>
+                                    <td>
+                                        <a href="{{ route('subsistemas.show', $subsistema) }}"><i
+                                                class="far fa-eye"></i><span class="icon-name"></span></a>
 
-                                    <a href="{{route('subsistemas.edit', $subsistema)}}"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg><span class="icon-name"></span> </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                                        <a href="{{ route('subsistemas.edit', $subsistema) }}"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg><span class="icon-name"></span> </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>

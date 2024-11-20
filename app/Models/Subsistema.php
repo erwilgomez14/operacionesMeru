@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Subsistema extends Model
@@ -19,9 +20,9 @@ class Subsistema extends Model
 
     protected $fillable = ['id_subsistema'];
 
-    public function sistemas(): BelongsTo
+    public function sistemas(): HasMany
     {
-        return $this->belongsTo(Sistema::class, 'id_sistema', 'id_sistema');
+        return $this->hasMany(Sistema::class, 'id_sistema', 'id_sistema');
     }
     public function estatus(): HasOne
     {
